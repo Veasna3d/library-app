@@ -1,4 +1,4 @@
-<?php include 'includes/session.php'; ?>
+
 <?php 
   include 'includes/timezone.php'; 
   $today = date('Y-m-d');
@@ -29,40 +29,13 @@
 
     <!-- Main content -->
     <section class="content">
-      <?php
-        if(isset($_SESSION['error'])){
-          echo "
-            <div class='alert alert-danger alert-dismissible'>
-              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-              <h4><i class='icon fa fa-warning'></i> Error!</h4>
-              ".$_SESSION['error']."
-            </div>
-          ";
-          unset($_SESSION['error']);
-        }
-        if(isset($_SESSION['success'])){
-          echo "
-            <div class='alert alert-success alert-dismissible'>
-              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-              <h4><i class='icon fa fa-check'></i> Success!</h4>
-              ".$_SESSION['success']."
-            </div>
-          ";
-          unset($_SESSION['success']);
-        }
-      ?>
       <!-- Small boxes (Stat box) -->
       <div class="row">
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <?php
-                $sql = "SELECT * FROM books";
-                $query = $conn->query($sql);
-
-                echo "<h3>".$query->num_rows."</h3>";
-              ?>
+           
 
               <p>Total Books</p>
             </div>
@@ -77,13 +50,7 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <?php
-                $sql = "SELECT * FROM students";
-                $query = $conn->query($sql);
-
-                echo "<h3>".$query->num_rows."</h3>";
-              ?>
-          
+             
               <p>Total Students</p>
             </div>
             <div class="icon">
@@ -97,12 +64,6 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <?php
-                $sql = "SELECT * FROM returns WHERE date_return = '$today'";
-                $query = $conn->query($sql);
-
-                echo "<h3>".$query->num_rows."</h3>";
-              ?>
              
               <p>Returned Today</p>
             </div>
@@ -117,12 +78,6 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <?php
-                $sql = "SELECT * FROM borrow WHERE date_borrow = '$today'";
-                $query = $conn->query($sql);
-
-                echo "<h3>".$query->num_rows."</h3>";
-              ?>
 
               <p>Borrowed Today</p>
             </div>
@@ -178,30 +133,7 @@
 <!-- ./wrapper -->
 
 <!-- Chart Data -->
-<?php
-  $and = 'AND YEAR(date) = '.$year;
-  $months = array();
-  $return = array();
-  $borrow = array();
-  for( $m = 1; $m <= 12; $m++ ) {
-    $sql = "SELECT * FROM returns WHERE MONTH(date_return) = '$m' AND YEAR(date_return) = '$year'";
-    $rquery = $conn->query($sql);
-    array_push($return, $rquery->num_rows);
 
-    $sql = "SELECT * FROM borrow WHERE MONTH(date_borrow) = '$m' AND YEAR(date_borrow) = '$year'";
-    $bquery = $conn->query($sql);
-    array_push($borrow, $bquery->num_rows);
-
-    $num = str_pad( $m, 2, 0, STR_PAD_LEFT );
-    $month =  date('M', mktime(0, 0, 0, $m, 1));
-    array_push($months, $month);
-  }
-
-  $months = json_encode($months);
-  $return = json_encode($return);
-  $borrow = json_encode($borrow);
-
-?>
 <!-- End Chart Data -->
 <?php include 'includes/scripts.php'; ?>
 <script>

@@ -31,6 +31,23 @@
       <li class="header">REPORTS</li>
       <li class=""><a href="home.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
       <li class="header">MANAGE</li>
+      
+        <!-- User Management-->
+        <li class="treeview">
+        <a href="#">
+          <i class="fa fa-refresh"></i>
+          <span>User Management</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="user.php"><i class="fa fa-circle-o"></i> User</a></li>
+          <li><a href="return.php"><i class="fa fa-circle-o"></i> Permisstion</a></li>
+        </ul>
+      </li>
+
+        <!-- transaction -->
       <li class="treeview">
         <a href="#">
           <i class="fa fa-refresh"></i>
