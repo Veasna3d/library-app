@@ -57,7 +57,7 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="test.php"><i class="fa fa-circle-o"></i> Borrow</a></li>
+          <li><a href="borrw.php"><i class="fa fa-circle-o"></i> Borrow</a></li>
           <li><a href="return.php"><i class="fa fa-circle-o"></i> Return</a></li>
         </ul>
       </li>
@@ -84,7 +84,21 @@
         </a>
         <ul class="treeview-menu">
           <li><a href="student.php"><i class="fa fa-circle-o"></i> Student List</a></li>
-          <li><a href="course.php"><i class="fa fa-circle-o"></i> Course</a></li>
+          <li><a href="course.php"><i class="fa fa-circle-o"></i> Class</a></li>
+        </ul>
+      </li>
+      <!-- Report -->
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-graduation-cap"></i>
+          <span>Report</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="student.php"><i class="fa fa-circle-o"></i> Report</a></li>
+          <li><a href="course.php"><i class="fa fa-circle-o"></i> Report</a></li>
         </ul>
       </li>
     </ul>
