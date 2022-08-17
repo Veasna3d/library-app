@@ -70,5 +70,20 @@
         height: 100%;
         border-radius: 5px;
       }
+
+      .card{
+        background: #ffffff;
+        color: #000;
+      }
+      .card-title{
+        padding: 5px;
+        background: #ffe3e3;
+      }
+      .card-body{
+        padding: 10px;
+      }
+      #btnAdd{
+        margin-left: 5px;
+      }
   	</style>
 </head>

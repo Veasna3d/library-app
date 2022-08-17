@@ -2,7 +2,7 @@
     	//displayData Function
       function displayData(){
           $.ajax({
-              url: '../json/user_json.php?data=get_user',
+              url: 'user_json.php?data=get_user',
               type:'GET',
               dataType : 'json',
               success:function(alldata){   

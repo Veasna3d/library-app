@@ -99,4 +99,5 @@
 </html>
 <script type="text/javascript" src="js\jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="js\dataTables.bootstrap4.min.js"></script>
-<script type="text/javascript" src="js\js.js"></script>
+<script src="./js/js.js"></script>
+
