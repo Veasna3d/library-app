@@ -7,32 +7,29 @@
         <?php include 'includes/menubar.php'; ?>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="margin-top: 50px;">
             <!-- Content Header (Page header) -->
 
             <section class="content-header">
                 <h1>
-                    User
+                    Book List
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li>Transaction</li>
-                    <li class="active">User</li>
+                    <li>Book</li>
+                    <li class="active">Book</li>
                 </ol>
             </section>
 
             <div class="col-md-12">
-                <div class="content-panel">
+                <div class="content-panel" style="padding-top: 10px;">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Book List</h3>
                             <button type="button" id="btnAdd" class="btn btn-primary" data-toggle="modal"
                                     data-target="#Mymodal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add New</button>
                         </div>
                         <div class="card-body">
                             <table id="table_id" class="table table-hover d-flex justify-content-between">
-                                <hr>
-
                                 <div class="modal" id="Mymodal">
                                     <div class="modal-dialog">
                                         <div class="modal-content">

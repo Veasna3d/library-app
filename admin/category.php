@@ -8,25 +8,24 @@
         <?php include 'includes/menubar.php'; ?>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="margin-top: 50px;">
             <!-- Content Header (Page header) -->
 
             <section class="content-header">
                 <h1>
-                    User
+                    Category List
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li>Transaction</li>
-                    <li class="active">User</li>
+                    <li>Book</li>
+                    <li class="active">Category</li>
                 </ol>
             </section>
 
             <div class="col-md-12">
-                <div class="content-panel">
+                <div class="content-panel" style="padding-top: 10px;">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Category List</h3> 
                             <button type="button" id="btnAdd" class="btn btn-primary" data-toggle="modal"
                                 data-target="#myModal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add New</button> 
                         </div>
