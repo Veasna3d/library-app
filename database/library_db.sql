@@ -59,3 +59,47 @@ CREATE TABLE `tbl_category` (
 ALTER TABLE `tbl_category`
   ADD PRIMARY KEY (`id`);
 -- --------------------------------------------------------
+-- Table structure for table `tbl_author`
+
+CREATE TABLE `tbl_author` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `authorName` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Primary key for table `tbl_user`
+ALTER TABLE `tbl_author`
+  ADD PRIMARY KEY (`id`);
+-- --------------------------------------------------------
+-- Table structure for table `tbl_book`
+
+CREATE TABLE `tbl_book` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `categoryId` int(11) NOT NULL,
+  `authorId` int(11) NOT NULL,
+  `status` enum('Available','Unavailable') COLLATE utf8_unicode_ci NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Primary key for table `tbl_user`
+ALTER TABLE `tbl_book`
+  ADD PRIMARY KEY (`id`);
+-- --------------------------------------------------------
+-- Table structure for table `tbl_borrow`
+
+CREATE TABLE `tbl_borrow` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `bookId` int(11) NOT NULL,
+  `studentId` int(11) NOT NULL,
+  `date_borrow` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `expected_return_date` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `return_date` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `status` enum('','Return','Not Return') COLLATE utf8_unicode_ci NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Primary key for table `tbl_user`
+ALTER TABLE `tbl_borrow`
+  ADD PRIMARY KEY (`id`);
+-- --------------------------------------------------------
