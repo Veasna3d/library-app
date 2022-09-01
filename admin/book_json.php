@@ -7,9 +7,8 @@
         $book = [];
 
         while($row = $result->fetch(PDO::FETCH_ASSOC)){
-            $book[] = array($row['Id'], $row['Title'], 
-            $row['Category_Id'],  $row['Author'],$row['Publisher'], 
-            $row['Publisher_date'], $row['User_Id'], $row['Status']);
+            $book[] = array($row['id'], $row['title'], 
+            $row['categoryId'],  $row['authorId'], $row['create_date']);
         }
         echo json_encode($book);
     }
@@ -21,23 +20,34 @@
         $result->execute();
 
         while( $row = $result->fetch(PDO::FETCH_ASSOC)){
-            $category[] = array($row['Id'], $row['Name']);
+            $category[] = array($row['id'], $row['category_name'],['create_date']);
         }
         echo json_encode($category);
     }
 
-
     //get bycatid
     if($_GET['data'] == "get_catid"){
-        $catid = $_GET['Id'];
-        $result = $conn->prepare("Select * from tbl_category where Id=:Id");
-        $result->bindParam(':Id', $catid);
+        $catid = $_GET['id'];
+        $result = $conn->prepare("Select * from tbl_category where id=:id");
+        $result->bindParam(':id', $catid);
         $result->execute();
 
         if($row=$result->fetch(PDO::FETCH_ASSOC)){
-            $category[] = array($row['Id'], $row['Name']);
+            $category[] = array($row['id'], $row['category_name'],['create_date']);
         }
         echo json_encode($category);
+    }
+
+    // get author
+    if($_GET['data'] == "get_author"){
+        $sql = "SELECT * FROM tbl_author";
+        $result = $conn->prepare($sql);
+        $result->execute();
+
+        while( $row = $result->fetch(PDO::FETCH_ASSOC)){
+            $author[] = array($row['id'], $row['author_name'],['create_date']);
+        }
+        echo json_encode($author);
     }
 
     //add book
@@ -46,21 +56,12 @@
             $title = $_POST['txtTitle'];
             $catid = $_POST['txtCategoryId'];
             $author = $_POST['txtAuthor'];
-            $publisher = $_POST['txtPublisher'];
-            $publisher_date = $_POST['txtPublisherDate'];
-            $user_id = $_POST['txtUserId'];
-            $status = $_POST['txtStatus'];
 
-            $sql = "Insert into tbl_book (Title, Category_Id, Author, Publisher, Publisher_date, User_Id, Status) values (:Title, 
-                    :Category_Id, :Author, :Publisher, :Publisher_date, :User_Id, :Status);";
+            $sql = "Insert into tbl_book (title, categoryId, authorId) values (:title, :categoryId, :authorId);";
             $insert = $conn->prepare($sql);
-            $insert->bindParam(':Title', $title);
-            $insert->bindParam(':Category_Id', $catid);
-            $insert->bindParam(':Author', $author);
-            $insert->bindParam(':Publisher', $publisher);
-            $insert->bindParam(':Publisher_date', $publisher_date);
-            $insert->bindParam(':User_Id', $user_id);
-            $insert->bindParam(':Status', $status);
+            $insert->bindParam(':title', $title);
+            $insert->bindParam(':categoryId', $catid);
+            $insert->bindParam(':authorId', $author);
 
             if($insert->execute()){
                 echo json_encode("Insert Success");
@@ -71,13 +72,12 @@
 
     //get_byid
     if($_GET['data'] == 'get_byid'){
-        $result = $conn->prepare("SELECT * FROM tbl_book WHERE Id=:Id");
-        $result->bindParam(':Id', $_GET['Id']);
+        $result = $conn->prepare("SELECT * FROM tbl_book WHERE id=:id");
+        $result->bindParam(':id', $_GET['id']);
         $result->execute();
         if($row = $result->fetch(PDO::FETCH_ASSOC)){
-            $book[] = array($row['Id'], $row['Title'], 
-            $row['Category_Id'],  $row['Author'],$row['Publisher'], 
-            $row['Publiser_Date'], $row['User_Id'], $row['Status']);
+            $book[] = array($row['id'], $row['title'], 
+            $row['categoryId'],  $row['authorId'],$row['create_date']);
         }
         echo json_encode($book);
     }
@@ -85,27 +85,22 @@
     //update
     if($_GET['data'] == 'update_book'){
 
-            $id = $_GET['Id'];
+        if(empty($_POST['txtTitle']) || empty($_POST['txtCategoryId']) || empty($_POST['txtAuthor'])){
+
+            echo json_encode("Please check the empty field!!");
+        }else{
+            $id = $_GET['id'];
             $title = $_POST['txtTitle'];
             $catid = $_POST['txtCategoryId'];
             $author = $_POST['txtAuthor'];
-            $publisher = $_POST['txtPublisher'];
-            $publisher_date = $_POST['txtPhubliserDate'];
-            $user_id = $_POST['txtUserId'];
-            $status = $_POST['txtStatus'];
 
-            $sql = "UPDATE tbl_book set Title=:Title, Category_Id=:Category_Id, Author=:Author, Publisher=:Publisher, 
-                    Publisher=:Publisher, Publisher_Date=:Publisher_Date, User_Id=:User_Id, Status=:Status where Id=:Id;";
+            $sql = "UPDATE tbl_book set title=:title, categoryId=:categoryId, authorId=:authorId, where id=:id;";
             $update = $conn->prepare($sql);
 
-            $update->bindParam(':Title', $title);
-            $update->bindParam(':Category_Id', $catid);
-            $update->bindParam(':Author', $author);
-            $update->bindParam(':Publisher', $publisher);
-            $update->bindParam(':Publiser_Date', $publisher_date);
-            $update->bindParam(':User_Id', $user_id);
-            $update->bindParam(':Status', $status);
-            $update->bindParam(':Id', $id);
+            $update->bindParam(':title', $title);
+            $update->bindParam(':categoryId', $catid);
+            $update->bindParam(':authorId', $author);
+            $update->bindParam(':id', $id);
 
             if($update->execute()){
                 echo json_encode("Update Success");
@@ -114,13 +109,14 @@
             }
         }
         
+    } 
 
 
     //delete
     if($_GET['data'] == 'delete_book'){
-        $bookId = $_GET['Id'];
-        $delete = $conn->prepare("DELETE FROM tbl_book where Id=:Id;");
-        $delete->bindParam(':Id', $bookId);
+        $bookId = $_GET['id'];
+        $delete = $conn->prepare("DELETE FROM tbl_book where id=:id;");
+        $delete->bindParam(':id', $bookId);
         if($delete->execute()){
             echo json_encode("Delete Success");
         }else{

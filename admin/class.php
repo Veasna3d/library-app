@@ -13,12 +13,12 @@
 
             <section class="content-header">
                 <h1>
-                    Category List
+                    Class 
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li>Book</li>
-                    <li class="active">Category</li>
+                    <li>Student</li>
+                    <li class="active">Class</li>
                 </ol>
             </section>
 
@@ -37,7 +37,7 @@
                                         <div class="modal-content">
 
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Category Info</h4>
+                                                <h4 class="modal-title">Class Info</h4>
                                                 <button type="button" class="close" data-dismiss="modal"><i
                                                         class="fas fa-closes"></i></button>
                                             </div>
@@ -45,11 +45,12 @@
                                             <div class="modal-body">
                                                 <form method="post" id="form">
                                                     <div class="form-group">
-                                                        <label for="name">Category Name</label>
+                                                        <label for="name">Class Name</label>
                                                         <input type="text" name="txtName" id="txtName" 
-                                                            class="form-control" placeholder="category name" required>
+                                                            class="form-control" placeholder="Enter class" required>
                                                     </div>
 
+                                                  
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-success"
                                                             id="btnSave">Save</button>
@@ -77,5 +78,5 @@
         
         <script type="text/javascript" src="js\jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js\dataTables.bootstrap4.min.js"></script>
-        <script type="text/javascript" src="js\category.js"></script>
+        <script type="text/javascript" src="js\class.js"></script>
 </body>

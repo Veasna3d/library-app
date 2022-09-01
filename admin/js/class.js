@@ -1,17 +1,16 @@
 
 function displayData() {
     $.ajax({
-        url: 'category_json.php?data=get_category',
+        url: 'class_json.php?data=get_class',
         type: 'GET',
         dataType: 'json',
         success: function(alldata) {
             var columns = [{
                 title: "Id"
             }, {
-                title: "Category Name"
+                title: "Class Name"
             },{
                 title: "Create_date"
-
             }, {
                 title: "Action"
             }];
@@ -50,7 +49,7 @@ $('#btnSave').click(function() {
         //Insert
         $.ajax({
             type: 'POST',
-            url: 'category_json.php?data=add_category',
+            url: 'class_json.php?data=add_class',
             data: form_data,
             dataType: 'json',
             success: function(data) {
@@ -66,7 +65,7 @@ $('#btnSave').click(function() {
         //Update
         $.ajax({
             type: 'POST',
-            url: 'category_json.php?data=update_category&id=' + category_id,
+            url: 'class_json.php?data=update_class&id=' + class_id,
             data: form_data,
             dataType: 'json',
             success: function(data) {
@@ -86,13 +85,13 @@ $('#btnAdd').click(function() {
     $('#btnSave').text("Insert");
 });
 
-var category_id;
+var class_id;
 
 function editData(id) {
     $('#btnSave').text("Update");
-    category_id = id;
+    class_id = id;
     $.ajax({
-        url: 'category_json.php?data=get_byid',
+        url: 'class_json.php?data=get_byid',
         data: '&id=' + id,
         type: 'GET',
         dataType: 'json',
@@ -109,7 +108,7 @@ function deleteData(id) {
     if (confirm('Are you sure')) {
         $.ajax({
             type: 'GET',
-            url: 'category_json.php?data=delete_category&id=' + id,
+            url: 'class_json.php?data=delete_class&id=' + id,
             dataType: 'json',
             success: function(data) {
                 alert(data);

@@ -13,12 +13,12 @@
 
             <section class="content-header">
                 <h1>
-                    Category List
+                    Author List
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                     <li>Book</li>
-                    <li class="active">Category</li>
+                    <li class="active">Author</li>
                 </ol>
             </section>
 
@@ -27,7 +27,7 @@
                     <div class="card">
                         <div class="card-header">
                             <button type="button" id="btnAdd" class="btn btn-primary" data-toggle="modal"
-                                data-target="#myModal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add New</button> 
+                                data-target="#myModal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Author</button> 
                         </div>
                         <div class="card-body">
                             <table id="table_id" class="table table-hover d-flex justify-content-between">
@@ -37,7 +37,7 @@
                                         <div class="modal-content">
 
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Category Info</h4>
+                                                <h4 class="modal-title">Author Info</h4>
                                                 <button type="button" class="close" data-dismiss="modal"><i
                                                         class="fas fa-closes"></i></button>
                                             </div>
@@ -45,9 +45,9 @@
                                             <div class="modal-body">
                                                 <form method="post" id="form">
                                                     <div class="form-group">
-                                                        <label for="name">Category Name</label>
+                                                        <label for="name">Author Name</label>
                                                         <input type="text" name="txtName" id="txtName" 
-                                                            class="form-control" placeholder="category name" required>
+                                                            class="form-control" placeholder="author name" required>
                                                     </div>
 
                                                     <div class="modal-footer">
@@ -77,5 +77,5 @@
         
         <script type="text/javascript" src="js\jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js\dataTables.bootstrap4.min.js"></script>
-        <script type="text/javascript" src="js\category.js"></script>
+        <script type="text/javascript" src="js\author.js"></script>
 </body>

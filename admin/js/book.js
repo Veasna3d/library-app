@@ -8,12 +8,9 @@ function displayData(){
             var columns = [
                 {title: 'Id'},
                 {title: 'Title'},
-                {title: 'Category'},
-                {title: 'Author'},
-                {title: 'Publisher'},
-                {title: 'Published Date'},
-                {title: 'Created By'},
-                {title: 'Status'},
+                {title: 'CategoryId'},
+                {title: 'AuthorId'},
+                {title: 'Create_date'},
                 {title: 'Action'}
             ];
             var data = [];
@@ -23,7 +20,7 @@ function displayData(){
                 alldata[i][0] +
                 ")'></i> | <i class='fa fa-trash' onclick='deleteData(" +
                 alldata[i][0] + ")'></i> ";
-                data.push([alldata[i][0], alldata[i][1], alldata[i][2], alldata[i][3], alldata[i][4], alldata[i][5], alldata[i][6], alldata[i][7], option]);
+                data.push([alldata[i][0], alldata[i][1], alldata[i][2], alldata[i][3], alldata[i][4], option]);
             }
             console.log(data);
             $('#table_id').DataTable({
@@ -65,37 +62,36 @@ $(document).ready(function(){
     setDataToSelect('#txtCategoryId', 'book_json.php?data=get_category', "--Category--");
 });
 
+$(document).ready(function(){
+    displayData();
+    setDataToSelect('#txtAuthor', 'book_json.php?data=get_author', "--Choose author--");
+});
+
+
+
 $('#btnAdd').click(function (){
 
     $("#txtTitle").val("");
     $("#txtCategoryId").val("");
     $("#txtAuthor").val("");
-    $("#txtPublisher").val("");
-    $("#txtPublisherDate").val("");
-    $("#txtUserId").val("");
-    $("#txtStatus").val("");
     $("#btnSave").text("Insert");
     
 });
 
-var boo_id;
+var book_id;
 function editData(id){
     $("#btnSave").text("Update");
-    boo_id = id;
+    book_id = id;
 
     $.ajax({
         url: 'book_json.php?data=get_byid',
-        data: '&Id=' + id,
+        data: '&id=' + id,
         type: 'GET',
         dataType: 'json',
         success: function (data){
-            $("#txttitle").val(data[0][1]);
+            $("#txtTitle").val(data[0][1]);
             $("#txtCategoryId").val(data[0][2]);
             $("#txtAuthor").val(data[0][3]);
-            $("#txtPublisher").val(data[0][4]);
-            $("#txtPublisherDate").val(data[0][5]);
-            $("#txtUserId").val(data[0][6]);
-            $("#txtStatus").val(data[0][7]);
         },
         error: function (ex){
             console.log(ex.responseText);
@@ -125,7 +121,7 @@ $("#btnSave").click(function (){
         //Update
         $.ajax({
             type: 'POST',
-            url: 'book_json.php?data=update_book&Id=' + book_id,
+            url: 'book_json.php?data=update_book&id=' + book_id,
             data: form_data,
             dataType: 'json',
             success: function (data){
@@ -144,7 +140,7 @@ function deleteData(id){
     if(confirm('Are you sure?')){
         $.ajax({
             type: 'GET',
-            url: 'book_json.php?data=delete_book&Id=' + id,
+            url: 'book_json.php?data=delete_book&id=' + id,
             dataType: 'json',
             success: function (data){
                 alert(data);

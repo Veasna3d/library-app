@@ -58,37 +58,13 @@
 
                                                     <div class="form-group">
                                                         <label for="author">Author</label>
-                                                        <input type="text" name="txtAuthor" id="txtAuthor"
-                                                            class="form-control" placeholder="author">
-                                                    </div>
-
-
-                                                    <div class="form-group">
-                                                        <label for="publisher">Publisher</label>
-                                                        <input type="text" name="txtPublisher" id="txtPublisher"
-                                                            class="form-control" placeholder="publisher">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="publisherdate">Published Date</label>
-                                                        <input type="date" name="txtPublisherDate" id="txtPublisherDate"
-                                                            class="form-control" placeholder="date">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="user">Created By</label>
-                                                        <input type="text" name="txtUserId" id="txtUserId"
-                                                            class="form-control" placeholder="created by">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="status">Status</label>
-                                                        <input type="text" name="txtStatus" id="txtStatus"
-                                                            class="form-control" placeholder="status">
+                                                        <select class="form-control" name="txtAuthor" id="txtAuthor">
+                                                            <option> choose author </option>
+                                                        </select>
                                                     </div>
 
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
+                                                        <button type="button" class="btn btn-success"
                                                             id="btnSave">Save</button>
                                                         <button type="button" class="btn btn-danger"
                                                             data-dismiss="modal">Close</button>
