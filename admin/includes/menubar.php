@@ -57,8 +57,7 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="borrw.php"><i class="fa fa-circle-o"></i> Borrow</a></li>
-          <li><a href="return.php"><i class="fa fa-circle-o"></i> Return</a></li>
+          <li><a href="borrow.php"><i class="fa fa-circle-o"></i> Borrow</a></li>
         </ul>
       </li>
       <li class="treeview">

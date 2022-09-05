@@ -71,11 +71,11 @@
         border-radius: 5px;
       }
 
-      .card{
+       .card{
         background: #ffffff;
         color: #000;
       }
-      .card-title{
+      /* .card-title{
         padding: 5px;
         background: #ffe3e3;
       }
@@ -84,6 +84,6 @@
       }
       #btnAdd{
         margin-left: 5px;
-      }
+      }  */
   	</style>
 </head>
