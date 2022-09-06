@@ -1,80 +1,85 @@
 <?php
-    require 'dbconnection.php';
-    if($_GET["data"] == "get_product"){
-        $sql = "SELECT * FROM vproduct";
+    require './config/db.php';
+    if($_GET["data"] == "get_borrow"){
+        $sql = "SELECT * FROM tbl_borrow";
         $result = $conn->prepare($sql);
         $result->execute();
-        $product = [];
+        $borrow = [];
 
         while($row = $result->fetch(PDO::FETCH_ASSOC)){
-            $product[] = array($row['pcode'], $row['pname'], 
-            $row['cname'],  $row['quantity'],$row['cost'], 
-            $row['price'], $row['name'], $row['create_date']);
+            $borrow[] = array($row['id'], $row['book_id'], 
+            $row['student_id'],  $row['borrow_date'],$row['return_date'], 
+            $row['status'], $row['remark'], $row['create_date']);
         }
-        echo json_encode($product);
+        echo json_encode($borrow);
     }
 
-    //get category
-    if($_GET['data'] == "get_category"){
-        $sql = "SELECT * FROM tbl_category";
+    //get book
+    if($_GET['data'] == "get_book"){
+        $sql = "SELECT * FROM tbl_book";
         $result = $conn->prepare($sql);
         $result->execute();
+        $book = [];
 
         while( $row = $result->fetch(PDO::FETCH_ASSOC)){
-            $category[] = array($row['catid'], $row['cname'], $row['create_date']);
+            $book[] = array($row['id'], $row['book_title'],
+                    $row['book_title'],$row['categoryId'], $row['authorId'],
+                    $row['status'], $row['create_date']);
         }
-        echo json_encode($category);
+        echo json_encode($book);
     }
 
-    //get status
-    if($_GET['data'] == "get_status"){
-        $sql = "SELECT * FROM tbl_status";
+    //get student
+    if($_GET['data'] == "get_student"){
+        $sql = "SELECT * FROM tbl_student";
         $result = $conn->prepare($sql);
         $result->execute();
+        $status = [];
 
         while( $row = $result->fetch(PDO::FETCH_ASSOC)){
-            $status[] = array($row['id'], $row['name'], $row['create_date']);
+            $status[] = array($row['id'], $row['studentId'], 
+            $row['firstName'], $row['lastName'], $row['photo'],
+            $row['email'], $row['create_date']);
         }
         echo json_encode($status);
     }
-
-    //get bycatid
-    if($_GET['data'] == "get_catid"){
-        $catid = $_GET['catid'];
-        $result = $conn->prepare("Select * from tbl_category where catid=:catid");
-        $result->bindParam(':catid', $catid);
+//--------------------------------------------------------------------------//
+    //get by_book_id
+    if($_GET['data'] == "get_bookid"){
+        $bookid = $_GET['id'];
+        $result = $conn->prepare("Select * from tbl_book where id=:id");
+        $result->bindParam(':id', $bookid);
         $result->execute();
 
         if($row=$result->fetch(PDO::FETCH_ASSOC)){
-            $category[] = array($row['catid'], $row['cname'], $row['create_date']);
+            $book[] = array($row['id'], $row['book_title'],
+                    $row['book_title'],$row['categoryId'], $row['authorId'],
+                    $row['status'], $row['create_date']);
         }
-        echo json_encode($category);
+        echo json_encode($book);
     }
 
-    //add product
-    if($_GET['data'] == 'add_product'){
+//--------------------------------------------------------------------------//
 
-        if(empty($_POST['txtName']) || empty($_POST['txtCategoryId']) || empty($_POST['txtQty']) || 
-            empty($_POST['txtCost']) || empty($_POST['txtPrice']) || empty($_POST['txtStatusId'])){
+    //add borrow
+    if($_GET['data'] == 'add_borrow'){
 
-            echo json_encode("Please check the empty field!");
-        }else{
-            $name = $_POST['txtName'];
-            $catid = $_POST['txtCategoryId'];
-            $qty = $_POST['txtQty'];
-            $cost = $_POST['txtCost'];
-            $price = $_POST['txtPrice'];
-            $staid = $_POST['txtStatusId'];
+            $bookId = $_POST['txtBookId'];
+            $studentId = $_POST['txtStudentId'];
+            $borrowDate = $_POST['txtBorrow'];
+            $returnDate = $_POST['txtReturn'];
+            $status = $_POST['txtStatus'];
+            $remark = $_POST['txtRemark'];
 
-            $sql = "Insert into tbl_product (pname, categoryid, quantity, cost, price, statusid) values (:pname, 
-                    :categoryid, :quantity, :cost, :price, :statusid);";
+            $sql = "INSERT INTO tbl_borrow (book_id, student_id, borrow_date, return_date, status, remark)
+             values (:book_id, :student_id, :borrow_date, :return_date, :status, :remark);";
             $insert = $conn->prepare($sql);
-            $insert->bindParam(':pname', $name);
-            $insert->bindParam(':categoryid', $catid);
-            $insert->bindParam(':quantity', $qty);
-            $insert->bindParam(':cost', $cost);
-            $insert->bindParam(':price', $price);
-            $insert->bindParam(':statusid', $staid);
+            $insert->bindParam(':book_id', $bookId);
+            $insert->bindParam(':student_id', $studentId);
+            $insert->bindParam(':borrow_date', $borrowDate);
+            $insert->bindParam(':return_date', $returnDate);
+            $insert->bindParam(':status', $status);
+            $insert->bindParam(':remark', $remark);
 
             if($insert->execute()){
                 echo json_encode("Insert Success");
@@ -82,48 +87,42 @@
                 echo json_encode("Insert Faild");
             }
         }
-        
-    }
 
     //get_byid
     if($_GET['data'] == 'get_byid'){
-        $result = $conn->prepare("SELECT * FROM tbl_product WHERE pcode=:pcode");
-        $result->bindParam(':pcode', $_GET['pcode']);
+        $result = $conn->prepare("SELECT * FROM tbl_borrow WHERE id=:id");
+        $result->bindParam(':id', $_GET['id']);
         $result->execute();
         if($row = $result->fetch(PDO::FETCH_ASSOC)){
-            $product[] = array($row['pcode'], $row['pname'], $row['categoryid'],$row['quantity'],
-             $row['cost'], $row['price'], $row['statusid'], $row['create_date']);
+            $borrow[] = array($row['id'], $row['book_id'], 
+            $row['student_id'],  $row['borrow_date'],$row['return_date'], 
+            $row['status'], $row['remark'], $row['create_date']);
         }
-        echo json_encode($product);
+        echo json_encode($borrow);
     }
 
     //update
-    if($_GET['data'] == 'update_product'){
+    if($_GET['data'] == 'update_borrow'){
+        
+            $id = $_GET['id'];
+            $bookId = $_POST['txtBookId'];
+            $studentId = $_POST['txtStudentId'];
+            $borrowDate = $_POST['txtBorrow'];
+            $returnDate = $_POST['txtReturn'];
+            $status = $_POST['txtStatus'];
+            $remark = $_POST['txtRemark'];
 
-        if(empty($_POST['txtName']) || empty($_POST['txtCategoryId']) || empty($_POST['txtQty']) || 
-            empty($_POST['txtCost']) || empty($_POST['txtPrice']) || empty($_POST['txtStatusId'])){
-
-            echo json_encode("Please check the empty field!");
-        }else{
-            $id = $_GET['pcode'];
-            $name = $_POST['txtName'];
-            $catid = $_POST['txtCategoryId'];
-            $qty = $_POST['txtQty'];
-            $cost = $_POST['txtCost'];
-            $price = $_POST['txtPrice'];
-            $staid = $_POST['txtStatusId'];
-
-            $sql = "UPDATE tbl_product set pname=:pname, categoryid=:categoryid, quantity=:quantity, cost=:cost, 
-                    price=:price, statusid=:statusid where pcode=:pcode;";
+            $sql = "UPDATE tbl_borrow set book_title=:book_id, student_id=:student_id, borrow_date=:borrow_date, return_date=:return_date, 
+                    status=:status, remark=:remark where id=:id;";
             $update = $conn->prepare($sql);
 
-            $update->bindParam(':pname', $name);
-            $update->bindParam(':categoryid', $catid);
-            $update->bindParam(':quantity', $qty);
-            $update->bindParam(':cost', $cost);
-            $update->bindParam(':price', $price);
-            $update->bindParam(':statusid', $staid);
-            $update->bindParam(':pcode', $id);
+            $update->bindParam(':book_id', $bookId);
+            $update->bindParam(':student_id', $studentId);
+            $update->bindParam(':borrow_date', $borrowDate);
+            $update->bindParam(':return_date', $returnDate);
+            $update->bindParam(':status', $status);
+            $update->bindParam(':remark', $remark);
+            $update->bindParam(':id', $id);
 
             if($update->execute()){
                 echo json_encode("Update Success");
@@ -131,14 +130,12 @@
                 echo json_encode("Update Faild");
             }
         }
-        
-    }
 
     //delete
-    if($_GET['data'] == 'delete_product'){
-        $productid = $_GET['pcode'];
-        $delete = $conn->prepare("DELETE FROM tbl_product where pcode=:pcode;");
-        $delete->bindParam(':pcode', $productid);
+    if($_GET['data'] == 'delete_borrow'){
+        $borrowid = $_GET['id'];
+        $delete = $conn->prepare("DELETE FROM tbl_borrow where id=:id;");
+        $delete->bindParam(':id', $borrowid);
         if($delete->execute()){
             echo json_encode("Delete Success");
         }else{

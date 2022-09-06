@@ -22,7 +22,7 @@ function displayData() {
                     alldata[i][0] +
                     ")'></i> | <i class='fa fa-trash' onclick='deleteData(" +
                     alldata[i][0] + ")'></i> ";
-                data.push([alldata[i][0], alldata[i][1],alldata[i][2], option]);
+                data.push([alldata[i][0],"<span class='badge bg-waring text-dark'>" +alldata[i][1]+"</span>",alldata[i][2], option]);
             }
             console.log(data);
             $('#table_id').DataTable({

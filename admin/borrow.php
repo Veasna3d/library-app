@@ -74,7 +74,7 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="category" class="form-label">Status</label>
+                                                        <label for="status" class="form-label">Status</label>
                                                         <select class="form-control" name="txtStatus"
                                                             id="txtStatus">
                                                             <option>--Choose---</option>
@@ -109,7 +109,6 @@
 
         <?php include 'includes/footer.php'; ?>
         <?php include 'includes/scripts.php'; ?>
-
 
         <script type="text/javascript" src="js\jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js\dataTables.bootstrap4.min.js"></script>
