@@ -112,7 +112,7 @@
             $status = $_POST['txtStatus'];
             $remark = $_POST['txtRemark'];
 
-            $sql = "UPDATE tbl_borrow set book_title=:book_id, student_id=:student_id, borrow_date=:borrow_date, return_date=:return_date, 
+            $sql = "UPDATE tbl_borrow set book_title=:book_title, student_id=:student_id, borrow_date=:borrow_date, return_date=:return_date, 
                     status=:status, remark=:remark where id=:id;";
             $update = $conn->prepare($sql);
 

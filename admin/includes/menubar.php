@@ -97,8 +97,8 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="student.php"><i class="fa fa-circle-o"></i> Report</a></li>
-          <li><a href="course.php"><i class="fa fa-circle-o"></i> Report</a></li>
+          <li><a href="report.php"><i class="fa fa-circle-o"></i> Report</a></li>
+          <li><a href="a.php"><i class="fa fa-circle-o"></i> Report</a></li>
         </ul>
       </li>
     </ul>
