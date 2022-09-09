@@ -31,7 +31,7 @@
                                 New</button>
                         </div>
                         <div class="card-body">
-                            <table id="table_id" class="table table-hover d-flex justify-content-between">
+                            <table data-ordering="false" id="table_id" class="table table-hover d-flex justify-content-between">
                                 <hr>
                                 <div class="modal" id="myModal">
                                     <div class="modal-dialog">
@@ -44,7 +44,7 @@
                                             </div>
 
                                             <div class="modal-body">
-                                                <form method="post" id="form">
+                                                <form method="post" id="form" enctype='multipart/form-data'>
 
                                                     <div class="form-group">
                                                         <label for="studentid" class="form-label">Student ID</label>
@@ -53,14 +53,8 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="firstname" class="form-label">First Name</label>
-                                                        <input type="text" name="txtFirstName" id="txtFirstName"
-                                                            class="form-control">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="lastname" class="form-label">Last Name</label>
-                                                        <input type="text" name="txtLastName" id="txtLastName"
+                                                        <label for="fullname" class="form-label">Student Name</label>
+                                                        <input type="text" name="txtStudentName" id="txtStudentName"
                                                             class="form-control">
                                                     </div>
 
@@ -72,8 +66,7 @@
 
                                                     <div class="form-group">
                                                         <label for="book" class="form-label">Class</label>
-                                                        <select class="form-control" name="ddlClass"
-                                                            id="ddlClass">
+                                                        <select class="form-control" name="ddlClass" id="ddlClass">
                                                             <option>--Choose---</option>
                                                         </select>
                                                     </div>

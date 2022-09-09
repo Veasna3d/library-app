@@ -31,7 +31,7 @@
                                 New</button>
                         </div>
                         <div class="card-body">
-                            <table id="table_id" class="table table-hover d-flex justify-content-between">
+                            <table data-ordering="false" id="table_id" class="table table-hover d-flex justify-content-between">
                                 <hr>
                                 <div class="modal" id="myModal">
                                     <div class="modal-dialog">

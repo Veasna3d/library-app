@@ -8,8 +8,7 @@ function displayData(){
             var columns = [
                 {title: 'Id'},
                 {title: 'Student ID'},
-                {title: 'First Name'},
-                {title: 'Last Name'},
+                {title: 'Student Name'},
                 {title: 'Image'},
                 {title: 'Class'},
                 {title: 'Phone'},
@@ -24,7 +23,7 @@ function displayData(){
                 alldata[i][0] +
                 ")'></i> | <i class='fa fa-trash' onclick='deleteData(" +
                 alldata[i][0] + ")'></i> ";
-                data.push([alldata[i][0], alldata[i][1], alldata[i][2], alldata[i][3], alldata[i][4], alldata[i][5], alldata[i][6], alldata[i][7],alldata[i][8], option]);
+                data.push([alldata[i][0], alldata[i][1], alldata[i][2], alldata[i][3], alldata[i][4], alldata[i][5], alldata[i][6], alldata[i][7], option]);
             }
             console.log(data);
             $('#table_id').DataTable({
@@ -69,8 +68,7 @@ $(document).ready(function(){
 $('#btnAdd').click(function (){
 
     $("#txtStudentId").val("");
-    $("#txtFirstName").val("");
-    $("#txtLastName").val("");
+    $("#txtStudentName").val("");
     $("#stuImage").val("");
     $("#ddlClass").val("");
     $("#txtPhone").val("");
@@ -91,12 +89,11 @@ function editData(id){
         dataType: 'json',
         success: function (data){
             $("#txtStudentId").val(data[0][1]);
-            $("#txtFirstName").val(data[0][2]);
-            $("#txtLastName").val(data[0][3]);
-            $("#stuImage").val(data[0][4]);
-            $("#ddlClass").val(data[0][5]);
-            $("#txtPhone").val(data[0][6]);
-            $("#txtEmail").val(data[0][7]);
+            $("#txtStudentName").val(data[0][2]);
+            $("#stuImage").val(data[0][3]);
+            $("#ddlClass").val(data[0][4]);
+            $("#txtPhone").val(data[0][5]);
+            $("#txtEmail").val(data[0][6]);
         },
         error: function (ex){
             console.log(ex.responseText);

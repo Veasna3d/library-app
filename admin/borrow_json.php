@@ -38,7 +38,7 @@
 
         while( $row = $result->fetch(PDO::FETCH_ASSOC)){
             $status[] = array($row['id'], $row['studentId'], 
-            $row['firstName'], $row['lastName'], $row['photo'],
+            $row['studentName'], $row['photo'],
             $row['email'], $row['create_date']);
         }
         echo json_encode($status);
