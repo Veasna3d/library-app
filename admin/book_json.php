@@ -7,8 +7,8 @@
         $book = [];
 
         while($row = $result->fetch(PDO::FETCH_ASSOC)){
-            $book[] = array($row['id'], $row['title'], 
-            $row['categoryId'],  $row['authorId'], $row['create_date']);
+            $book[] = array($row['id'], $row['book_title'], 
+            $row['categoryId'],  $row['authorId'], $row['status'], $row['create_date']);
         }
         echo json_encode($book);
     }
@@ -25,6 +25,29 @@
         echo json_encode($category);
     }
 
+    // get author
+    if($_GET['data'] == "get_author"){
+        $sql = "SELECT * FROM tbl_author";
+        $result = $conn->prepare($sql);
+        $result->execute();
+
+        while( $row = $result->fetch(PDO::FETCH_ASSOC)){
+            $author[] = array($row['id'], $row['author_name'],['create_date']);
+        }
+        echo json_encode($author);
+    }
+    // get status
+    if($_GET['data'] == "get_status"){
+        $sql = "SELECT * FROM tbl_status";
+        $result = $conn->prepare($sql);
+        $result->execute();
+
+        while( $row = $result->fetch(PDO::FETCH_ASSOC)){
+            $status[] = array($row['id'], $row['status_name'],['create_date']);
+        }
+        echo json_encode($status);
+    }
+
     //get bycatid
     if($_GET['data'] == "get_catid"){
         $catid = $_GET['id'];
@@ -38,30 +61,21 @@
         echo json_encode($category);
     }
 
-    // get author
-    if($_GET['data'] == "get_author"){
-        $sql = "SELECT * FROM tbl_author";
-        $result = $conn->prepare($sql);
-        $result->execute();
-
-        while( $row = $result->fetch(PDO::FETCH_ASSOC)){
-            $author[] = array($row['id'], $row['author_name'],['create_date']);
-        }
-        echo json_encode($author);
-    }
-
     //add book
     if($_GET['data'] == 'add_book'){
 
-            $title = $_POST['txtTitle'];
+            $book_title = $_POST['txtTitle'];
             $catid = $_POST['txtCategoryId'];
             $author = $_POST['txtAuthor'];
+            $status = $_POST['txtStatus'];
+            
 
-            $sql = "Insert into tbl_book (title, categoryId, authorId) values (:title, :categoryId, :authorId);";
+            $sql = "Insert into tbl_book (book_title, categoryId, authorId, status) values (:book_title, :categoryId, :authorId, :status);";
             $insert = $conn->prepare($sql);
-            $insert->bindParam(':title', $title);
+            $insert->bindParam(':book_title', $book_title);
             $insert->bindParam(':categoryId', $catid);
             $insert->bindParam(':authorId', $author);
+            $insert->bindParam(':status', $status);
 
             if($insert->execute()){
                 echo json_encode("Insert Success");
@@ -76,8 +90,8 @@
         $result->bindParam(':id', $_GET['id']);
         $result->execute();
         if($row = $result->fetch(PDO::FETCH_ASSOC)){
-            $book[] = array($row['id'], $row['title'], 
-            $row['categoryId'],  $row['authorId'],$row['create_date']);
+            $book[] = array($row['id'], $row['book_title'], 
+            $row['categoryId'],  $row['authorId'], $row['status'],$row['create_date']);
         }
         echo json_encode($book);
     }
@@ -85,21 +99,26 @@
     //update
     if($_GET['data'] == 'update_book'){
 
-        if(empty($_POST['txtTitle']) || empty($_POST['txtCategoryId']) || empty($_POST['txtAuthor'])){
+        if(empty($_POST['txtTitle']) || empty($_POST['txtCategoryId']) || empty($_POST['txtAuthor'])|| 
+            empty($_POST['txtStatus'])){
 
-            echo json_encode("Please check the empty field!!");
+            echo json_encode("Please check the empty field!");
         }else{
             $id = $_GET['id'];
-            $title = $_POST['txtTitle'];
+            $name = $_POST['txtName'];
+            $book_title = $_POST['txtTitle'];
             $catid = $_POST['txtCategoryId'];
             $author = $_POST['txtAuthor'];
+            $status = $_POST['txtStatus'];
 
-            $sql = "UPDATE tbl_book set title=:title, categoryId=:categoryId, authorId=:authorId, where id=:id;";
+            $sql = "UPDATE tbl_book set book_title=:book_title, categoryId=:categoryId, authorId=:authorId, 
+                    status=:status, where id=:id;";
             $update = $conn->prepare($sql);
 
-            $update->bindParam(':title', $title);
+            $update->bindParam(':book_title', $book_title);
             $update->bindParam(':categoryId', $catid);
             $update->bindParam(':authorId', $author);
+            $update->bindParam(':status', $status);
             $update->bindParam(':id', $id);
 
             if($update->execute()){
@@ -110,7 +129,6 @@
         }
         
     } 
-
 
     //delete
     if($_GET['data'] == 'delete_book'){

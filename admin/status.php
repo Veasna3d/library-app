@@ -1,5 +1,6 @@
 <?php include 'includes/header.php'; ?>
 
+
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
@@ -12,12 +13,12 @@
 
             <section class="content-header">
                 <h1>
-                    Book List
+                    Status List
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                     <li>Book</li>
-                    <li class="active">Book</li>
+                    <li class="active">Status</li>
                 </ol>
             </section>
 
@@ -26,16 +27,17 @@
                     <div class="card">
                         <div class="card-header">
                             <button type="button" id="btnAdd" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#Mymodal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add New</button>
+                                data-target="#myModal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add New</button> 
                         </div>
                         <div class="card-body">
                             <table id="table_id" class="table table-hover d-flex justify-content-between">
-                                <div class="modal" id="Mymodal">
+                                <hr>                                       
+                                <div class="modal" id="myModal">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
 
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Book Info</h4>
+                                                <h4 class="modal-title">Status Info</h4>
                                                 <button type="button" class="close" data-dismiss="modal"><i
                                                         class="fas fa-closes"></i></button>
                                             </div>
@@ -43,31 +45,9 @@
                                             <div class="modal-body">
                                                 <form method="post" id="form">
                                                     <div class="form-group">
-                                                        <label for="name">Book Title</label>
-                                                        <input type="text" name="txtTitle" id="txtTitle"
-                                                            class="form-control" placeholder="book_title">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="category">Category</label>
-                                                        <select class="form-control" name="txtCategoryId"
-                                                            id="txtCategoryId">
-                                                            <option>--Choose---</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="author">Author</label>
-                                                        <select class="form-control" name="txtAuthor" id="txtAuthor">
-                                                            <option> choose author </option>
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="status">Status</label>
-                                                        <select class="form-control" name="txtStatus" id="txtStatus">
-                                                            <option>Status </option>
-                                                        </select>
+                                                        <label for="name">Status</label>
+                                                        <input type="text" name="txtName" id="txtName" 
+                                                            class="form-control" placeholder="status name" required>
                                                     </div>
 
                                                     <div class="modal-footer">
@@ -82,7 +62,7 @@
                                     </div>
                                 </div>
                             </table>
-
+                           
                         </div>
 
                     </div>
@@ -90,12 +70,12 @@
 
             </div>
         </div>
-
+        
         <?php include 'includes/footer.php'; ?>
         <?php include 'includes/scripts.php'; ?>
 
-
+        
         <script type="text/javascript" src="js\jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js\dataTables.bootstrap4.min.js"></script>
-        <script type="text/javascript" src="js\book.js"></script>
+        <script type="text/javascript" src="js\status.js"></script>
 </body>

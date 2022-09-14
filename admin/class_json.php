@@ -5,6 +5,7 @@
         $sql = "select * from tbl_class";
         $result = $conn->prepare($sql);
 		$result->execute();
+        $class = [];
         while($row = $result->fetch(PDO::FETCH_ASSOC)){
             $class[] = array($row["id"], $row["class_name"],$row["create_date"]);
         }

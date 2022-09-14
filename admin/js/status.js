@@ -1,24 +1,24 @@
 
-function displayData(){
+function displayData() {
     $.ajax({
-        url: 'author_json.php?data=get_author',
+        url: 'status_json.php?data=get_status',
         type: 'GET',
         dataType: 'json',
-        success: function(alldata){
-            var columns = [
-            {
+        success: function(alldata) {
+            var columns = [{
                 title: "Id"
             }, {
-                title: "Author Name"
+                title: "Status"
             },{
                 title: "Create_date"
             }, {
-                title: "Action"}
-         ];
+                title: "Action"
+            }];
             var data = [];
             var option = '';
             for (var i in alldata) {
-                option = "<i class='fa fa-pencil-square-o' data-toggle='modal' data-target='#myModal' onclick='editData(" +
+                option =
+                    "<i class='fa fa-pencil-square-o' data-toggle='modal' data-target='#myModal' onclick='editData(" +
                     alldata[i][0] +
                     ")'></i> | <i class='fa fa-trash' onclick='deleteData(" +
                     alldata[i][0] + ")'></i> ";
@@ -37,7 +37,7 @@ function displayData(){
     });
 }
 
-//Load
+// Load
 $(document).ready(function() {
     displayData();
 })
@@ -49,7 +49,7 @@ $('#btnSave').click(function() {
         //Insert
         $.ajax({
             type: 'POST',
-            url: 'author_json.php?data=add_author',
+            url: 'status_json.php?data=add_status',
             data: form_data,
             dataType: 'json',
             success: function(data) {
@@ -62,10 +62,11 @@ $('#btnSave').click(function() {
             }
         });
     } else {
+        
         //Update
         $.ajax({
             type: 'POST',
-            url: 'author_json.php?data=update_author&id=' + author_id,
+            url: 'status_json.php?data=update_status&id=' + status_id,
             data: form_data,
             dataType: 'json',
             success: function(data) {
@@ -85,13 +86,13 @@ $('#btnAdd').click(function() {
     $('#btnSave').text("Insert");
 });
 
-var author_id;
+var status_id;
 
 function editData(id) {
     $('#btnSave').text("Update");
-    author_id = id;
+    status_id = id;
     $.ajax({
-        url: 'author_json.php?data=get_byid',
+        url: 'status_json.php?data=get_byid',
         data: '&id=' + id,
         type: 'GET',
         dataType: 'json',
@@ -108,7 +109,7 @@ function deleteData(id) {
     if (confirm('Are you sure')) {
         $.ajax({
             type: 'GET',
-            url: 'author_json.php?data=delete_author&id=' + id,
+            url: 'status_json.php?data=delete_status&id=' + id,
             dataType: 'json',
             success: function(data) {
                 alert(data);

@@ -7,9 +7,10 @@ function displayData(){
         success: function (alldata){
             var columns = [
                 {title: 'Id'},
-                {title: 'Title'},
+                {title: 'Book Title'},
                 {title: 'CategoryId'},
                 {title: 'AuthorId'},
+                {title: 'Status'},
                 {title: 'Create_date'},
                 {title: 'Action'}
             ];
@@ -20,7 +21,7 @@ function displayData(){
                 alldata[i][0] +
                 ")'></i> | <i class='fa fa-trash' onclick='deleteData(" +
                 alldata[i][0] + ")'></i> ";
-                data.push([alldata[i][0], alldata[i][1], alldata[i][2], alldata[i][3], alldata[i][4], option]);
+                data.push([alldata[i][0], alldata[i][1], alldata[i][2], alldata[i][3], alldata[i][4],alldata[i][5], option]);
             }
             console.log(data);
             $('#table_id').DataTable({
@@ -67,6 +68,11 @@ $(document).ready(function(){
     setDataToSelect('#txtAuthor', 'book_json.php?data=get_author', "--Choose author--");
 });
 
+$(document).ready(function(){
+    displayData();
+    setDataToSelect('#txtStatus', 'book_json.php?data=get_status', "--Choose status--");
+});
+
 
 
 $('#btnAdd').click(function (){
@@ -74,6 +80,7 @@ $('#btnAdd').click(function (){
     $("#txtTitle").val("");
     $("#txtCategoryId").val("");
     $("#txtAuthor").val("");
+    $("#txtStatus").val("");
     $("#btnSave").text("Insert");
     
 });
@@ -92,6 +99,7 @@ function editData(id){
             $("#txtTitle").val(data[0][1]);
             $("#txtCategoryId").val(data[0][2]);
             $("#txtAuthor").val(data[0][3]);
+            $("#txtStatus").val(data[0][4]);
         },
         error: function (ex){
             console.log(ex.responseText);

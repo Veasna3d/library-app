@@ -5,6 +5,7 @@
         $sql = "select * from tbl_category";
         $result = $conn->prepare($sql);
 		$result->execute();
+        $category = [];
         while($row = $result->fetch(PDO::FETCH_ASSOC)){
             $category[] = array($row['id'], $row['category_name'],$row['create_date']);
         }
