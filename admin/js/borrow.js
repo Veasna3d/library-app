@@ -6,24 +6,28 @@ function displayData(){
         dataType: 'json',
         success: function (alldata){
             var columns = [
-                {title: 'Id'},
-                {title: 'Book Title'},
-                {title: 'Student Name'},
-                {title: 'Borrow Date'},
-                {title: 'Return Date'},
-                {title: 'Status'},
-                {title: 'Remark'},
-                {title: 'Create Date'},
-                {title: 'Action'}
+                { title: "ID" },
+                { title: "BOOK TITLE" },
+                { title: "STUDENT NAME" },
+                { title: "BORROW DATE" },
+                { title: "RETURN DATE" },
+                { title: "STATUS" },
+                { title: "REMARK" },
+                { title: "CREATE DATE" },
+                { title: "ACTION" }
             ];
             var data = [];
             var option = '';
             for(var i in alldata){
-                option = "<i class='fa fa-pencil-square-o' data-toggle='modal' data-target='#Mymodal' onclick='editData(" +
-                alldata[i][0] +
-                ")'></i> | <i class='fa fa-trash' onclick='deleteData(" +
-                alldata[i][0] + ")'></i> ";
-                data.push([alldata[i][0], alldata[i][1], alldata[i][2], alldata[i][3], alldata[i][4], "<span class='badge bg-waring text-dark'>" +alldata[i][5]+"</span>", alldata[i][6], alldata[i][7], option]);
+                option =
+            "<i style='cursor: pointer;' class='fa fa-pencil-square-o' data-toggle='modal' data-target='#myModal' onclick='editData(" +
+            alldata[i][0] +
+            ")'></i> | <i style='cursor: pointer;' class='fa fa-trash' onclick='deleteData(" +
+            alldata[i][0] +
+            ")'></i> | <i style='cursor: pointer;' class='fa fa-retweet' onclick='statusReturn(" +
+            alldata[i][0] +
+            ")'></i> ";
+                data.push([alldata[i][0], alldata[i][1], alldata[i][2], alldata[i][3], alldata[i][4], alldata[i][5], alldata[i][6], alldata[i][7], option]);
             }
             console.log(data);
             $('#table_id').DataTable({
@@ -60,28 +64,55 @@ function setDataToSelect(myselect, myjson, caption){
     }
 }
 
+function setStudent(myselect, myjson, caption) {
+    try {
+      var sel = $(myselect);
+      sel.empty();
+      sel.append('<option value="">' + caption + "</option>");
+      $.ajax({
+        url: myjson,
+        dataType: "json",
+        success: function (s) {
+          for (var i = 0; i < s.length; i++) {
+            sel.append(
+              '<option value="' +
+              s[i][0] +
+              '">' +
+              s[i][1] +
+              "-" +
+              s[i][2] +
+              "</option>"
+            );
+          }
+        },
+        error: function (e) {
+          console.log(e.responseText);
+        },
+      });
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+
 $(document).ready(function(){
     displayData();
     setDataToSelect('#txtBookId', 'borrow_json.php?data=get_book', "--Book--");
-    setDataToSelect('#txtStudentId', 'borrow_json.php?data=get_student', "--Student--");
+    setStudent('#txtStudentId', 'borrow_json.php?data=get_student', "--Student--");
 });
 
-$('#btnAdd').click(function (){
-
+$("#btnAdd").click(function () {
     $("#txtBookId").val("");
     $("#txtStudentId").val("");
     $("#txtBorrow").val("");
     $("#txtReturn").val("");
-    $("#txtStatus").val("");
     $("#txtRemark").val("");
     $("#btnSave").text("Insert");
-    
-});
+  });
 
-var borrow_id;
+var student_id;
 function editData(id){
     $("#btnSave").text("Update");
-    borrow_id = id;
+    student_id = id;
 
     $.ajax({
         url: 'borrow_json.php?data=get_byid',
@@ -93,8 +124,7 @@ function editData(id){
             $("#txtStudentId").val(data[0][2]);
             $("#txtBorrow").val(data[0][3]);
             $("#txtReturn").val(data[0][4]);
-            $("#txtStatus").val(data[0][5]);
-            $("#txtRemark").val(data[0][6]);
+            $("#txtRemark").val(data[0][5]);
         },
         error: function (ex){
             console.log(ex.responseText);
@@ -114,7 +144,7 @@ $("#btnSave").click(function (){
             success: function (data){
                 alert(data);
                 displayData();
-                $("#Mymodal").modal('hide');
+                $("#myModal").modal('hide');
             },
             error: function (ex){
                 console.log(ex.responseText);
@@ -124,13 +154,13 @@ $("#btnSave").click(function (){
         //Update
         $.ajax({
             type: 'POST',
-            url: 'borrow_json.php?data=update_borrow&id=' + borrow_id,
+            url: 'borrow_json.php?data=update_borrow&id=' + id,
             data: form_data,
             dataType: 'json',
             success: function (data){
                 alert(data);
                 displayData();
-                $("#Mymodal").modal('hide');
+                $("#myModal").modal('hide');
             },
             error: function (ex){
                 console.log(ex.responseText);
@@ -155,5 +185,22 @@ function deleteData(id){
         });
     }
 }
+
+function statusReturn(id) {
+    if (confirm("Are you sure to return this transaction?")) {
+      $.ajax({
+        type: "GET",
+        url: "borrow_json.php?data=return_borrow&id=" + id,
+        dataType: "json",
+        success: function (data) {
+          alert(data);
+          displayData();
+        },
+        error: function (ex) {
+          console.log(ex.responseText);
+        },
+      });
+    }
+  }
 
 

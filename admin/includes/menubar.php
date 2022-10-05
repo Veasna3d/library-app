@@ -72,7 +72,6 @@
           <li><a href="book.php"><i class="fa fa-circle-o"></i> Book List</a></li>
           <li><a href="category.php"><i class="fa fa-circle-o"></i> Category</a></li>
           <li><a href="author.php"><i class="fa fa-circle-o"></i> Author List</a></li>
-          <li><a href="status.php"><i class="fa fa-circle-o"></i> Status</a></li>
         </ul>
       </li>
       <li class="treeview">
@@ -91,15 +90,14 @@
       <!-- Report -->
       <li class="treeview">
         <a href="#">
-          <i class="fa fa-graduation-cap"></i>
+          <i class="fa fa-file-text"></i>
           <span>Report</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="report.php"><i class="fa fa-circle-o"></i> Report</a></li>
-          <li><a href="a.php"><i class="fa fa-circle-o"></i> Report</a></li>
+          <li><a href="report.php"><i class="fa fa-server"></i> Report</a></li>
         </ul>
       </li>
     </ul>

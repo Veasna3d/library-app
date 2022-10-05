@@ -25,14 +25,29 @@
             <div class="col-md-12">
                 <div class="content-panel" style="padding-top: 10px;">
                     <div class="card">
-                        <div class="card-header">
-                            <button type="button" id="btnAdd" class="btn btn-primary" data-toggle="modal"
-                                data-target="#myModal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add
-                                New</button>
+                        <div class="card-header" style="display: flex; justify-content: start;">
+                            <div>
+                                <button type="button" id="btnAdd" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#myModal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add
+                                    New</button>
+                                <button type="button" id="btnAdd" class="btn btn-info">
+                                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> Export
+                                </button>
+
+                            </div>
+                            <div>
+                                <select id="filter" class="form-control" aria-label="Default select example">
+                                    <option selected>Filter by status</option>
+                                    <option value="1">Return</option>
+                                    <option value="2">Not Return</option>
+                                </select>
+                            </div>
+
                         </div>
                         <div class="card-body">
-                            <table data-ordering="false" id="table_id" class="table table-hover d-flex justify-content-between">
-                                <hr>
+                            <table data-ordering="false" id="table_id"
+                                class="table table-hover d-flex justify-content-between">
+
                                 <div class="modal" id="myModal">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -47,8 +62,8 @@
                                                 <form method="post" id="form">
                                                     <div class="form-group">
                                                         <label for="book" class="form-label">Book</label>
-                                                        <select class="form-control" name="txtBookId"
-                                                            id="txtBookId">
+                                                        <select class="form-control" name="txtBookId" id="txtBookId"
+                                                            required>
                                                             <option>--Choose---</option>
                                                         </select>
                                                     </div>
@@ -56,39 +71,34 @@
                                                     <div class="form-group">
                                                         <label for="category" class="form-label">Student</label>
                                                         <select class="form-control" name="txtStudentId"
-                                                            id="txtStudentId">
+                                                            id="txtStudentId" required>
                                                             <option>--Choose---</option>
                                                         </select>
                                                     </div>
 
                                                     <div class="form-group">
+
                                                         <label for="name" class="form-label">Borrow Date</label>
-                                                        <input type="date" name="txtBorrow" id="txtBorrow"
-                                                            class="form-control">
+                                                        <!-- <input type="date" name="txtBorrow" id="txtBorrow"
+                                                            class="form-control" /> -->
+                                                        <input type="text" class="form-control" name="txtBorrow"
+                                                            readonly="readonly" value="<?php echo date('m-d-Y');?>" />
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label for="name" class="form-label">Return Date</label>
                                                         <input type="date" name="txtReturn" id="txtReturn"
-                                                            class="form-control">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="status" class="form-label">Status</label>
-                                                        <select class="form-control" name="txtStatus"
-                                                            id="txtStatus">
-                                                            <option>--Choose---</option>
-                                                        </select>
+                                                            class="form-control" required>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label for="remark" class="form-label">Remark</label>
-                                                        <textarea class="form-control" id="txtRemark" name="txtRemark"></textarea>   
+                                                        <textarea class="form-control" id="txtRemark"
+                                                            name="txtRemark"></textarea>
                                                     </div>
 
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-success"
-                                                            id="btnSave">Save</button>
+                                                        <button class="btn btn-success" id="btnSave">Save</button>
                                                         <button type="button" class="btn btn-danger"
                                                             data-dismiss="modal">Close</button>
                                                     </div>

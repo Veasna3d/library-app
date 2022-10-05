@@ -76,7 +76,7 @@
         background: #ffffff;
         color: #000;
       }
-      /* .card-title{
+      .card-title{
         padding: 5px;
         background: #ffe3e3;
       }
@@ -85,6 +85,13 @@
       }
       #btnAdd{
         margin-left: 5px;
-      }  */
+        margin-top: 10px;
+        margin-bottom: 1rem;
+      } 
+      #filter{
+        margin-left: 5px;
+        margin-top: 10px;
+        margin-bottom: 1rem;
+      }
   	</style>
 </head>

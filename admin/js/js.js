@@ -6,7 +6,7 @@
             type:'GET',
             dataType : 'json',
             success:function(alldata){   
-              var columns = [{ title: "Id"},{ title: "Username"},{ title: "Password"}, { title: "Email"},{ title: "Image"},  { title: "User_type" }, { title: "User_ip" }, { title: "Verify_password" }, { title: "option"}];
+              var columns = [{ title: "ID"},{ title: "USERNAME"},{ title: "PASSWORD"}, { title: "EMAIL"},{ title: "IMAGE"},  { title: "USER TYPE" }, { title: "USER IP" }, { title: "VERIFY PASSWORD" }, { title: "option"}];
               var data = [];
               var option= '';
               for ( var i in alldata ) {

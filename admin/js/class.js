@@ -6,13 +6,13 @@ function displayData() {
         dataType: 'json',
         success: function(alldata) {
             var columns = [{
-                title: "Id"
+                title: "ID"
             }, {
-                title: "Class Name"
+                title: "CLASS NAME"
             },{
-                title: "Create_date"
+                title: "CREATE DATE"
             }, {
-                title: "Action"
+                title: "ACTION"
             }];
             var data = [];
             var option = '';
@@ -22,7 +22,7 @@ function displayData() {
                     alldata[i][0] +
                     ")'></i> | <i class='fa fa-trash' onclick='deleteData(" +
                     alldata[i][0] + ")'></i> ";
-                data.push([alldata[i][0],"<span class='badge bg-waring text-dark'>" +alldata[i][1]+"</span>",alldata[i][2], option]);
+                data.push([alldata[i][0],alldata[i][1],alldata[i][2], option]);
             }
             console.log(data);
             $('#table_id').DataTable({
@@ -53,6 +53,9 @@ $('#btnSave').click(function() {
             data: form_data,
             dataType: 'json',
             success: function(data) {
+                
+                    swal("Good job!", "You clicked the button!", "success");
+                  
                 alert(data);
                 displayData();
                 $('#myModal').modal('hide');
@@ -81,7 +84,7 @@ $('#btnSave').click(function() {
 });
 
 $('#btnAdd').click(function() {
-    $('#txtName').val();
+    $('#txtName').val("");
     $('#btnSave').text("Insert");
 });
 

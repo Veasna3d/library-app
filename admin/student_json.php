@@ -1,15 +1,17 @@
 <?php
+    error_reporting(0);
+
     require './config/db.php';
     if($_GET["data"] == "get_student"){
-        $sql = "SELECT * FROM tbl_student";
+        $sql = "SELECT * FROM vstudents";
         $result = $conn->prepare($sql);
         $result->execute();
         $student = [];
 
         while($row = $result->fetch(PDO::FETCH_ASSOC)){
             $student[] = array($row['id'], $row['studentId'], 
-            $row['studentName'],$row['photo'], 
-            $row['class_id'], $row['phone'], $row['email'], $row['create_date']);
+            $row['studentName'], $row['class_name'], $row['phone'],
+             $row['email'], $row['create_date']);
         }
         echo json_encode($student);
     }
@@ -45,22 +47,20 @@
 
 //--------------------------------------------------------------------------//
 
-    //add borrow
+    //add student
     if($_GET['data'] == 'add_student'){
-
+           
             $studentId = $_POST['txtStudentId'];
             $studentName = $_POST['txtStudentName'];
-            $stuImage = $_POST['stuImage'];
             $classId = $_POST['ddlClass'];
             $phone = $_POST['txtPhone'];
             $email = $_POST['txtEmail'];
 
-            $sql = "INSERT INTO tbl_student (studentId, studentName, photo, class_id, phone, email)
-             values (:studentId, :studentName, :photo, :class_id, :phone, :email);";
+            $sql = "INSERT INTO tbl_student (studentId, studentName, class_id, phone, email)
+             values (:studentId, :studentName, :class_id, :phone, :email);";
             $insert = $conn->prepare($sql);
             $insert->bindParam(':studentId', $studentId);
             $insert->bindParam(':studentName', $studentName);
-            $insert->bindParam(':photo', $stuImage);
             $insert->bindParam(':class_id', $classId);
             $insert->bindParam(':phone', $phone);
             $insert->bindParam(':email', $email);
@@ -70,17 +70,19 @@
             }else{
                 echo json_encode("Insert Faild");
             }
-        }
+          }
+            
 
     //get_byid
     if($_GET['data'] == 'get_byid'){
         $result = $conn->prepare("SELECT * FROM tbl_student WHERE id=:id");
         $result->bindParam(':id', $_GET['id']);
         $result->execute();
+
         if($row = $result->fetch(PDO::FETCH_ASSOC)){
             $student[] = array($row['id'], $row['studentId'], 
-            $row['studentName'], $row['photo'], 
-            $row['class_id'], $row['phone'], $row['email'], $row['create_date']);
+            $row['studentName'],$row['class_id'], $row['phone'],
+             $row['email'], $row['create_date']);
         }
         echo json_encode($student);
     }
@@ -91,18 +93,16 @@
             $id = $_GET['id'];
             $studentId = $_POST['txtStudentId'];
             $studentName = $_POST['txtStudentName'];
-            $stuImage = $_POST['stuImage'];
             $classId = $_POST['ddlClass'];
-            $phone = $_POST['phone'];
-            $email = $_POST['email'];
+            $phone = $_POST['txtPhone'];
+            $email = $_POST['txtEmail'];
 
-            $sql = "UPDATE tbl_student set studentId=:studentId, studentName=:studentName, photo=:photo, 
+            $sql = "UPDATE tbl_student set studentId=:studentId, studentName=:studentName,
                     class_id=:class_id, phone=:phone, email=:email where id=:id;";
             $update = $conn->prepare($sql);
 
             $update->bindParam(':studentId', $studentId);
             $update->bindParam(':studentName', $studentName);
-            $update->bindParam(':photo', $stuImage);
             $update->bindParam(':class_id', $classId);
             $update->bindParam(':phone', $phone);
             $update->bindParam(':email', $email);

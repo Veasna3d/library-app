@@ -24,12 +24,30 @@
             <div class="col-md-12">
                 <div class="content-panel" style="padding-top: 10px;">
                     <div class="card">
-                        <div class="card-header">
-                            <button type="button" id="btnAdd" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#Mymodal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add New</button>
+                        <div class="card-header" style="display: flex; justify-content: start;">
+                            <div>
+                                <button type="button" id="btnAdd" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#Mymodal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add
+                                    New</button>
+                                <button type="button" id="btnAdd" class="btn btn-success">
+                                    <i class="fa fa-download" aria-hidden="true"></i> Import
+                                </button>
+                                <button type="button" id="btnAdd" class="btn btn-info">
+                                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> Export
+                                </button>
+                            </div>
+                            <div>
+                                <select id="filter" class="form-control" aria-label="Default select example">
+                                    <option selected>Filter by status</option>
+                                    <option value="1">Available</option>
+                                    <option value="2">Unavailable</option>
+                                </select>
+                            </div>
+
                         </div>
                         <div class="card-body">
-                            <table id="table_id" class="table table-hover d-flex justify-content-between">
+                            <table data-ordering="false" id="table_id"
+                                class="table table-hover d-flex justify-content-between">
                                 <div class="modal" id="Mymodal">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -63,13 +81,6 @@
                                                         </select>
                                                     </div>
 
-                                                    <div class="form-group">
-                                                        <label for="status">Status</label>
-                                                        <select class="form-control" name="txtStatus" id="txtStatus">
-                                                            <option>Status </option>
-                                                        </select>
-                                                    </div>
-
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-success"
                                                             id="btnSave">Save</button>
@@ -98,4 +109,5 @@
         <script type="text/javascript" src="js\jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js\dataTables.bootstrap4.min.js"></script>
         <script type="text/javascript" src="js\book.js"></script>
+
 </body>

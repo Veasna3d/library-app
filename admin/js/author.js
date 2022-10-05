@@ -1,28 +1,28 @@
 
-function displayData(){
+function displayData() {
     $.ajax({
         url: 'author_json.php?data=get_author',
         type: 'GET',
         dataType: 'json',
-        success: function(alldata){
-            var columns = [
-            {
-                title: "Id"
+        success: function(alldata) {
+            var columns = [{
+                title: "ID"
             }, {
-                title: "Author Name"
+                title: "AUTHOR NAME"
             },{
-                title: "Create_date"
+                title: "CREATE DATE"
             }, {
-                title: "Action"}
-         ];
+                title: "ACTION"
+            }];
             var data = [];
             var option = '';
             for (var i in alldata) {
-                option = "<i class='fa fa-pencil-square-o' data-toggle='modal' data-target='#myModal' onclick='editData(" +
+                option =
+                    "<i class='fa fa-pencil-square-o' data-toggle='modal' data-target='#myModal' onclick='editData(" +
                     alldata[i][0] +
                     ")'></i> | <i class='fa fa-trash' onclick='deleteData(" +
                     alldata[i][0] + ")'></i> ";
-                data.push([alldata[i][0], alldata[i][1],alldata[i][2], option]);
+                data.push([alldata[i][0],alldata[i][1],alldata[i][2], option]);
             }
             console.log(data);
             $('#table_id').DataTable({
@@ -81,7 +81,7 @@ $('#btnSave').click(function() {
 });
 
 $('#btnAdd').click(function() {
-    $('#txtName').val();
+    $('#txtName').val("");
     $('#btnSave').text("Insert");
 });
 

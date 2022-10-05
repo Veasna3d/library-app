@@ -29,10 +29,16 @@
                             <button type="button" id="btnAdd" class="btn btn-primary" data-toggle="modal"
                                 data-target="#myModal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add
                                 New</button>
+                                <button type="button" class="btn btn-success">
+                                    <i class="fa fa-download" aria-hidden="true"></i> Import
+                                </button>
+                                <button type="button" class="btn btn-info">
+                                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> Export
+                                </button>
                         </div>
                         <div class="card-body">
                             <table data-ordering="false" id="table_id" class="table table-hover d-flex justify-content-between">
-                                <hr>
+                                
                                 <div class="modal" id="myModal">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -55,12 +61,6 @@
                                                     <div class="form-group">
                                                         <label for="fullname" class="form-label">Student Name</label>
                                                         <input type="text" name="txtStudentName" id="txtStudentName"
-                                                            class="form-control">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="image" class="form-label">Image</label>
-                                                        <input type="file" name="stuImage" id="stuImage"
                                                             class="form-control">
                                                     </div>
 

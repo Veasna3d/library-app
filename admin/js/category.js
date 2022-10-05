@@ -6,14 +6,14 @@ function displayData() {
         dataType: 'json',
         success: function(alldata) {
             var columns = [{
-                title: "Id"
+                title: "ID"
             }, {
-                title: "Category Name"
+                title: "CATEGORY NAME"
             },{
-                title: "Create_date"
+                title: "CREATE DATE"
 
             }, {
-                title: "Action"
+                title: "ACTION"
             }];
             var data = [];
             var option = '';
@@ -82,7 +82,7 @@ $('#btnSave').click(function() {
 });
 
 $('#btnAdd').click(function() {
-    $('#txtName').val();
+    $('#txtName').val("");
     $('#btnSave').text("Insert");
 });
 

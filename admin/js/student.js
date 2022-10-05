@@ -6,24 +6,23 @@ function displayData(){
         dataType: 'json',
         success: function (alldata){
             var columns = [
-                {title: 'Id'},
-                {title: 'Student ID'},
-                {title: 'Student Name'},
-                {title: 'Image'},
-                {title: 'Class'},
-                {title: 'Phone'},
-                {title: 'Email'},
-                {title: 'Create Date'},
-                {title: 'Action'}
+                {title: 'ID'},
+                {title: 'STUDENT ID'},
+                {title: 'STUDENT NAME'},
+                {title: 'CLASS'},
+                {title: 'PHONE'},
+                {title: 'EMAIL'},
+                {title: 'CREATE DATE'},
+                {title: 'ACTION'}
             ];
             var data = [];
             var option = '';
             for(var i in alldata){
-                option = "<i class='fa fa-pencil-square-o' data-toggle='modal' data-target='#Mymodal' onclick='editData(" +
+                option = "<i class='fa fa-pencil-square-o' data-toggle='modal' data-target='#myModal' onclick='editData(" +
                 alldata[i][0] +
                 ")'></i> | <i class='fa fa-trash' onclick='deleteData(" +
                 alldata[i][0] + ")'></i> ";
-                data.push([alldata[i][0], alldata[i][1], alldata[i][2], alldata[i][3], alldata[i][4], alldata[i][5], alldata[i][6], alldata[i][7], option]);
+                data.push([alldata[i][0], alldata[i][1], alldata[i][2], alldata[i][3], alldata[i][4], alldata[i][5], alldata[i][6], option]);
             }
             console.log(data);
             $('#table_id').DataTable({
@@ -69,7 +68,6 @@ $('#btnAdd').click(function (){
 
     $("#txtStudentId").val("");
     $("#txtStudentName").val("");
-    $("#stuImage").val("");
     $("#ddlClass").val("");
     $("#txtPhone").val("");
     $("#txtEmail").val("");
@@ -83,17 +81,16 @@ function editData(id){
     student_id = id;
 
     $.ajax({
-        url: 'class_json.php?data=get_byid',
+        url: 'student_json.php?data=get_byid',
         data: '&id=' + id,
         type: 'GET',
         dataType: 'json',
         success: function (data){
             $("#txtStudentId").val(data[0][1]);
             $("#txtStudentName").val(data[0][2]);
-            $("#stuImage").val(data[0][3]);
-            $("#ddlClass").val(data[0][4]);
-            $("#txtPhone").val(data[0][5]);
-            $("#txtEmail").val(data[0][6]);
+            $("#ddlClass").val(data[0][3]);
+            $("#txtPhone").val(data[0][4]);
+            $("#txtEmail").val(data[0][5]);
         },
         error: function (ex){
             console.log(ex.responseText);
@@ -113,7 +110,7 @@ $("#btnSave").click(function (){
             success: function (data){
                 alert(data);
                 displayData();
-                $("#Mymodal").modal('hide');
+                $("#myModal").modal('hide');
             },
             error: function (ex){
                 console.log(ex.responseText);
@@ -129,7 +126,7 @@ $("#btnSave").click(function (){
             success: function (data){
                 alert(data);
                 displayData();
-                $("#Mymodal").modal('hide');
+                $("#myModal").modal('hide');
             },
             error: function (ex){
                 console.log(ex.responseText);

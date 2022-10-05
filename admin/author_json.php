@@ -28,11 +28,13 @@
 
     //2- get_byid
     if($_GET['data'] == 'get_byid'){
-        $result = $conn->prepare("select * from tbl_author where id=:id");
+        $result = $conn->prepare("SELECT * from tbl_author where id=:id");
         $result->bindParam(':id', $_GET['id']);
         $result->execute();
+        $author = [];
+        
         if($row = $result->fetch(PDO::FETCH_ASSOC)){
-            $category[] = array($row['id'], $row['author_name'],$row['create_date']);
+            $author[] = array($row['id'], $row['author_name'],$row['create_date']);
         }
         echo json_encode($author);
     }
@@ -40,14 +42,10 @@
     //3-Update
     if($_GET['data'] == 'update_author'){
 
-        if(empty($_POST['txtName'])){
-            echo json_encode("Please cheack the empty field!");
-        }else{
-
             $id = $_GET['id'];
             $name = $_POST['txtName'];
 
-            $sql = "Update tbl_author set author_name=:author_name where id=:id;";
+            $sql = "UPDATE tbl_author set author_name=:author_name where id=:id;";
             $update = $conn->prepare($sql);
 
             $update->bindParam(':author_name', $name);
@@ -58,7 +56,6 @@
                 echo json_encode("Update Faild");
             }
         }    
-    }
 
     //4- Delete
     if($_GET['data'] == 'delete_author'){
