@@ -1,12 +1,18 @@
 
-    	//displayData Function
+//displayData Function
       function displayData(){
         $.ajax({
             url: 'user_json.php?data=get_user',
             type:'GET',
             dataType : 'json',
             success:function(alldata){   
-              var columns = [{ title: "ID"},{ title: "USERNAME"},{ title: "PASSWORD"}, { title: "EMAIL"},{ title: "IMAGE"},  { title: "USER TYPE" }, { title: "USER IP" }, { title: "VERIFY PASSWORD" }, { title: "option"}];
+              var columns = [{ title: "Id"},
+              { title: "Username"},
+              { title: "Password"}, 
+              { title: "Email"}, 
+              { title: "User_type" }, 
+              { title: "Verify_password" }, 
+              { title: "option"}];
               var data = [];
               var option= '';
               for ( var i in alldata ) {
@@ -14,7 +20,7 @@
                 alldata[i][0] +
                 ")'></i> | <i class='fa fa-trash' onclick='deleteData(" +
                 alldata[i][0] + ")'></i> ";
-                data.push([alldata[i][0], alldata[i][1],alldata[i][2],alldata[i][3],alldata[i][4], alldata[i][5], alldata[i][6], alldata[i][7],  option]);
+                data.push([alldata[i][0], alldata[i][1],alldata[i][2],alldata[i][3],alldata[i][4], alldata[i][5],  option]);
               }
               console.log(data);
               $('#table_id').DataTable({
@@ -32,8 +38,19 @@
 $(document).ready(function(){
   displayData();
 });
+
       /* save button */
 $('#btnSave').click(function(){
+      var name = $('#txtname');
+      var pass = $('#txtpass');
+      var email = $('#txtemail');
+      var type = $('#txtutype');
+      var verify = $('#txtverify');
+      if(name.val()==''){name.focus(); return;}
+      if(pass.val()==''){pass.focus(); return;}
+      if(email.val()==''){email.focus(); return;}
+      if(type.val()==''){type.focus();return;}
+      if(verify.val()==''){verify.focus();return;}
       var form_data = $('#form').serialize();
       if($('#btnSave').text()=="Insert"){
           //Insert
@@ -42,8 +59,12 @@ $('#btnSave').click(function(){
               url: 'user_json.php?data=add_user',
               data: form_data,
               dataType: 'json',
+              beforeSend:function(){
+     
+              },
               success: function (data){
-                  alert(data);
+                  // alert(data);
+                  toastr.success("Success message!").css("margin-top", "94px");
                   displayData();
                   $('#myModal').modal('hide');
               },
@@ -53,14 +74,14 @@ $('#btnSave').click(function(){
           });
       }else{
           //Update
-          alert("yes");
           $.ajax({
               type: 'POST',
-              url: 'user_json.php?data=update_user&Id='+ user_id,
+              url: 'user_json.php?data=update_user&id='+ user_id,
               data: form_data,
               dataType: 'json',
               success: function (data){
-                  alert(data);
+                  // alert(data);
+                  toastr.success("Update Success!").css("margin-top", "94px");
                   displayData();
                   $('#myModal').modal('hide');
               },
@@ -74,32 +95,28 @@ $('#btnSave').click(function(){
         //Add botton 
         $('#btnadd').click(function(){
           $('#txtname').val("");
-          $('#txtpass').val("");	
-          $('#txtemail').val("");	
-          $('#txtimg').val("");	
-          $('#txtutype').val("");	
-          $('#txtuip').val("");	
-          $('#txtverify').val("");	
-          $('#btnSave').text("Insert");	
+          $('#txtpass').val("");  
+          $('#txtemail').val(""); 
+          $('#txtutype').val(""); 
+          $('#txtverify').val("");  
+          $('#btnSave').text("Insert"); 
         });
 
         var user_id;
-        function editData(Id){
+        function editData(id){
           $('#btnSave').text("update")
-          user_id = Id;
+          user_id = id;
           $.ajax({
             url: 'user_json.php?data=get_byid',
-            data: '&Id=' + Id,
+            data: '&id=' + id,
             type:'GET',
             dataType : 'json',
             success:function(data){   
               $('#txtname').val(data[0][1]);
               $('#txtpass').val(data[0][2]);
               $('#txtemail').val(data[0][3]);
-              $('#tximg').val(data[0][4]);
-              $('#txtutype').val(data[0][5]);
-              $('#txtuip').val(data[0][6]);
-              $('#txtverify').val(data[0][7]);
+              $('#txtutype').val(data[0][4]);
+              $('#txtverify').val(data[0][5]);
             },
             error: function (ex){
               console.log(ex.responseText);
@@ -107,12 +124,12 @@ $('#btnSave').click(function(){
           });//ajax
         }
 
-        function deleteData(Id){
+        function deleteData(id){
           //confirm delate
           if (confirm('Are you sure?')) {
             $.ajax({
             type:'GET',
-            url: 'user_json.php?data=delete_user&Id=' + Id,	
+            url: 'user_json.php?data=delete_user&id=' + id, 
             dataType : 'json',
             success:function(data){   
               alert(data);
@@ -125,7 +142,4 @@ $('#btnSave').click(function(){
           }
       }
 
-
-
-       
-
+ 

@@ -33,9 +33,13 @@
       <ul class="nav navbar-nav">
         <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
-       
-          <ul class="dropdown-menu">
-            <!-- User image -->
+    
+                    <li><a id="logout" class="logout" href="logout.php"><i class="fa fa-sign-out"aria-hidden="true"></i> Logout</a>
+                    </li>
+          
+
+          <!-- <ul class="dropdown-menu">
+            
             <li class="user-header">
               <img src="<?php echo (!empty($user['photo'])) ? '../images/'.$user['photo'] : '../images/profile.jpg'; ?>" class="img-circle" alt="User Image">
 
@@ -52,7 +56,7 @@
                 <a href="logout.php" class="btn btn-default btn-flat">Sign out</a>
               </div>
             </li>
-          </ul>
+          </ul> -->
         </li>
       </ul>
     </div>

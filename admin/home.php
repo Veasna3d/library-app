@@ -1,12 +1,11 @@
-
-<?php 
-  include 'includes/timezone.php'; 
-  $today = date('Y-m-d');
-  $year = date('Y');
-  if(isset($_GET['year'])){
-    $year = $_GET['year'];
-  }
-?>
+<?php  
+  session_start();
+  include('config/db.php');
+ 
+  if( !isset($_SESSION["username"])){
+      header('Location: http://localhost/libSystem/');
+  }  
+ ?>
 <?php include 'includes/header.php'; ?>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">

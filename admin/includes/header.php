@@ -12,6 +12,9 @@
   	<link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
   	<!-- Theme style -->
   	<link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
+
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="../dist/css/toastr.min.css">
   	<!-- DataTables -->
     <!-- <link rel="stylesheet" href="../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
