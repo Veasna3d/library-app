@@ -13,6 +13,7 @@
     }
     //1-add
     if($_GET['data'] == 'add_author'){
+        
             $name = $_POST['txtName'];
 
             $sql = "Insert into tbl_author (author_name) values (:author_name);";
@@ -59,6 +60,7 @@
 
     //4- Delete
     if($_GET['data'] == 'delete_author'){
+
         $id = $_GET['id'];
         $delete = $conn->prepare("DELETE FROM tbl_author WHERE id=:id;");
         $delete->bindParam(':id', $id);

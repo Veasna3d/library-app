@@ -120,6 +120,22 @@ function editData(id) {
 }
 
 $("#btnSave").click(function () {
+  var title = $("#txtTitle");
+    var categoryId = $("#txtCategoryId");
+    var authorId =  $("#txtAuthor");
+    if(title.val() == "" && categoryId.val() == "" && authorId.val() == ""){
+        title.focus();
+        return  toastr.warning("Field Require!").css("margin-top", "2rem");
+    }else if(title.val() == ""){
+        title.focus();
+        return  toastr.warning("Book Title Require!").css("margin-top", "2rem");
+    }else if(categoryId.val() == ""){
+        categoryId.focus();
+        return  toastr.warning("Category Require!").css("margin-top", "2rem");
+    }else if(authorId.val() == ""){
+        authorId.focus();
+        return  toastr.warning("Author Require!").css("margin-top", "2rem");
+    }
   var form_data = $("#form").serialize();
   if ($("#btnSave").text() == "Insert") {
     //Insert
@@ -129,11 +145,13 @@ $("#btnSave").click(function () {
       data: form_data,
       dataType: "json",
       success: function (data) {
-        alert(data);
+        toastr.success("Action completed").css("margin-top", "2rem");
+        // alert(data);
         displayData();
         $("#Mymodal").modal("hide");
       },
       error: function (ex) {
+        toastr.error("Action incomplete").css("margin-top", "2rem");
         console.log(ex.responseText);
       },
     });
@@ -145,11 +163,13 @@ $("#btnSave").click(function () {
       data: form_data,
       dataType: "json",
       success: function (data) {
-        alert(data);
+        toastr.success("Action completed").css("margin-top", "2rem");
+        // alert(data);
         displayData();
         $("#Mymodal").modal("hide");
       },
       error: function (ex) {
+        toastr.error("Action incomplete").css("margin-top", "2rem");
         console.log(ex.responseText);
       },
     });
@@ -163,10 +183,12 @@ function deleteData(id) {
       url: "book_json.php?data=delete_book&id=" + id,
       dataType: "json",
       success: function (data) {
-        alert(data);
+        toastr.success("Action completed").css("margin-top", "2rem");
+        // alert(data);
         displayData();
       },
       error: function (ex) {
+        toastr.error("Action incomplete").css("margin-top", "2rem");
         console.log(ex.responseText);
       },
     });
@@ -181,10 +203,12 @@ function getStatus(id) {
       url: "book_json.php?data=get_status&id=" + id,
       dataType: "json",
       success: function (data) {
-        alert(data);
+        // alert(data);
+        toastr.success("Action completed").css("margin-top", "2rem");
         displayData();
       },
       error: function (ex) {
+        toastr.error("Action incomplete").css("margin-top", "2rem");
         console.log(ex.responseText);
       },
     });
@@ -199,24 +223,26 @@ function refuseStatus(id) {
       url: "book_json.php?data=refuse_status&id=" + id,
       dataType: "json",
       success: function (data) {
-        alert(data);
+        // alert(data);
+        toastr.success("Action completed").css("margin-top", "2rem");
         displayData();
       },
       error: function (ex) {
+        toastr.error("Action incomplete").css("margin-top", "2rem");
         console.log(ex.responseText);
       },
     });
   }
 }
 
-  // $("#btnStatus").bind("click", function get_status(id) {
+  // $("#btnAv").bind("click", function get_status(id) {
   //   if (confirm("This book is unavailable in the library !")) {
   //     $.ajax({
   //       type: "GET",
   //       url: "book_json.php?data=get_status&id=" + id,
   //       dataType: "json",
   //       success: function (data) {
-  //         alert(data);
+          // alert(data);
   //         displayData();
   //       },
   //       error: function (ex) {
@@ -225,14 +251,14 @@ function refuseStatus(id) {
   //     });
   //   }
   // });
-  // $("#btnStatus").bind("dblclick", function status(id) {
+  // $("#btnUn").bind("dblclick", function status(id) {
   //   if (confirm("This book is available in the library !")) {
   //     $.ajax({
   //       type: "GET",
   //       url: "book_json.php?data=refuse_status&id=" + id,
   //       dataType: "json",
   //       success: function (data) {
-  //         alert(data);
+          // alert(data);
   //         displayData();
   //       },
   //       error: function (ex) {
@@ -241,3 +267,43 @@ function refuseStatus(id) {
   //     });
   //   }
   // });
+  $(document).ready(function(){  
+    $('#upload_csv_form').on("submit", function(e){  
+         e.preventDefault(); //form will not submitted  
+         $.ajax({  
+              url:"importBook.php",  
+              method:"POST",  
+              data:new FormData(this),  
+              contentType:false,          // The content type used when sending data to the server.  
+              cache:false,                // To unable request pages to be cached  
+              processData:false,          // To send DOMDocument or non processed data file it is set to false  
+              success: function(data){  
+                   if(data=='Error1')  
+                   {  
+                    toastr.warning("Invalid File").css("margin-top", "2rem");
+                        // alert("Invalid File");  
+                   }  
+                   else if(data == "Error2")  
+                   {  
+                    toastr.warning("Please Select File").css("margin-top", "2rem");
+                        // alert("Please Select File");  
+                   }                           
+                   else if(data == "Success")  
+                   {  
+                    toastr.success("CSV file data has been imported").css("margin-top", "2rem");
+                      // alert("CSV file data has been imported");  
+                      $('#upload_csv_form')[0].reset();
+                      alert(data);
+                      $("#myImport").modal("hide");
+                      displayData();
+                     
+                      //  $('#table_id').html(data); 
+                   }  
+                   else  
+                   {  
+                       // $('#employee_table').html(data);  
+                   }  
+              }  
+         })  
+    });  
+});

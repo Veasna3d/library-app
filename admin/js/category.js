@@ -45,6 +45,11 @@ $(document).ready(function() {
 
 //btnSave
 $('#btnSave').click(function() {
+    var categoryName = $('#txtName');
+    if(categoryName.val() == ""){
+        categoryName.focus();
+        return  toastr.warning("Field Require!").css("margin-top", "2rem");
+    }
     var form_data = $('#form').serialize();
     if ($('#btnSave').text() == "Insert") {
         //Insert
@@ -54,11 +59,13 @@ $('#btnSave').click(function() {
             data: form_data,
             dataType: 'json',
             success: function(data) {
-                alert(data);
+                toastr.success("Action completed").css("margin-top", "2rem");
+                // alert(data);
                 displayData();
                 $('#myModal').modal('hide');
             },
             error: function(ex) {
+                toastr.error("Action incomplete").css("margin-top", "2rem");
                 console.log(ex.responseText);
             }
         });
@@ -70,11 +77,13 @@ $('#btnSave').click(function() {
             data: form_data,
             dataType: 'json',
             success: function(data) {
-                alert(data);
+                toastr.success("Action completed").css("margin-top", "2rem");
+                // alert(data);
                 displayData();
                 $('#myModal').modal('hide');
             },
             error: function(ex) {
+                toastr.error("Action incomplete").css("margin-top", "2rem");
                 console.log(ex.responseText);
             }
         });
@@ -112,10 +121,12 @@ function deleteData(id) {
             url: 'category_json.php?data=delete_category&id=' + id,
             dataType: 'json',
             success: function(data) {
-                alert(data);
+                // alert(data);
+                toastr.success("Action completed").css("margin-top", "2rem");
                 displayData();
             },
             error: function(ex) {
+                toastr.error("Action incomplete").css("margin-top", "2rem");
                 console.log(ex.responseText);
             }
         });

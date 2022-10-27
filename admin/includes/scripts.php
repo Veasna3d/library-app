@@ -27,6 +27,9 @@
 <script src="../bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
+<!-- Toast Alert -->
+<script src="js/toastr.min.js"></script>
+<!-- <script src="js/cute-alert.js"></script> -->
 <!-- Active Script -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>

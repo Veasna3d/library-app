@@ -29,12 +29,13 @@
                                 <button type="button" id="btnAdd" class="btn btn-primary" data-toggle="modal"
                                     data-target="#Mymodal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add
                                     New</button>
-                                <button type="button" id="btnAdd" class="btn btn-success">
+                                <button type="button" data-toggle="modal" data-target="#myImport" id="btnAdd"
+                                    class="btn btn-success">
                                     <i class="fa fa-download" aria-hidden="true"></i> Import
                                 </button>
-                                <button type="button" id="btnAdd" class="btn btn-info">
+                                <a href="exportBook.php" id="btnAdd" class="btn btn-info">
                                     <i class="fa fa-file-excel-o" aria-hidden="true"></i> Export
-                                </button>
+                                </a>
                             </div>
                             <div>
                                 <select id="filter" class="form-control" aria-label="Default select example">
@@ -48,6 +49,7 @@
                         <div class="card-body">
                             <table data-ordering="false" id="table_id"
                                 class="table table-hover d-flex justify-content-between">
+<!--Add Modal-->
                                 <div class="modal" id="Mymodal">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -92,6 +94,37 @@
                                         </div>
                                     </div>
                                 </div>
+<!--Import Modal-->
+                                <div class="modal" id="myImport">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Import</h4>
+                                                <button type="button" class="close" data-dismiss="modal"><i
+                                                        class="fas fa-closes"></i></button>
+                                            </div>
+
+                                            <div class="modal-body">
+
+                                                <form method="POST" action="importBook.php"
+                                                    enctype="multipart/form-data" id="upload_csv_form">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Choose file</label>
+                                                        <input type="file" name="file" class="form-control">
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="submit" name="submit"
+                                                            class="btn btn-success">Upload</button>
+                                                        <button type="button" class="btn btn-danger"
+                                                            data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </table>
 
                         </div>
@@ -109,5 +142,6 @@
         <script type="text/javascript" src="js\jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js\dataTables.bootstrap4.min.js"></script>
         <script type="text/javascript" src="js\book.js"></script>
+        <script src="js/toastr.min.js"></script>
 
 </body>

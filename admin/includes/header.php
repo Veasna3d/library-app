@@ -38,6 +38,10 @@
   	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
   	<style type="text/css">
+       @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Khmer:wght@100;300;400;700&display=swap');
+  		*{
+        font-family: 'Noto Sans Khmer', sans-serif;
+      }
   		.mt20{
   			margin-top:20px;
   		}

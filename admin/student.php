@@ -29,18 +29,12 @@
                             <button type="button" id="btnAdd" class="btn btn-primary" data-toggle="modal"
                                 data-target="#myModal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add
                                 New</button>
-                                <a href="javascript:void(0);" class="btn btn-success" onclick="formToggle('importFrm');"><i class="plus"></i> Import</a>
-                                <a href="exportData.php" class="btn btn-primary"> <i class="fa fa-file-excel-o" aria-hidden="true"></i> Export</a>
-        
-                                    <form action="importData.php" method="post" enctype="multipart/form-data" id="upload_csv_form">
-                                        <div class="form-group">
-                                        <label for="exampleFormControlFile1">Please Select File</label>
-                                        <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
-                                        </div>
-                                        <div class="form-group">
-                                        <input type="submit" name="submit" value="submit" class="btn btn-primary">
-                                    </div>
-                                </form>
+                                <button type="button" data-toggle="modal" data-target="#myImport" id="btnAdd"
+                                    class="btn btn-success">
+                                    <i class="fa fa-download" aria-hidden="true"></i> Import
+                                </button>
+                                <a href="exportData.php" id="btnAdd" class="btn btn-primary"> <i class="fa fa-file-excel-o" aria-hidden="true"></i> Export</a>
+
                                     
                                 <!-- <div class="col-md-12" id="importFrm" style="display: none;">
                                     <form action="importData.php" method="post" enctype="multipart/form-data">
@@ -99,6 +93,37 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-success"
                                                             id="btnSave">Save</button>
+                                                        <button type="button" class="btn btn-danger"
+                                                            data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal" id="myImport">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Import</h4>
+                                                <button type="button" class="close" data-dismiss="modal"><i
+                                                        class="fas fa-closes"></i></button>
+                                            </div>
+
+                                            <div class="modal-body">
+
+                                                <form method="POST" action="importBook.php"
+                                                    enctype="multipart/form-data" id="upload_csv_form">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Choose file</label>
+                                                        <input type="file" name="file" class="form-control">
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="submit" name="submit"
+                                                            class="btn btn-success">Upload</button>
                                                         <button type="button" class="btn btn-danger"
                                                             data-dismiss="modal">Close</button>
                                                     </div>

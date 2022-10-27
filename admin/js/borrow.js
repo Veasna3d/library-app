@@ -203,4 +203,94 @@ function statusReturn(id) {
     }
   }
 
+  //filter
+//   $(document).ready(function(){
+//     $.ajax({
+//         url:'filterBorrow.php?filter=all',
+//         type:'GET',
+//         dataType: 'json',
+//         success: function (alldata){
+//             var columns = $('#table_id');
+//             columns.html('');
+//             columns = [
+//                 { title: "ID" },
+//                 { title: "BOOK TITLE" },
+//                 { title: "STUDENT NAME" },
+//                 { title: "BORROW DATE" },
+//                 { title: "RETURN DATE" },
+//                 { title: "STATUS" },
+//                 { title: "REMARK" },
+//                 { title: "CREATE DATE" },
+//                 { title: "ACTION" }
+//             ];
+//             var data = [];
+//             var option = '';
+//             for(var i in alldata){
+//                 option =
+//             "<i style='cursor: pointer;' class='fa fa-pencil-square-o' data-toggle='modal' data-target='#myModal' onclick='editData(" +
+//             alldata[i][0] +
+//             ")'></i> | <i style='cursor: pointer;' class='fa fa-trash' onclick='deleteData(" +
+//             alldata[i][0] +
+//             ")'></i> | <i style='cursor: pointer;' class='fa fa-retweet' onclick='statusReturn(" +
+//             alldata[i][0] +
+//             ")'></i> ";
+//                 data.push([alldata[i][0], alldata[i][1], alldata[i][2], alldata[i][3], alldata[i][4], alldata[i][5], alldata[i][6], alldata[i][7], option]);
+//             }
+//             console.log(data);
+//             $('#table_id').DataTable({
+//                 destroy: true,
+//                 data: data,
+//                 columns: columns
+//             });
+//         },
+//         error: function (e){
+//             console.log(e.responseText);
+//         }
+//     })
+//     $('#filter').on('change',function(){
+//         var filter = $(this).val();
+//         $.ajax({
+//         url:'filterBorrow.php?filter='+filter,
+//         type:'GET',
+//         dataType: 'json',
+//         success: function (alldata){
+//             var columns = $('#table_id');
+//             columns.html('');
+//              columns = [
+//                 { title: "ID" },
+//                 { title: "BOOK TITLE" },
+//                 { title: "STUDENT NAME" },
+//                 { title: "BORROW DATE" },
+//                 { title: "RETURN DATE" },
+//                 { title: "STATUS" },
+//                 { title: "REMARK" },
+//                 { title: "CREATE DATE" },
+//                 { title: "ACTION" }
+//             ];
+//             var data = [];
+//             var option = '';
+//             for(var i in alldata){
+//                 option =
+//             "<i style='cursor: pointer;' class='fa fa-pencil-square-o' data-toggle='modal' data-target='#myModal' onclick='editData(" +
+//             alldata[i][0] +
+//             ")'></i> | <i style='cursor: pointer;' class='fa fa-trash' onclick='deleteData(" +
+//             alldata[i][0] +
+//             ")'></i> | <i style='cursor: pointer;' class='fa fa-retweet' onclick='statusReturn(" +
+//             alldata[i][0] +
+//             ")'></i> ";
+//                 data.push([alldata[i][0], alldata[i][1], alldata[i][2], alldata[i][3], alldata[i][4], alldata[i][5], alldata[i][6], alldata[i][7], option]);
+//             }
+//             console.log(data);
+//             $('#table_id').DataTable({
+//                 destroy: true,
+//                 data: data,
+//                 columns: columns
+//             });
+//         },
+//         error: function (e){
+//             console.log(e.responseText);
+//         }
+//     })
+//     })
+// })
 

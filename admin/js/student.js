@@ -99,6 +99,22 @@ function editData(id){
 }
 
 $("#btnSave").click(function (){
+    var studentId = $("#txtStudentId");
+    var studentName = $("#txtStudentName");
+    var classes =  $("#ddlClass");
+    if(studentId.val() == "" && studentName.val() == "" && classes.val() == ""){
+        studentId.focus();
+        return  toastr.warning("Field Require!").css("margin-top", "2rem");
+    }else if(studentId.val() == ""){
+        studentId.focus();
+        return  toastr.warning("Student ID Require!").css("margin-top", "2rem");
+    }else if(studentName.val() == ""){
+        studentName.focus();
+        return  toastr.warning("Student Name Require!").css("margin-top", "2rem");
+    }else if(classes.val() == ""){
+        classes.focus();
+        return  toastr.warning("Class Require!").css("margin-top", "2rem");
+    }
     var form_data = $("#form").serialize();
     if($("#btnSave").text() == "Insert"){
         //Insert
@@ -108,11 +124,13 @@ $("#btnSave").click(function (){
             data: form_data,
             dataType: 'json',
             success: function (data){
-                alert(data);
+                toastr.success("Action completed").css("margin-top", "2rem");
+                // alert(data);
                 displayData();
                 $("#myModal").modal('hide');
             },
             error: function (ex){
+                toastr.error("Action incomplete").css("margin-top", "2rem");
                 console.log(ex.responseText);
             }
         });
@@ -124,11 +142,13 @@ $("#btnSave").click(function (){
             data: form_data,
             dataType: 'json',
             success: function (data){
-                alert(data);
+                // alert(data);
+                toastr.success("Action completed").css("margin-top", "2rem");
                 displayData();
                 $("#myModal").modal('hide');
             },
             error: function (ex){
+                toastr.error("Action incomplete").css("margin-top", "2rem");
                 console.log(ex.responseText);
             }
         });
@@ -142,10 +162,12 @@ function deleteData(id){
             url: 'student_json.php?data=delete_student&id=' + id,
             dataType: 'json',
             success: function (data){
-                alert(data);
+                // alert(data);
+                toastr.success("Action completed").css("margin-top", "2rem");
                 displayData();
             },
             error: function (ex){
+                toastr.error("Action incomplete").css("margin-top", "2rem");
                 console.log(ex.responseText);
             }
         });
@@ -166,17 +188,20 @@ $(document).ready(function(){
               success: function(data){  
                    if(data=='Error1')  
                    {  
-                        alert("Invalid File");  
+                    toastr.warning("Invalid File").css("margin-top", "2rem");
                    }  
                    else if(data == "Error2")  
                    {  
-                        alert("Please Select File");  
+                    toastr.warning("Please Select File").css("margin-top", "2rem");
                    }                           
                    else if(data == "Success")  
                    {  
+                    
+                    toastr.success("CSV file data has been imported").css("margin-top", "2rem");
                       alert("CSV file data has been imported");  
                       $('#upload_csv_form')[0].reset();
-                      // alert(data);
+                    //   alert(data);
+                      $("#myImport").modal("hide");
                       displayData();
                       //  $('#table_id').html(data); 
                    }  

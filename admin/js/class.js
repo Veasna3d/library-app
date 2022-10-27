@@ -44,6 +44,11 @@ $(document).ready(function() {
 
 //btnSave
 $('#btnSave').click(function() {
+    var author = $('#txtName');
+    if(author.val() == ""){
+        author.focus();
+        return  toastr.warning("Field Require!").css("margin-top", "2rem");
+    }
     var form_data = $('#form').serialize();
     if ($('#btnSave').text() == "Insert") {
         //Insert
@@ -53,14 +58,14 @@ $('#btnSave').click(function() {
             data: form_data,
             dataType: 'json',
             success: function(data) {
-                
-                    swal("Good job!", "You clicked the button!", "success");
-                  
-                alert(data);
+
+                toastr.success("Action completed").css("margin-top", "2rem");
+                // alert(data);
                 displayData();
                 $('#myModal').modal('hide');
             },
             error: function(ex) {
+                toastr.error("Action incomplete").css("margin-top", "2rem");
                 console.log(ex.responseText);
             }
         });
@@ -72,11 +77,13 @@ $('#btnSave').click(function() {
             data: form_data,
             dataType: 'json',
             success: function(data) {
-                alert(data);
+                toastr.success("Action completed").css("margin-top", "2rem");
+                // alert(data);
                 displayData();
                 $('#myModal').modal('hide');
             },
             error: function(ex) {
+                toastr.error("Action incomplete").css("margin-top", "2rem");
                 console.log(ex.responseText);
             }
         });
@@ -114,10 +121,12 @@ function deleteData(id) {
             url: 'class_json.php?data=delete_class&id=' + id,
             dataType: 'json',
             success: function(data) {
-                alert(data);
+                toastr.success("Action completed").css("margin-top", "2rem");
+                // alert(data);
                 displayData();
             },
             error: function(ex) {
+                toastr.error("Action incomplete").css("margin-top", "2rem");
                 console.log(ex.responseText);
             }
         });

@@ -30,16 +30,16 @@
                                 <button type="button" id="btnAdd" class="btn btn-primary" data-toggle="modal"
                                     data-target="#myModal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add
                                     New</button>
-                                <button type="button" id="btnAdd" class="btn btn-info">
+                                <a href="exportBorrow.php" id="btnAdd" class="btn btn-info">
                                     <i class="fa fa-file-excel-o" aria-hidden="true"></i> Export
-                                </button>
+                                </a>
 
                             </div>
                             <div>
                                 <select id="filter" class="form-control" aria-label="Default select example">
-                                    <option selected>Filter by status</option>
+                                    <option>Filter by status</option>
                                     <option value="1">Return</option>
-                                    <option value="2">Not Return</option>
+                                    <option value="0">Not Return</option>
                                 </select>
                             </div>
 
