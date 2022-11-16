@@ -41,16 +41,16 @@ $(document).ready(function(){
 
       /* save button */
 $('#btnSave').click(function(){
-      var name = $('#txtname');
-      var pass = $('#txtpass');
-      var email = $('#txtemail');
-      var type = $('#txtutype');
-      var verify = $('#txtverify');
-      if(name.val()==''){name.focus(); return;}
-      if(pass.val()==''){pass.focus(); return;}
-      if(email.val()==''){email.focus(); return;}
-      if(type.val()==''){type.focus();return;}
-      if(verify.val()==''){verify.focus();return;}
+      // var name = $('#txtname');
+      // var pass = $('#txtpass');
+      // var email = $('#txtemail');
+      // var type = $('#txtutype');
+      // var verify = $('#txtverify');
+      // if(name.val()==''){name.focus(); return;}
+      // if(pass.val()==''){pass.focus(); return;}
+      // if(email.val()==''){email.focus(); return;}
+      // if(type.val()==''){type.focus();return;}
+      // if(verify.val()==''){verify.focus();return;}
       var form_data = $('#form').serialize();
       if($('#btnSave').text()=="Insert"){
           //Insert

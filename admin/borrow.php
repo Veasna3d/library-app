@@ -1,6 +1,13 @@
+<?php  
+  session_start();
+  include('config/db.php');
+ 
+  if( !isset($_SESSION["username"])){
+      header('Location: ../index.php');
+  }  
+ ?>
+
 <?php include 'includes/header.php'; ?>
-
-
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
@@ -79,10 +86,8 @@
                                                     <div class="form-group">
 
                                                         <label for="name" class="form-label">Borrow Date</label>
-                                                        <!-- <input type="date" name="txtBorrow" id="txtBorrow"
-                                                            class="form-control" /> -->
-                                                        <input type="text" class="form-control" name="txtBorrow"
-                                                            readonly="readonly" value="<?php echo date('m-d-Y');?>" />
+                                                        <input type="date" name="txtBorrow" id="txtBorrow"
+                                                            class="form-control" />
                                                     </div>
 
                                                     <div class="form-group">

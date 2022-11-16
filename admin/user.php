@@ -7,8 +7,6 @@
   }  
  ?>
 <?php include 'includes/header.php'; ?>
-
-
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
@@ -46,7 +44,7 @@
                                         <div class="modal-content">
 
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Author Info</h4>
+                                                <h4 class="modal-title">User Info</h4>
                                                 <button type="button" class="close" data-dismiss="modal"><i
                                                         class="fas fa-closes"></i></button>
                                             </div>
@@ -109,7 +107,7 @@
 
                                             <!---Modal footer----->
                                             <div class="modal-footer"> 
-                                            <button type="button" class="btn btn-secondary" id="btnSave" >Save</button>
+                                            <button class="btn btn-secondary" id="btnSave" >Save</button>
                                                 <button type="button" class="btn btn-danger" id="btnclose" data-dismiss="modal">Close</button>
                                         </form>
                                             </div>

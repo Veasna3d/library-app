@@ -1,11 +1,26 @@
 <?php  
   session_start();
-  include('config/db.php');
+  // include('config/db.php');
  
   if( !isset($_SESSION["username"])){
-      header('Location: http://localhost/libSystem/');
+      header('Location: ../index.php');
   }  
+
+  $conn = new mysqli('localhost', 'root', '', 'library_db');
+
+	if ($conn->connect_error) {
+	    die("Connection failed: " . $conn->connect_error);
+	}
+
+  include 'includes/timezone.php'; 
+  $today = date('Y-m-d');
+  $year = date('Y');
+  if(isset($_GET['year'])){
+    $year = $_GET['year'];
+  }
+
  ?>
+
 <?php include 'includes/header.php'; ?>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -30,12 +45,11 @@
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
-        <div class="col-lg-3 col-xs-6">
+      <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-           
-
+              
               <p>Total Books</p>
             </div>
             <div class="icon">
@@ -110,7 +124,7 @@
                     </select>
                   </div>
                 </form>
-              </div>
+              </div>            
             </div>
             <div class="box-body">
               <div class="chart">
@@ -132,6 +146,30 @@
 <!-- ./wrapper -->
 
 <!-- Chart Data -->
+<?php
+  $and = 'AND YEAR(date) = '.$year;
+  $months = array();
+  $return = array();
+  $borrow = array();
+  for( $m = 1; $m <= 12; $m++ ) {
+    $sql = "SELECT id,book_id, student_id FROM tbl_borrow WHERE MONTH(return_date) = '$m' AND YEAR(return_date) = '$year' AND status=1 ";
+    $rquery = $conn->query($sql);
+    array_push($return, $rquery->num_rows);
+
+    $sql = "SELECT id,book_id, student_id  FROM tbl_borrow WHERE MONTH(borrow_date) = '$m' AND YEAR(borrow_date) = '$year' AND status=0 ";
+    $bquery = $conn->query($sql);
+    array_push($borrow, $bquery->num_rows);
+
+    $num = str_pad( $m, 2, 0, STR_PAD_LEFT );
+    $month =  date('M', mktime(0, 0, 0, $m, 1));
+    array_push($months, $month);
+  }
+  
+  $months = json_encode($months);
+  $return = json_encode($return);
+  $borrow = json_encode($borrow);
+
+?>
 
 <!-- End Chart Data -->
 <?php include 'includes/scripts.php'; ?>

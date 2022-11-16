@@ -1,6 +1,13 @@
+<?php  
+  session_start();
+  include('config/db.php');
+ 
+  if( !isset($_SESSION["username"])){
+      header('Location: ../index.php');
+  }  
+ ?>
+
 <?php include 'includes/header.php'; ?>
-
-
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
@@ -62,18 +69,18 @@
                                                     <div class="form-group">
                                                         <label for="studentid" class="form-label">Student ID</label>
                                                         <input type="text" name="txtStudentId" id="txtStudentId"
-                                                            class="form-control">
+                                                            class="form-control" required>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label for="fullname" class="form-label">Student Name</label>
                                                         <input type="text" name="txtStudentName" id="txtStudentName"
-                                                            class="form-control">
+                                                            class="form-control" required>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label for="book" class="form-label">Class</label>
-                                                        <select class="form-control" name="ddlClass" id="ddlClass">
+                                                        <select class="form-control" name="ddlClass" id="ddlClass" required>
                                                             <option>--Choose---</option>
                                                         </select>
                                                     </div>
@@ -81,17 +88,17 @@
                                                     <div class="form-group">
                                                         <label for="phone" class="form-label">Phone</label>
                                                         <input type="text" name="txtPhone" id="txtPhone"
-                                                            class="form-control">
+                                                            class="form-control" required>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label for="email" class="form-label">Email</label>
                                                         <input type="email" name="txtEmail" id="txtEmail"
-                                                            class="form-control">
+                                                            class="form-control" required>
                                                     </div>
 
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-success"
+                                                        <button class="btn btn-success"
                                                             id="btnSave">Save</button>
                                                         <button type="button" class="btn btn-danger"
                                                             data-dismiss="modal">Close</button>
