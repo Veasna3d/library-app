@@ -49,7 +49,12 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              
+              <?php
+                $sql = "SELECT * FROM tbl_book";
+                $query = $conn->query($sql);
+
+                echo "<h3>".$query->num_rows."</h3>";
+              ?>
               <p>Total Books</p>
             </div>
             <div class="icon">
@@ -63,8 +68,13 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-             
-              <p>Total Students</p>
+                <?php
+                $sql = "SELECT * FROM tbl_category";
+                $query = $conn->query($sql);
+
+                echo "<h3>".$query->num_rows."</h3>";
+              ?>
+              <p>Total Cotegory</p>
             </div>
             <div class="icon">
               <i class="fa fa-graduation-cap"></i>
@@ -77,7 +87,12 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-             
+            <?php
+                $sql = "SELECT * FROM tbl_borrow WHERE status = 1";
+                $query = $conn->query($sql);
+
+                echo "<h3>".$query->num_rows."</h3>";
+              ?>
               <p>Returned Today</p>
             </div>
             <div class="icon">
@@ -91,7 +106,12 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
+            <?php
+                $sql = "SELECT * FROM tbl_borrow WHERE status = 0";
+                $query = $conn->query($sql);
 
+                echo "<h3>".$query->num_rows."</h3>";
+              ?>
               <p>Borrowed Today</p>
             </div>
             <div class="icon">
