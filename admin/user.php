@@ -7,8 +7,6 @@
   }  
  ?>
 <?php include 'includes/header.php'; ?>
-
-
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
@@ -41,12 +39,12 @@
                         <div class="card-body">
                             <table data-ordering="false" id="table_id" class="table table-hover d-flex justify-content-between">
                                                                   
-                                <div class="modal" id="myModal">
+                                <div class="modal fade" id="myModal">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
 
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Author Info</h4>
+                                                <h4 class="modal-title">User Info</h4>
                                                 <button type="button" class="close" data-dismiss="modal"><i
                                                         class="fas fa-closes"></i></button>
                                             </div>
@@ -71,20 +69,7 @@
                                                         <label for="txtemail">Email:</label>
                                                         <input type="text" class="form-control" id="txtemail"  placeholder="Enter" name="txtemail" required>
                                                     </div>
-                                
-                                                    <!---img------>
-                                                    <!-- <div class="from-group">
-                                                        <label for="txtimg">Image:</label>
-                                                        <input type="text" class="form-control" id="txtimg"  placeholder="Enter" name="txtimg" required>
-                                                    </div> -->
-
-                                                    <!-- <div class="from-group">
-                                                        <label for="picture">Picture</label>
-                                                        <img scr="" id="picture" name="picture" width="80px" height="80px">
-                                                        <input type="file" id="myfile" name="myfile" onchange="showimg()">  
-                                                    </div>  -->
-
-                                                    <!-- -User type---- -->
+                                                        
                                                     <div class="from-group">
                                                         <label for="txtutype">User Type:</label>
                                                             <select class="form-control" id="txtutype" name="txtutype" required> 
@@ -94,13 +79,7 @@
                                                             </select>
                                                     </div>
 
-                                                    <!-- -User type----
-                                                    <div class="from-group">
-                                                        <label for="txtutype">User type:</label>
-                                                        <input type="text" class="form-control" id="txtutype"  placeholder="Enter" name="txtutype" required>
-                                                    </div> -->
-                                                    
-                                                        <!---Verify password------>
+                       
                                                     <div class="from-group">
                                                         <label for="txtverify">verify Password:</label>
                                                         <input type="text" class="form-control" id="txtverify"  placeholder="Enter" name="txtverify" required>
@@ -109,7 +88,7 @@
 
                                             <!---Modal footer----->
                                             <div class="modal-footer"> 
-                                            <button type="button" class="btn btn-secondary" id="btnSave" >Save</button>
+                                            <button class="btn btn-secondary" id="btnSave" >Save</button>
                                                 <button type="button" class="btn btn-danger" id="btnclose" data-dismiss="modal">Close</button>
                                         </form>
                                             </div>

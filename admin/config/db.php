@@ -1,7 +1,7 @@
 <?php 
 
 	$servername = "localhost";
-	$database = "library_db";
+	$database = "library";
 	$username = "root";
 	$password = "";
 
@@ -16,3 +16,8 @@
 	}
 
  ?>
+ <?php
+    // $username = 'root';
+    // $password = '';
+    // $connection = new PDO( 'mysql:host=localhost;dbname=library', $username, $password );
+?>

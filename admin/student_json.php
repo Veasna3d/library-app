@@ -49,27 +49,40 @@
 
     //add student
     if($_GET['data'] == 'add_student'){
-           
-            $studentId = $_POST['txtStudentId'];
-            $studentName = $_POST['txtStudentName'];
-            $classId = $_POST['ddlClass'];
-            $phone = $_POST['txtPhone'];
-            $email = $_POST['txtEmail'];
+            // Set image placement folder
+            $target_dir = "images/";
+            $target_file = $target_dir . basename($_FILES["fileUpload"]["name"]);
+            // Get file extension
+            $imageExt = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+            // Allowed file types
+            $allowd_file_ext = array("jpg", "jpeg", "png");
 
-            $sql = "INSERT INTO tbl_student (studentId, studentName, class_id, phone, email)
-             values (:studentId, :studentName, :class_id, :phone, :email);";
-            $insert = $conn->prepare($sql);
-            $insert->bindParam(':studentId', $studentId);
-            $insert->bindParam(':studentName', $studentName);
-            $insert->bindParam(':class_id', $classId);
-            $insert->bindParam(':phone', $phone);
-            $insert->bindParam(':email', $email);
+            if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file)){
 
-            if($insert->execute()){
-                echo json_encode("Insert Success");
-            }else{
-                echo json_encode("Insert Faild");
+                $studentId = $_POST['txtStudentId'];
+                $studentName = $_POST['txtStudentName'];
+                $classId = $_POST['ddlClass'];
+                $phone = $_POST['txtPhone'];
+                $email = $_POST['txtEmail'];
+    
+                $sql = "INSERT INTO tbl_student (studentId, studentName, photo, class_id, phone, email)
+                 values (:studentId, :studentName, :photo, :class_id, :phone, :email);";
+                $insert = $conn->prepare($sql);
+                $insert->bindParam(':studentId', $studentId);
+                $insert->bindParam(':studentName', $studentName);
+                $insert->bindParam(':photo', $target_file);
+                $insert->bindParam(':class_id', $classId);
+                $insert->bindParam(':phone', $phone);
+                $insert->bindParam(':email', $email);
+    
+                if($insert->execute()){
+                    echo json_encode("Insert Success");
+                }else{
+                    echo json_encode("Insert Faild");
+                }
             }
+
+           
           }
             
 

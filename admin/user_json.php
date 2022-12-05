@@ -7,8 +7,10 @@
 		$sql = "SELECT * FROM tbl_user";
 		$result = $conn->prepare($sql);
 		$result->execute();
+		$user = [];
+
 		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			$user[]  = array($row["id"],$row["username"],$row["password"],$row["email"],$row["user_type"],$row["verify_password"]);
+			$user[]  = array($row["id"],$row["username"],$row["password"],$row["image"],$row["email"],$row["create_date"]);
 		}
 		echo json_encode($user);
 	}
@@ -55,7 +57,7 @@
 		$result->bindParam(':id',$_GET["id"]);
 		$result->execute();
 		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			$user[]  = array($row["id"],$row["username"],$row["password"],$row["email"],$row["user_type"],$row["verify_password"]);
+			$user[]  = array($row["id"],$row["username"],$row["password"],$row["image"],$row["email"]);
 		}
 		echo json_encode($user);
 		}

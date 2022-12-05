@@ -24,25 +24,28 @@
             <div class="col-md-12">
                 <div class="content-panel" style="padding-top: 10px;">
                     <div class="card">
-                        <div class="card-header" style="display: flex; justify-content: start;">
+                        <div class="card-header" style="display: flex; justify-content: space-between;">
                             <div>
                                 <button type="button" id="btnAdd" class="btn btn-primary" data-toggle="modal"
                                     data-target="#Mymodal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add
                                     New</button>
-                                <button type="button" data-toggle="modal" data-target="#myImport" id="btnAdd"
+                                
+                                <button type="button" id="btnAvailable" class="btn btn-info">
+                                Available
+                                </button>
+                                <button type="button" id="btnUnAvailable" class="btn btn-info">
+                                Unavailable
+                                </button>
+                                
+                            </div>
+                            <div>
+                            <button type="button" data-toggle="modal" data-target="#myImport" id="btnIX"
                                     class="btn btn-success">
                                     <i class="fa fa-download" aria-hidden="true"></i> Import
                                 </button>
-                                <a href="exportBook.php" id="btnAdd" class="btn btn-info">
+                            <a href="exportBook.php" id="btnIX" class="btn btn-info">
                                     <i class="fa fa-file-excel-o" aria-hidden="true"></i> Export
                                 </a>
-                            </div>
-                            <div>
-                                <select id="filter" class="form-control" aria-label="Default select example">
-                                    <option selected>Filter by status</option>
-                                    <option value="1">Available</option>
-                                    <option value="2">Unavailable</option>
-                                </select>
                             </div>
 
                         </div>

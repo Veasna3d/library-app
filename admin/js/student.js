@@ -68,6 +68,7 @@ $('#btnAdd').click(function (){
 
     $("#txtStudentId").val("");
     $("#txtStudentName").val("");
+    $("#chooseFile").val("");
     $("#ddlClass").val("");
     $("#txtPhone").val("");
     $("#txtEmail").val("");
@@ -88,9 +89,10 @@ function editData(id){
         success: function (data){
             $("#txtStudentId").val(data[0][1]);
             $("#txtStudentName").val(data[0][2]);
-            $("#ddlClass").val(data[0][3]);
-            $("#txtPhone").val(data[0][4]);
-            $("#txtEmail").val(data[0][5]);
+            $("#chooseFile").val(data[0][3]);
+            $("#ddlClass").val(data[0][4]);
+            $("#txtPhone").val(data[0][5]);
+            $("#txtEmail").val(data[0][6]);
         },
         error: function (ex){
             console.log(ex.responseText);
@@ -99,22 +101,7 @@ function editData(id){
 }
 
 $("#btnSave").click(function (){
-    var studentId = $("#txtStudentId");
-    var studentName = $("#txtStudentName");
-    var classes =  $("#ddlClass");
-    if(studentId.val() == "" && studentName.val() == "" && classes.val() == ""){
-        studentId.focus();
-        return  toastr.warning("Field Require!").css("margin-top", "2rem");
-    }else if(studentId.val() == ""){
-        studentId.focus();
-        return  toastr.warning("Student ID Require!").css("margin-top", "2rem");
-    }else if(studentName.val() == ""){
-        studentName.focus();
-        return  toastr.warning("Student Name Require!").css("margin-top", "2rem");
-    }else if(classes.val() == ""){
-        classes.focus();
-        return  toastr.warning("Class Require!").css("margin-top", "2rem");
-    }
+
     var form_data = $("#form").serialize();
     if($("#btnSave").text() == "Insert"){
         //Insert

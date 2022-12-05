@@ -1,26 +1,55 @@
 <?php
     error_reporting(0);
+
     require './config/db.php';
     if($_GET["data"] == "get_borrow"){
         $sql = "SELECT * FROM vborrow";
         $result = $conn->prepare($sql);
         $result->execute();
         $borrow = [];
-        $status;
 
         while($row = $result->fetch(PDO::FETCH_ASSOC)){
+
             if($row['status'] == 0){
-                $status = "<span style='color: white;' class='badge bg-red'>Not Return</span>";
-            }else{
-                $status = "<span style='color: white;' class='badge bg-purple'>Returned</span>";
+                $borrow[] = array($row['id'], $row['book_title'], 
+                $row['studentName'], $row['borrow_date'], $row['return_date'],
+                $status = "<span style='color: white;' class='badge bg-red'>Pending</span>", $row['remark'], $row['create_date']);
             }
+        }
+        echo json_encode($borrow);
+    }
+    //pending
+    if($_GET["data"] == "get_pending"){
+        $sql = "SELECT * FROM vborrow";
+        $result = $conn->prepare($sql);
+        $result->execute();
+        $borrow = [];
 
-            $date = $row['return_date'];  
-            $newDate = date("m-d-Y", strtotime($date));  
+        while($row = $result->fetch(PDO::FETCH_ASSOC)){
 
-            $borrow[] = array($row['id'], $row['book_title'], 
-            $row['studentName'],  $row['borrow_date'],$newDate, 
-            $status, $row['remark'], $row['create_date']);
+            if($row['status'] == 0){
+                $borrow[] = array($row['id'], $row['book_title'], 
+                $row['studentName'], $row['borrow_date'], $row['return_date'],
+                $status = "<span style='color: white;' class='badge bg-red'>Pending</span>", $row['remark'], $row['create_date']);
+            }
+        }
+        echo json_encode($borrow);
+    }
+
+      //returned
+      if($_GET["data"] == "get_returned"){
+        $sql = "SELECT * FROM vborrow";
+        $result = $conn->prepare($sql);
+        $result->execute();
+        $borrow = [];
+
+        while($row = $result->fetch(PDO::FETCH_ASSOC)){
+
+            if($row['status'] == 1){
+                $borrow[] = array($row['id'], $row['book_title'], 
+                $row['studentName'], $row['borrow_date'], $row['return_date'],
+                $status = "<span style='color: white;' class='badge bg-purple'>Returned</span>", $row['remark'], $row['create_date']);
+            }
         }
         echo json_encode($borrow);
     }
@@ -49,67 +78,43 @@
         $sql = "SELECT * FROM tbl_student";
         $result = $conn->prepare($sql);
         $result->execute();
-        $status = [];
+        $student = [];
 
         while( $row = $result->fetch(PDO::FETCH_ASSOC)){
-            $status[] = array($row['id'], $row['studentId'], 
+            $student[] = array($row['id'], $row['studentId'], 
             $row['studentName'], $row['photo'],
             $row['email'], $row['create_date']);
         }
-        echo json_encode($status);
+        echo json_encode($student);
     }
+ 
 //--------------------------------------------------------------------------//
-    //get by_book_id
-    if($_GET['data'] == "get_bookid"){
-        $bookid = $_GET['id'];
-        $result = $conn->prepare("Select * from tbl_book where id=:id");
-        $result->bindParam(':id', $bookid);
-        $result->execute();
 
-        if($row=$result->fetch(PDO::FETCH_ASSOC)){
-
-            if($row['status'] == 0){
-                $status = $row['status'];
-                $book[] = array($row['id'], $row['book_title'],
-                $row['book_title'],$row['categoryId'], $row['authorId'],
-                $row['status'], $row['create_date']);
-            }
-
-            
-        }
-        echo json_encode($book);
-    }
-
-//--------------------------------------------------------------------------//
-//get date
-
-// date_default_timezone_set("Asia/Phnom_Penh");
-// $date =  date("h:i:sa");
-// echo "The time is " .$date;
-    //add borrow
+    //add student
     if($_GET['data'] == 'add_borrow'){
         
-            $bookId = $_POST['txtBookId'];
-            $studentId = $_POST['txtStudentId'];
-            $borrowDate = $_POST['txtBorrow'];
-            $returnDate = $_POST['txtReturn'];
-            $remark = $_POST['txtRemark'];
+        $bookId = $_POST['ddlBook'];
+        $studentId = $_POST['ddlStudent'];
+        $borrowDate = $_POST['txtBorrowDate'];
+        $returnDate = $_POST['txtReturnDate'];
+        $remark = $_POST['txtRemark'];
 
-            $sql = "INSERT INTO tbl_borrow (book_id, student_id, borrow_date, return_date, remark)
-             values (:book_id, :student_id, :borrow_date, :return_date, :remark);";
-            $insert = $conn->prepare($sql);
-            $insert->bindParam(':book_id', $bookId);
-            $insert->bindParam(':student_id', $studentId);
-            $insert->bindParam(':borrow_date', $borrowDate);
-            $insert->bindParam(':return_date', $returnDate);
-            $insert->bindParam(':remark', $remark);
+        $sql = "INSERT INTO tbl_borrow (book_id, student_id, borrow_date, return_date, remark)
+         values (:book_id, :student_id, :borrow_date, :return_date, :remark);";
+        $insert = $conn->prepare($sql);
+        $insert->bindParam(':book_id', $bookId);
+        $insert->bindParam(':student_id', $studentId);
+        $insert->bindParam(':borrow_date', $borrowDate);
+        $insert->bindParam(':return_date', $returnDate);
+        $insert->bindParam(':remark', $remark);
 
-            if($insert->execute()){
-                echo json_encode("Insert Success");
-            }else{
-                echo json_encode("Insert Faild");
-            }
+        if($insert->execute()){
+            echo json_encode("Insert Success");
+        }else{
+            echo json_encode("Insert Faild");
         }
+    }
+            
 
     //get_byid
     if($_GET['data'] == 'get_byid'){
@@ -129,14 +134,14 @@
     if($_GET['data'] == 'update_borrow'){
         
             $id = $_GET['id'];
-            $bookId = $_POST['txtBookId'];
-            $studentId = $_POST['txtStudentId'];
-            $borrowDate = $_POST['txtBorrow'];
-            $returnDate = $_POST['txtReturn'];
+            $bookId = $_POST['ddlBook'];
+            $studentId = $_POST['ddlStudent'];
+            $borrowDate = $_POST['txtBorrowDate'];
+            $returnDate = $_POST['txtReturnDate'];
             $remark = $_POST['txtRemark'];
 
-            $sql = "UPDATE tbl_borrow set book_title=:book_title, student_id=:student_id, borrow_date=:borrow_date, return_date=:return_date, 
-                    remark=:remark where id=:id;";
+            $sql = "UPDATE tbl_borrow set book_id=:book_id, student_id=:student_id,
+                    borrow_date=:borrow_date, return_date=:return_date, remark=:remark where id=:id;";
             $update = $conn->prepare($sql);
 
             $update->bindParam(':book_id', $bookId);
@@ -155,9 +160,9 @@
 
     //delete
     if($_GET['data'] == 'delete_borrow'){
-        $borrowid = $_GET['id'];
+        $borrow_id = $_GET['id'];
         $delete = $conn->prepare("DELETE FROM tbl_borrow where id=:id;");
-        $delete->bindParam(':id', $borrowid);
+        $delete->bindParam(':id', $borrow_id);
         if($delete->execute()){
             echo json_encode("Delete Success");
         }else{
@@ -165,7 +170,7 @@
         }
     }
 
-    //return 
+      //return 
     if($_GET['data'] == 'return_borrow'){
         
         $id = $_GET['id'];
@@ -182,5 +187,4 @@
             echo json_encode("Return Faild");
         }
     }
-
 ?>

@@ -90,15 +90,16 @@
       .card-body{
         padding: 10px;
       }
-      #btnAdd{
-        margin-left: 5px;
+      #btnExport,#btnIX{
+        margin-right: 5px;
         margin-top: 10px;
-        margin-bottom: 1rem;
       } 
-      #filter{
+      #btnAdd, #add_button{
         margin-left: 5px;
         margin-top: 10px;
-        margin-bottom: 1rem;
-      }
+      } 
+      #btnPending,#btnRetuurn,#btnAvailable,#btnUnAvailable{
+        margin-top: 10px;
+      } 
   	</style>
 </head>

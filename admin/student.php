@@ -6,7 +6,7 @@
 
         <?php include 'includes/navbar.php'; ?>
         <?php include 'includes/menubar.php'; ?>
-
+        <?php include 'student_json.php'; ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper" style="margin-top: 50px;">
             <!-- Content Header (Page header) -->
@@ -35,18 +35,12 @@
                                 </button>
                                 <a href="exportData.php" id="btnAdd" class="btn btn-primary"> <i class="fa fa-file-excel-o" aria-hidden="true"></i> Export</a>
 
-                                    
-                                <!-- <div class="col-md-12" id="importFrm" style="display: none;">
-                                    <form action="importData.php" method="post" enctype="multipart/form-data">
-                                        <input type="file" name="file" />
-                                        <input type="submit" class="btn btn-primary" name="importSubmit" value="IMPORT">
-                                    </form>
-                                </div> -->
+                                
                         </div>
                         <div class="card-body">
                             <table data-ordering="false" id="table_id" class="table table-hover d-flex justify-content-between">
                                 
-                                <div class="modal" id="myModal">
+                                <div class="modal fade" id="myModal">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
 
@@ -57,23 +51,33 @@
                                             </div>
 
                                             <div class="modal-body">
-                                                <form method="post" id="form" enctype='multipart/form-data'>
+                                                <form method="post" id="form" enctype="multipart/form-data">
 
                                                     <div class="form-group">
                                                         <label for="studentid" class="form-label">Student ID</label>
                                                         <input type="text" name="txtStudentId" id="txtStudentId"
-                                                            class="form-control">
+                                                            class="form-control" required>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label for="fullname" class="form-label">Student Name</label>
                                                         <input type="text" name="txtStudentName" id="txtStudentName"
-                                                            class="form-control">
+                                                            class="form-control" required>
                                                     </div>
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="chooseFile">Image</label>
+                                                        <input type="file" name="fileUpload" class="form-control" id="chooseFile">
+                                                        
 
+                                                        <div class="user-image mb-3 text-center">
+                                                            <div style="width: 100%; height: 200px; overflow: hidden; background: #cccccc;">
+                                                                <img src="..." class="figure-img img-fluid rounded" id="imgPlaceholder" alt="">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="form-group">
                                                         <label for="book" class="form-label">Class</label>
-                                                        <select class="form-control" name="ddlClass" id="ddlClass">
+                                                        <select class="form-control" name="ddlClass" id="ddlClass" required>
                                                             <option>--Choose---</option>
                                                         </select>
                                                     </div>
@@ -144,20 +148,22 @@
 
         <?php include 'includes/footer.php'; ?>
         <?php include 'includes/scripts.php'; ?>
-
+        
         <script type="text/javascript" src="js\jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js\dataTables.bootstrap4.min.js"></script>
         <script type="text/javascript" src="js\student.js"></script>
-
-        <!-- Show/hide CSV upload form -->
-        <!-- <script>
-        function formToggle(ID){
-            var element = document.getElementById(ID);
-            if(element.style.display === "none"){
-                element.style.display = "block";
-            }else{
-                element.style.display = "none";
+        <script>
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#imgPlaceholder').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]); // convert to base64 string
+                }
             }
-        }
-        </script> -->
+            $("#chooseFile").change(function () {
+                readURL(this);
+            });
+        </script>
 </body>
