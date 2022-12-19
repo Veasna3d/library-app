@@ -73,7 +73,6 @@
                     <ul class="treeview-menu">
                         <li><a href="book.php"><i class="fa fa-circle-o"></i> Book List</a></li>
                         <li><a href="category.php"><i class="fa fa-circle-o"></i> Category</a></li>
-                        <li><a href="author.php"><i class="fa fa-circle-o"></i> Author List</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
