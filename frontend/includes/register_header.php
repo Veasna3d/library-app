@@ -15,6 +15,10 @@
     <link rel="stylesheet" href="./assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="./assets/css/owl.carousel.css">
     <link rel="stylesheet" href="./assets/css/owl.theme.default.min.css">
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="./assets/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="./assets/css/toastr.min.css>
+    <link rel="stylesheet" href="./assets/css/dataTables.bootstrap4.min.css">
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="./assets/css/templatemo-style.css">

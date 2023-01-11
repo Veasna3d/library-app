@@ -1,3 +1,12 @@
+
+<?php
+session_start();
+include('config/db.php');
+
+if (!isset($_SESSION["username"])) {
+    header('Location: ./index.php');
+}
+?>
 <?php include 'includes/header.php'; ?>
 
 

@@ -1,3 +1,12 @@
+<?php
+session_start();
+include('config/db.php');
+
+if (!isset($_SESSION["username"])) {
+    header('Location: ./index.php');
+}
+?>
+
 <?php include 'includes/header.php'; ?>
 
 
@@ -60,7 +69,7 @@
                                                     </div>
 
                                                     <div class="modal-footer">
-                                                        <button class="btn btn-success"
+                                                        <button type="button" class="btn btn-success"
                                                             id="btnSave">Save</button>
                                                         <button type="button" class="btn btn-danger"
                                                             data-dismiss="modal">Close</button>

@@ -55,7 +55,7 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                         <li><a href="register.php" class="smoothScroll"><i class="fa fa-user"></i>Signup</a></li>
+                         <li><a href="login.php" class="smoothScroll"><i class="fa fa-user"></i>Signup</a></li>
                     </ul>
                </div>
           </div>
