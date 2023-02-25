@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 include('config/db.php');
@@ -33,37 +32,34 @@ if (!isset($_SESSION["username"])) {
 
             <div class="col-md-12">
                 <div class="content-panel" style="padding-top: 10px;">
-                    <div class="card">
-                        <div class="card-header">
-                            <button type="button" id="btnAdd" class="btn btn-primary" data-toggle="modal"
-                                data-target="#myModal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add New</button> 
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <!-- <button type="button" id="btnAdd" class="btn btn-primary" data-toggle="modal"
+                                data-target="#myModal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add New</button>  -->
+                            <button type="button" id="btnAdd" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> New</button>
                         </div>
                         <div class="card-body">
-                            <table data-ordering="false" id="table_id" class="table table-hover d-flex justify-content-between">
-                                                                      
+                            <table style="width: 100%;" data-ordering="false" id="table_id" class="table table-hover d-flex justify-content-between">
+
                                 <div class="modal" id="myModal">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
 
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Category Info</h4>
-                                                <button type="button" class="close" data-dismiss="modal"><i
-                                                        class="fas fa-closes"></i></button>
+                                                <button type="button" class="close" data-dismiss="modal"><i class="fas fa-closes"></i></button>
                                             </div>
 
                                             <div class="modal-body">
                                                 <form method="post" id="form">
                                                     <div class="form-group">
                                                         <label for="name">Category Name</label>
-                                                        <input type="text" name="txtName" id="txtName" 
-                                                            class="form-control" placeholder="category name" required>
+                                                        <input type="text" name="txtName" id="txtName" class="form-control" placeholder="category name" required>
                                                     </div>
 
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-success"
-                                                            id="btnSave">Save</button>
-                                                        <button type="button" class="btn btn-danger"
-                                                            data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-success" id="btnSave">Save</button>
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -71,7 +67,7 @@ if (!isset($_SESSION["username"])) {
                                     </div>
                                 </div>
                             </table>
-                           
+
                         </div>
 
                     </div>
@@ -79,11 +75,11 @@ if (!isset($_SESSION["username"])) {
 
             </div>
         </div>
-        
+
         <?php include 'includes/footer.php'; ?>
         <?php include 'includes/scripts.php'; ?>
 
-        
+
         <script type="text/javascript" src="js\jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js\dataTables.bootstrap4.min.js"></script>
         <script type="text/javascript" src="js\category.js"></script>

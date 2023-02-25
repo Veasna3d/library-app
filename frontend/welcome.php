@@ -1,7 +1,8 @@
+<?php include'./includes/headerAfterLogin.php'  ?>
 
-<?php include './includes/header.php'; ?>
-<?php include './includes/home.php'; ?>
-<?php include './includes/news.php'; ?>
-<?php include './includes/book.php'; ?>
-<?php include './includes/contact.php'; ?>
-<?php include './includes/footer.php'; ?>
+<?php include'./includes/carousel-in.php'  ?>
+<?php include'./includes/feature.php'  ?>
+<?php include'./includes/news-in.php'  ?>
+<?php include'./includes/book-in.php'  ?>
+<?php include'./includes/contact.php'  ?>
+<?php include'./includes/footer.php'  ?>

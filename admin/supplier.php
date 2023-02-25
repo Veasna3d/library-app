@@ -37,7 +37,7 @@ if (!isset($_SESSION["username"])) {
                             <button type="button" id="btnAdd" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> New</button>
                         </div>
                         <div class="card-body">
-                            <table data-ordering="false" id="table_id" class="table table-hover d-flex justify-content-between">
+                            <table style="width: 100%;" data-ordering="false" id="table_id" class="table table-hover d-flex justify-content-between">
 
                                 <div class="modal fade" id="myModal">
                                     <div class="modal-dialog">

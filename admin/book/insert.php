@@ -11,12 +11,13 @@
                 $image = upload_image();
             }
             $statement = $conn->prepare("
-                INSERT INTO Book (bookTitle, author, categoryId, image) 
-                VALUES (:bookTitle, :author, :categoryId, :image)
+                INSERT INTO Book (bookTitle, description, author, categoryId, image) 
+                VALUES (:bookTitle, :description, :author, :categoryId, :image)
             ");
             $result = $statement->execute(
                 array(
                     ':bookTitle'   =>  $_POST["txtBookTitle"],
+                    ':description'   =>  $_POST["txtDescription"],
                     ':author'    =>  $_POST["txtAuthor"],
                     ':categoryId'    =>  $_POST["txtCategoryId"],
                     ':image'        =>  $image
@@ -40,13 +41,14 @@
             }
             $statement = $conn->prepare(
                 "UPDATE Book 
-                SET bookTitle = :bookTitle, author = :author, categoryId = :categoryId, image = :image  
+                SET bookTitle = :bookTitle, description = :description , author = :author, categoryId = :categoryId, image = :image  
                 WHERE id = :id
                 "
             );
             $result = $statement->execute(
                 array(
                     ':bookTitle'   =>  $_POST["txtBookTitle"],
+                    ':description'   =>  $_POST["txtDescription"],
                     ':author'    =>  $_POST["txtAuthor"],
                     ':categoryId'    =>  $_POST["txtCategoryId"],
                     ':image'        =>  $image,

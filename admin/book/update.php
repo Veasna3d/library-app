@@ -14,6 +14,7 @@
         foreach($result as $row)
         {
             $output["bookTitle"] = $row["bookTitle"];
+            $output["description"] = $row["description"];
             $output["author"] = $row["author"];
             $output["categoryId"] = $row["categoryId"];
             if($row["image"] != '')

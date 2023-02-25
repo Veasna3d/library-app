@@ -32,16 +32,20 @@ if (!isset($_SESSION["username"])) {
 
             <div class="col-md-12">
                 <div class="content-panel" style="padding-top: 10px;">
-                    <div class="card">
-                        <div class="card-header">
+                    <div class="box">
+                        <!-- <div class="card-header">
                             <button type="button" id="add_button" data-toggle="modal" data-target="#userModal"
                                 class="btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i>
                                 Add
                                 New</button>
+                        </div> -->
+                        <div class="box-header with-border">
+                            <button type="button" id="add_button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#userModal"><i class="fa fa-plus"></i> New</button>
                         </div>
+                        
                         <div id="image_data">
                             <div class="card-body">
-                                <table id="user_data" class="table table-hover">
+                                <table style="width: 100%;" id="user_data" class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -49,6 +53,7 @@ if (!isset($_SESSION["username"])) {
                                             <th>PASSWORD</th>
                                             <th>EMAIL</th>
                                             <th>IMAGE</th>
+                                            <th>ROLE</th>
                                             <th>CREATE DATE</th>
                                             <th>Actions</th>
 
@@ -68,20 +73,29 @@ if (!isset($_SESSION["username"])) {
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <label class="form-label">Username</label>
-                                                        <input type="text" name="username" id="username"
+                                                        <input type="text" id="username" name="username" 
                                                             class="form-control" />
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label class="form-label">Password</label>
-                                                        <input type="password" name="password" id="password"
+                                                        <input type="password" id="password" name="password" 
                                                             class="form-control" />
-                                                    </div>
+                                                    </div> 
 
                                                     <div class="form-group">
                                                         <label class="form-label">Email</label>
                                                         <input type="email" name="email" id="email"
                                                             class="form-control" />
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="form-label">Role</label>
+                                                        <select class="form-control" id="role" name="role">
+                                                            <option selected>Role</option>
+                                                            <option value="1">Admin</option>
+                                                            <option value="2">Editor</option>
+                                                        </select>
                                                     </div>
 
                                                     <div class="form-group">

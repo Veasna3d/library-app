@@ -1,82 +1,67 @@
+<?php $conn = new mysqli("localhost", "root", "", "libraryDB"); ?>
+<!-- Footer Start -->
+<div class="container-fluid bg-dark text-body footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container py-5">
+        <div class="row g-5">
 
-     <!-- FOOTER -->
-     <footer id="footer">
-          <div class="container">
-               <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <h5 class="text-light mb-4">About US</h5>
+                <?php
+                $sql = "SELECT * FROM brand";
+                $rs = $conn->query($sql);
+                while ($row = $rs->fetch_array()) {
+                ?>
+                <p><?php echo $row[6] ?></p>
+                <div class="d-flex pt-2">
+                    <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href="<?php echo $row[10] ?>"><i
+                            class="fab fa-twitter"></i></a>
+                    <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href="<?php echo $row[7] ?>"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href="<?php echo $row[11] ?>"><i
+                            class="fab fa-youtube"></i></a>
+                    <a class="btn btn-square btn-outline-secondary rounded-circle me-0" href="<?php echo $row[8] ?>"><i
+                            class="fab fa-telegram"></i></a>
+                </div>
+            </div>
 
-                    <div class="col-md-4 col-sm-6">
-                         <div class="footer-info">
-                              <div class="section-title">
-                                   <h2>Headquarter</h2>
-                              </div>
-                              <address>
-                                   <p>1800 dapibus a tortor pretium,<br> Integer nisl dui, ABC 12000</p>
-                              </address>
+            <div class="col-lg-4 col-md-4">
+                <h5 class="text-light mb-4">ADDRESS</h5>
+                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i><?php echo $row[3] ?></p>
+                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><?php echo $row[4] ?></p>
+                <p class="mb-2"><i class="fa fa-envelope me-3"></i><?php echo $row[5] ?></p>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <h5 class="text-light mb-4">ADDRESS</h5>
+                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i><?php echo $row[2] ?></p>
+                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><?php echo $row[8] ?></p>
+                <p class="mb-2"><i class="fa fa-envelope me-3"></i><?php echo $row[9] ?></p>
+            </div>
+            <?php
+                }
+        ?>
+        </div>
+    </div>
 
-                              <ul class="social-icon">
-                                   <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
-                                   <li><a href="#" class="fa fa-twitter"></a></li>
-                                   <li><a href="#" class="fa fa-instagram"></a></li>
-                              </ul>
-
-                              <div class="copyright-text"> 
-                                   <p>Copyright &copy; 2018 Company</p>
-                                   <p>Design: <a rel="nofollow" href="http://templatemo.com" title="html5 templates" target="_parent">Template Mo</a></p>
-                                   <p>Distribution: <a href="https://themewagon.com/">ThemeWagon</a></p>
-                              </div>
-                         </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-6">
-                         <div class="footer-info">
-                              <div class="section-title">
-                                   <h2>Contact Info</h2>
-                              </div>
-                              <address>
-                                   <p>+65 2244 1100, +66 1800 1100</p>
-                                   <p><a href="mailto:youremail.com">hello@youremail.co</a></p>
-                              </address>
-
-                              <div class="footer_menu">
-                                   <h2>Quick Links</h2>
-                                   <ul>
-                                        <li><a href="#">Career</a></li>
-                                        <li><a href="#">Investor</a></li>
-                                        <li><a href="#">Terms & Conditions</a></li>
-                                        <li><a href="#">Refund Policy</a></li>
-                                   </ul>
-                              </div>
-                         </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-12">
-                         <div class="footer-info newsletter-form">
-                              <div class="section-title">
-                                   <h2>Newsletter Signup</h2>
-                              </div>
-                              <div>
-                                   <div class="form-group">
-                                        <form action="#" method="get">
-                                             <input type="email" class="form-control" placeholder="Enter your email" name="email" id="email" required="">
-                                             <input type="submit" class="form-control" name="submit" id="form-submit" value="Send me">
-                                        </form>
-                                        <span><sup>*</sup> Please note - we do not spam your email.</span>
-                                   </div>
-                              </div>
-                         </div>
-                    </div>
-                    
-               </div>
-          </div>
-     </footer>
+</div>
+<!-- Footer End -->
 
 
-     <!-- SCRIPTS -->
-     <script src="../assets/js/jquery.js"></script>
-     <script src="../assets/js/bootstrap.min.js"></script>
-     <script src="../assets/js/owl.carousel.min.js"></script>
-     <script src="../assets/js/smoothscroll.js"></script>
-     <script src="../assets/js/custom.js"></script>
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
 
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./asset/lib/wow/wow.min.js"></script>
+<script src="./asset/lib/easing/easing.min.js"></script>
+<script src="./asset/lib/waypoints/waypoints.min.js"></script>
+<script src="./asset/lib/counterup/counterup.min.js"></script>
+<script src="./asset/lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="./asset/lib/lightbox/js/lightbox.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="./asset/js/main.js"></script>
 </body>
+
 </html>

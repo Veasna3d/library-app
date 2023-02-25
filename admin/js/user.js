@@ -24,6 +24,7 @@ $(document).ready(function() {
       event.preventDefault();
       var username = $('#username').val();
       var password = $('#password').val();
+      var role = $('#role').val();
       var email = $('#email').val();
       var extension = $('#user_image').val().split('.').pop().toLowerCase();
       if (extension != '') {
@@ -33,7 +34,7 @@ $(document).ready(function() {
               return false;
           }
       }
-      if (username != '' && password != '' && email != '') {
+      if (username != '' && password != '' && role != '' && email != '') {
           $.ajax({
               url: "./user/insert.php",
               method: 'POST',
@@ -41,10 +42,10 @@ $(document).ready(function() {
               contentType: false,
               processData: false,
               success: function(data) {
-                  alert(data);
                   $('#user_form')[0].reset();
                   $('#userModal').modal('hide');
                   dataTable.ajax.reload();
+                  return  toastr.success("Action Completed").css("margin-top", "2rem");
               }
           });
       } else {
@@ -65,6 +66,7 @@ $(document).ready(function() {
               $('#userModal').modal('show');
               $('#username').val(data.username);
               $('#password').val(data.password);
+              $('#role').val(data.role);
               $('#email').val(data.email);
               $('.modal-title').text("Edit User");
               $('#user_id').val(user_id);
@@ -85,8 +87,9 @@ $(document).ready(function() {
                   user_id: user_id
               },
               success: function(data) {
-                  alert(data);
+                 
                   dataTable.ajax.reload();
+                  return  toastr.success("Action Completed").css("margin-top", "2rem");
               }
           });
       } else {

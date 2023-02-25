@@ -33,16 +33,13 @@ if (!isset($_SESSION["username"])) {
 
             <div class="col-md-12">
                 <div class="content-panel" style="padding-top: 10px;">
-                    <div class="card">
-                        <div class="card-header">
-                            <button type="button" id="add_button" data-toggle="modal" data-target="#userModal"
-                                class="btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                Add
-                                New</button>
+                    <div class="box">
+                    <div class="box-header with-border">
+                            <button type="button" id="add_button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#userModal"><i class="fa fa-plus"></i> New</button>
                         </div>
                         <div id="image_data">
                             <div class="card-body">
-                                <table id="user_data" class="table table-hover">
+                                <table style="width: 100%;" id="user_data" class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>ID</th>

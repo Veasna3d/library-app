@@ -8,7 +8,7 @@ $query .= "SELECT * FROM vbooks";
 
 if (isset($_POST["search"]["value"])) {
     $query .= ' where bookTitle LIKE "%' . $_POST["search"]["value"] . '%" ';
-    $query .= 'OR author LIKE "%' . $_POST["search"]["value"] . '%" ';
+    $query .= 'OR description LIKE "%' . $_POST["search"]["value"] . '%" ';
 }
 if (isset($_POST["order"])) {
     $query .= 'ORDER BY ' . $_POST['order']['0']['column'] . ' ' . $_POST['order']['0']['dir'] . ' ';
@@ -39,12 +39,14 @@ foreach ($result as $row) {
         $status = "<span style='color: white;' class='badge bg-red'>Unavailable</span>";
     }
     $sub_array = array();
+    
     $sub_array[] = $row["id"];
     $sub_array[] = $row["bookTitle"];
+    $sub_array[] = $row["description"];
     $sub_array[] = $row["author"];
     $sub_array[] = $row["categoryName"];
-    $sub_array[] = $image;
     $sub_array[] = $status;
+    $sub_array[] = $image;
     $sub_array[] = $row["create_date"];
     
 

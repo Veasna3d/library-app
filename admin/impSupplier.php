@@ -38,7 +38,7 @@ if (!isset($_SESSION["username"])) {
                                 data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> New</button>
                         </div>
                         <div class="card-body">
-                            <table data-ordering="false" id="table_id"
+                            <table style="width: 100%;" data-ordering="false" id="table_id"
                                 class="table table-hover d-flex justify-content-between">
 
                                 <div class="modal fade" id="myModal">

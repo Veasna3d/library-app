@@ -32,16 +32,18 @@ if (!isset($_SESSION["username"])) {
 
             <div class="col-md-12">
                 <div class="content-panel" style="padding-top: 10px;">
-                    <div class="card">
+                    <div class="box">
                         <div class="card-header" style=" display: flex; justify-content: space-between;">
                             <div>
-                                <button type="button" id="btnAdd" class="btn btn-primary" data-toggle="modal"
+                                <!-- <button type="button" id="btnAdd" class="btn btn-primary" data-toggle="modal"
                                     data-target="#myModal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add
-                                    New</button>
-                                    <button type="button" id="btnPending" class="btn btn-info">
+                                    New</button> -->
+                                    <button type="button" id="btnAdd" class="btn btn-primary btn-sm btn-flat"
+                                    data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> New</button>
+                                    <button type="button" id="btnPending"  class="btn btn-info btn-sm btn-flat">
                                     Pending
                                 </button> 
-                                <button type="button" id="btnRetuurn" class="btn btn-info">
+                                <button type="button" id="btnRetuurn"  class="btn btn-info btn-sm btn-flat">
                                     Returned
                                 </button> 
                             </div>
@@ -52,7 +54,7 @@ if (!isset($_SESSION["username"])) {
 
                         </div>
                         <div class="card-body">
-                            <table data-ordering="false" id="table_id"
+                            <table style="width: 100%;" data-ordering="false" id="table_id"
                                 class="table table-hover d-flex justify-content-between">
 
                                 <div class="modal fade" id="myModal">

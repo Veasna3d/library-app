@@ -15,6 +15,7 @@
         {
             $output["username"] = $row["username"];
             $output["password"] = $row["password"];
+            $output["role"] = $row["role"];
             $output["email"] = $row["email"];
             if($row["image"] != '')
             {

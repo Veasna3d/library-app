@@ -49,7 +49,7 @@
         $sub_array[] = $row["create_date"];
        
      
-        $sub_array[] = '<button type="button" name="update" id="'.$row["id"].'" class="btn btn-primary btn-xs update mx-4"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>' . '&nbsp;&nbsp;&nbsp;<button type="button" name="delete" id="'.$row["id"].'" class="btn btn-danger btn-xs delete mx-4"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
+        $sub_array[] = '<button type="button" name="update" id="'.$row["id"].'" class="btn btn-success btn-sm update btn-flat"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>' . '&nbsp;&nbsp;&nbsp;<button type="button" name="delete" id="'.$row["id"].'"class="btn btn-danger btn-sm delete btn-flat"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
         $data[] = $sub_array;
     }
     $output = array(

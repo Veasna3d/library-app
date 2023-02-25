@@ -40,11 +40,13 @@ $(document).ready(function() {
                 contentType: false,
                 processData: false,
                 success: function(data) {
-                    alert(data);
+                   
                     $('#user_form')[0].reset();
                     $('#userModal').modal('hide');
                     dataTable.ajax.reload();
+                    return  toastr.success("Action Completed").css("margin-top", "2rem");
                 }
+                
             });
         } else {
             return  toastr.warning("Field Require!").css("margin-top", "2rem");
@@ -83,8 +85,9 @@ $(document).ready(function() {
                     user_id: user_id
                 },
                 success: function(data) {
-                    alert(data);
+                   
                     dataTable.ajax.reload();
+                    return  toastr.success("Action Completed").css("margin-top", "2rem");
                 }
             });
         } else {

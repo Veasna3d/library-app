@@ -9,7 +9,7 @@ if ($_GET["data"] == "get_imp") {
     $imp = [];
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 
-        $imp[]  = array($row["id"], $row["impDate"], $row["bookTitle"], $row["supName"], $row["authorName"], $row["qty"]);
+        $imp[]  = array($row["id"], $row["impDate"], $row["bookTitle"], $row["supName"], $row["authorName"], $row["qty"] . "​ ក្បាល");
     }
     echo json_encode($imp);
 }

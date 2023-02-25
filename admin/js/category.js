@@ -18,11 +18,10 @@ function displayData() {
             var data = [];
             var option = '';
             for (var i in alldata) {
-                option =
-                    "<i class='fa fa-pencil-square-o' data-toggle='modal' data-target='#myModal' onclick='editData(" +
-                    alldata[i][0] +
-                    ")'></i> | <i class='fa fa-trash' onclick='deleteData(" +
-                    alldata[i][0] + ")'></i> ";
+                option = "<button class='btn btn-success btn-sm edit btn-flat' data-toggle='modal' data-target='#myModal' onclick='editData(" +
+                alldata[i][0] +
+                ")'><i class='fa fa-edit'></i> </button> | <button class='btn btn-danger btn-sm delete btn-flat' onclick='deleteData(" +
+                alldata[i][0] + ")'><i class='fa fa-trash'></i> </button> ";
                 data.push([alldata[i][0], alldata[i][1],alldata[i][2], option]);
             }
             console.log(data);

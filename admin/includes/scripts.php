@@ -14,6 +14,7 @@
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <!-- ChartJS -->
 <script src="../bower_components/chart.js/Chart.js"></script>
+<script src="../bower_components/chart.js/canvasjs.min.js"></script>
 <!-- daterangepicker -->
 <script src="../bower_components/moment/min/moment.min.js"></script>
 <script src="../bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>

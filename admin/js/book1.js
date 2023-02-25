@@ -23,6 +23,7 @@ $(document).ready(function() {
     $(document).on('submit', '#book_form', function(event) {
         event.preventDefault();
         var bookTitle = $('#txtBookTitle').val();
+        var description = $('#txtDescription').val();
         var author = $('#txtAuthor').val();
         var categoryId = $('#txtCategoryId').val();
         var extension = $('#user_image').val().split('.').pop().toLowerCase();
@@ -33,7 +34,7 @@ $(document).ready(function() {
                 return false;
             }
         }
-        if (bookTitle != '' && author != '' && categoryId != '') {
+        if (bookTitle != '' && author != '' && categoryId != '' && description != '') {
             $.ajax({
                 url: "./book/insert.php",
                 method: 'POST',
@@ -64,6 +65,7 @@ $(document).ready(function() {
             success: function(data) {
                 $('#userModal').modal('show');
                 $('#txtBookTitle').val(data.bookTitle);
+                $('#txtDescription').val(data.description);
                 $('#txtAuthor').val(data.author);
                 $('#txtCategoryId').val(data.categoryId);
                 $('.modal-title').text("Edit Book");
