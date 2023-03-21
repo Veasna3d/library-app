@@ -33,97 +33,78 @@ if (!isset($_SESSION["username"])) {
             <div class="col-md-12">
                 <div class="content-panel" style="padding-top: 10px;">
                     <div class="box">
-                        <!-- <div class="card-header">
-                            <button type="button" id="add_button" data-toggle="modal" data-target="#userModal"
-                                class="btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                Add
-                                New</button>
-                        </div> -->
                         <div class="box-header with-border">
-                            <button type="button" id="add_button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#userModal"><i class="fa fa-plus"></i> New</button>
+                            <button type="button" id="btnAdd" class="btn btn-primary btn-sm btn-flat"
+                                data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> New</button>
                         </div>
-                        
-                        <div id="image_data">
-                            <div class="card-body">
-                                <table style="width: 100%;" id="user_data" class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>USERNAME</th>
-                                            <th>PASSWORD</th>
-                                            <th>EMAIL</th>
-                                            <th>IMAGE</th>
-                                            <th>ROLE</th>
-                                            <th>CREATE DATE</th>
-                                            <th>Actions</th>
+                        <div class="card-body">
+                            <table style="width: 100%;" data-ordering="false" id="table_id"
+                                class="table table-hover d-flex justify-content-between">
 
-                                        </tr>
-                                    </thead>
-                                </table>
-
-                                <div id="userModal" class="modal fade">
+                                <div class="modal fade" id="myModal">
                                     <div class="modal-dialog">
-                                        <form method="post" id="user_form" enctype="multipart/form-data">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Add News</h4>
-                                                    <!-- <button type="button" class="btn-close" data-dismiss="modal"
-                                                        aria-label="Close"></button> -->
-                                                </div>
-                                                <div class="modal-body">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">User Info</h4>
+                                                <button type="button" class="close" data-dismiss="modal"><i
+                                                        class="fas fa-closes"></i></button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <form method="post" id="form" enctype="multipart/form-data">
+
                                                     <div class="form-group">
-                                                        <label class="form-label">Username</label>
-                                                        <input type="text" id="username" name="username" 
-                                                            class="form-control" />
+                                                        <label for="name">Username</label>
+                                                        <input type="text" name="txtUsername" id="txtUsername"
+                                                            class="form-control" required>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label class="form-label">Password</label>
-                                                        <input type="password" id="password" name="password" 
-                                                            class="form-control" />
-                                                    </div> 
-
-                                                    <div class="form-group">
-                                                        <label class="form-label">Email</label>
-                                                        <input type="email" name="email" id="email"
-                                                            class="form-control" />
+                                                        <label for="name">Password</label>
+                                                        <input type="password" name="txtPassword" id="txtPassword"
+                                                            class="form-control" required>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label class="form-label">Role</label>
-                                                        <select class="form-control" id="role" name="role">
-                                                            <option selected>Role</option>
+                                                        <label for="role">Role</label>
+                                                        <select class="form-control" id="txtRole" name="txtRole">
                                                             <option value="1">Admin</option>
                                                             <option value="2">Editor</option>
                                                         </select>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label class="form-label">Image</label>
-                                                        <input type="file" name="user_image" id="user_image"
-                                                            class="form-control">
-                                                        <span id="user_uploaded_image"></span>
+                                                        <label for="name">Email</label>
+                                                        <input type="email" name="txtEmail" id="txtEmail"
+                                                            class="form-control" required>
                                                     </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <input type="hidden" name="user_id" id="user_id" />
-                                                    <input type="hidden" name="operation" id="operation" />
-                                                    <input type="submit" name="action" id="action"
-                                                        class="btn btn-success" value="Add" />
-                                                    <button type="button" class="btn btn-default"
-                                                        data-dismiss="modal">Close</button>
-                                                </div>
+
+                                                    <div class="form-group">
+                                                        <label for="image">Image</label>
+                                                        <input type="file" name="image" id="image"
+                                                            class="form-control-file">
+                                                    </div>
+
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-success"
+                                                            id="btnSave">Save</button>
+                                                        <button type="button" class="btn btn-danger"
+                                                            data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </form>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
-
-                            </div>
+                            </table>
 
                         </div>
-                    </div>
 
+                    </div>
                 </div>
+
             </div>
 
         </div>

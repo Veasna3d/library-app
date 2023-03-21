@@ -32,7 +32,7 @@
 <script src="js/toastr.min.js"></script>
 <!-- <script src="js/cute-alert.js"></script> -->
 <!-- Active Script -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
 $(function(){
 	/** add active class and stay opened when selected */

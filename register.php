@@ -30,7 +30,7 @@ if(isset($_POST['save_student']))
     }
     
     $hashed_password = md5($password);
-    
+     
     if (strlen($hashed_password) > 32) {
         $res = [
             'status' => 420,

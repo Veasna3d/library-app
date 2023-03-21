@@ -50,23 +50,21 @@ if (!isset($_SESSION["username"])) {
 
                                             <div class="modal-body">
                                                 <form method="post" id="form">
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Supplier Name</label>
-                                                            <input type="text" name="txtname" id="txtname" class="form-control" />
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label class="form-label">Contact</label>
-                                                            <input type="" name="txtcon" id="txtcon" class="form-control" />
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label class="form-label">Address</label>
-                                                            <input type="" name="txtadd" id="txtadd" class="form-control" />
-                                                        </div>
-
+                                                    <div class="form-group">
+                                                        <label for="name">Supplier Name</label>
+                                                        <input type="text" name="txtName" id="txtName" class="form-control" required>
                                                     </div>
+                                                    <div class="form-group">
+                                                    <label for="name">Contact</label>
+                                                        <input type="text" name="txtContact" id="txtContact" class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                    <label for="floatingTextarea">Address</label>
+                                                        <textarea class="form-control" id="txtAddress" name="txtAddress"></textarea>
+                                                        
+                                                    </div>
+
+
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-success" id="btnSave">Save</button>
                                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

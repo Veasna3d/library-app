@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .left-menu {
-            position: fixed;
+    .left-menu {
+        position: fixed;
 
-        }
+    }
     </style>
 </head>
 
@@ -20,7 +20,8 @@
         <section class="sidebar">
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="<?php echo (!empty($_SESSION["image"])) ? './upload/' . $_SESSION["image"] : './upload/user.png'; ?>" class="img-circle" alt="User Image">
+                    <img src="<?php echo (!empty($_SESSION["image"])) ? './upload/' . $_SESSION["image"] : './upload/user.png'; ?>"
+                        class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
                     <p><?php echo $_SESSION["username"] ?></p>
@@ -33,8 +34,8 @@
                 <li class=""><a href="home.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
                 <li class="header">MANAGE</li>
 
-                  <!-- Brand-->
-                  <li class="treeview">
+                <!-- Brand-->
+                <li class="treeview">
                     <a href="#">
                         <i class="fa fa-home"></i>
                         <span>Brand</span>
@@ -46,7 +47,8 @@
                         <li><a href="brand.php"><i class="fa fa-circle-o"></i> Profile</a></li>
                     </ul>
                 </li>
-
+                
+    
                 <!-- User Management-->
                 <li class="treeview">
                     <a href="#">
@@ -60,9 +62,10 @@
                         <li><a href="user.php"><i class="fa fa-circle-o"></i> User</a></li>
 
                         <li><a href="slide.php"><i class="fa fa-circle-o"></i> Slide</a></li>
-                      
+
                     </ul>
                 </li>
+
 
                 <!-- transaction -->
                 <li class="treeview">
@@ -78,7 +81,7 @@
 
                         <li><a href="supplier.php"><i class="fa fa-circle-o"></i>Supllier</a></li>
 
-                        <li><a href="impSupplier.php"><i class="fa fa-circle-o"></i>Import</a></li>
+                        <li><a href="import.php"><i class="fa fa-circle-o"></i>Import</a></li>
                     </ul>
                 </li>
                 <li class="treeview">

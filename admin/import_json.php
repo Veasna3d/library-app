@@ -3,13 +3,13 @@ error_reporting(0);
 
 require './config/db.php';
 if ($_GET["data"] == "get_imp") {
-    $sql = "SELECT * FROM vImpSupplier";
+    $sql = "SELECT * FROM vimports";
     $result = $conn->prepare($sql);
     $result->execute();
     $imp = [];
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 
-        $imp[]  = array($row["id"], $row["impDate"], $row["bookTitle"], $row["supName"], $row["authorName"], $row["qty"] . "​ ក្បាល");
+        $imp[]  = array($row["id"], $row["impDate"], $row["bookTitle"], $row["categoryName"], $row["supName"], $row["authorName"], $row["qty"] . "​ ក្បាល", $row["create_date"]);
     }
     echo json_encode($imp);
 }
@@ -28,6 +28,21 @@ if ($_GET['data'] == "get_book") {
         );
     }
     echo json_encode($book);
+}
+
+//get category
+if ($_GET['data'] == "get_category") {
+    $sql = "SELECT * FROM Category";
+    $result = $conn->prepare($sql);
+    $result->execute();
+    $category = [];
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        $category[] = array(
+            $row['id'],
+            $row['categoryName'], $row['create_date']
+        );
+    }
+    echo json_encode($category);
 }
 
 //get student
@@ -50,20 +65,23 @@ if ($_GET['data'] == "get_suppname") {
 //add student
 if ($_GET['data'] == 'add_imp') {
 
-    $impDate = $_POST['txtdate'];
-    $booktitle = $_POST['txttitle'];
-    $supName = $_POST['txtsuppname'];
-    $author = $_POST['txtauthor'];
-    $qty = $_POST['txtqty'];
+    $impDate = $_POST['txtDate'];
+    $book = $_POST['txtBook'];
+    $category = $_POST['txtCategory'];
+    $supplier = $_POST['txtSuppname'];
+    $author = $_POST['txtAuthor'];
+    $qty = $_POST['txtQty'];
 
-    $sql = "INSERT INTO import (impDate, bookId, supId, authorName, qty)
-         values (:impDate, :bookId, :supId, :authorName, :qty);";
+    $sql = "INSERT INTO import (impDate, supId, categoryId, bookId, authorName, qty)
+         values (:impDate, :supId, :categoryId, :bookId, :authorName, :qty);";
     $insert = $conn->prepare($sql);
     $insert->bindParam(':impDate', $impDate);
-    $insert->bindParam(':bookId', $booktitle);
-    $insert->bindParam(':supId', $supName);
+    $insert->bindParam(':supId', $supplier);
+    $insert->bindParam(':categoryId', $category);
+    $insert->bindParam(':bookId', $book);
     $insert->bindParam(':authorName', $author);
     $insert->bindParam(':qty', $qty);
+    
     if ($insert->execute()) {
         echo json_encode("Insert Success");
     } else {
@@ -79,7 +97,7 @@ if ($_GET['data'] == 'get_byid') {
     $result->execute();
 
     if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-        $imp[]  = array($row["id"], $row["impDate"], $row["bookId"], $row["supId"], $row["authorName"], $row["qty"]);
+        $imp[]  = array($row["id"], $row["impDate"], $row["bookId"],$row["categoryId"], $row["supId"], $row["authorName"], $row["qty"]);
     }
     echo json_encode($imp);
 }
@@ -87,17 +105,19 @@ if ($_GET['data'] == 'get_byid') {
 //update
 if ($_GET['data'] == 'update_imp') {
     $id = $_GET['id'];
-    $impDate = $_POST['txtdate'];
-    $booktitle = $_POST['txttitle'];
-    $supName = $_POST['txtsuppname'];
-    $author = $_POST['txtauthor'];
-    $qty = $_POST['txtqty'];
+    $impDate = $_POST['txtDate'];
+    $book = $_POST['txtTitle'];
+    $category = $_POST['txtCategory'];
+    $supName = $_POST['txtSuppname'];
+    $author = $_POST['txtAuthor'];
+    $qty = $_POST['txtQty'];
 
-    $sql = "UPDATE import set impDate=:impDate, bookId=:bookId,
+    $sql = "UPDATE import set impDate=:impDate, bookId=:bookId, categoryId=:categoryId,
                     supId=:supId, authorName=:authorName, qty=:qty where id=:id;";
     $update = $conn->prepare($sql);
     $update->bindParam(':impDate', $impDate);
-    $update->bindParam(':bookId', $booktitle);
+    $update->bindParam(':bookId', $book);
+    $update->bindParam(':categoryId', $category);
     $update->bindParam(':supId', $supName);
     $update->bindParam(':authorName', $author);
     $update->bindParam(':qty', $qty);

@@ -55,33 +55,40 @@ if (!isset($_SESSION["username"])) {
                                                 <form method="post" id="form">
                                                     <div class="form-group">
                                                         <label for="name" class="form-label">Import Date</label>
-                                                        <input type="date" name="txtdate" id="txtdate"
+                                                        <input type="date" name="txtDate" id="txtDate"
                                                             class="form-control" required>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="suppliername">Book Name</label>
-                                                        <select class="form-control" name="txttitle" id="txttitle">
+                                                        <label for="suppliername">Book</label>
+                                                        <select class="form-control" name="txtBook" id="txtBook">
                                                             <option>--Choose---</option>
                                                         </select>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="suppliername">Supplier Name</label>
-                                                        <select class="form-control" name="txtsuppname"
-                                                            id="txtsuppname">
+                                                        <label for="suppliername">Category</label>
+                                                        <select class="form-control" name="txtCategory" id="txtCategory">
                                                             <option>--Choose---</option>
                                                         </select>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="name">Author Name</label>
-                                                        <input type="text" name="txtauthor" id="txtauthor"
-                                                            class="form-control" placeholder="">
+                                                        <label for="suppliername">Supplier</label>
+                                                        <select class="form-control" name="txtSuppname"
+                                                            id="txtSuppname">
+                                                            <option>--Choose---</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="name">Author</label>
+                                                        <input type="text" name="txtAuthor" id="txtAuthor"
+                                                            class="form-control" placeholder="optional">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="quantity">Quantity</label>
-                                                        <input type="text" name="txtqty" id="txtqty"
+                                                        <input type="text" name="txtQty" id="txtQty"
                                                             class="form-control" placeholder="">
                                                     </div>
 
@@ -113,5 +120,5 @@ if (!isset($_SESSION["username"])) {
 
         <script type="text/javascript" src="js\jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js\dataTables.bootstrap4.min.js"></script>
-        <script type="text/javascript" src="js\impSupplier.js"></script>
+        <script type="text/javascript" src="js\import.js"></script>
 </body>

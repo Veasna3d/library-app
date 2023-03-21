@@ -1,7 +1,7 @@
 <?php
-    error_reporting(0);
+     require './config/db.php';
 
-    require './config/db.php';
+    //get Student List
     if($_GET["data"] == "get_student"){
         $sql = "SELECT * FROM vstudents";
         $result = $conn->prepare($sql);
@@ -9,134 +9,168 @@
         $student = [];
 
         while($row = $result->fetch(PDO::FETCH_ASSOC)){
-            $student[] = array($row['id'], $row['studentId'], 
-            $row['studentName'], $row['class_name'], $row['phone'],
-             $row['email'], $row['create_date']);
+            
+            $student[] = array($row['id'], $row['studentId'], $row["studentName"], 
+            $row['password'],  $row['image'],$row['className'],
+            $row["phone"], $row["email"], $row['create_date']);
+           
         }
         echo json_encode($student);
     }
 
-    //get book
-    if($_GET['data'] == "get_class"){
-        $sql = "SELECT * FROM tbl_class";
+	if($_GET['data'] == "get_class"){
+        $sql = "SELECT * FROM Class";
         $result = $conn->prepare($sql);
         $result->execute();
         $class = [];
 
         while( $row = $result->fetch(PDO::FETCH_ASSOC)){
-            $class[] = array($row['id'], $row['class_name'],
-                    $row['create_date']);
-        }
-        echo json_encode($class);
-    }
- 
-//--------------------------------------------------------------------------//
-    //get by_clas_id
-    if($_GET['data'] == "get_classid"){
-        $classid = $_GET['id'];
-        $result = $conn->prepare("Select * from tbl_class where id=:id");
-        $result->bindParam(':id', $classid);
-        $result->execute();
 
-        if($row=$result->fetch(PDO::FETCH_ASSOC)){
-            $class[] = array($row['id'], $row['class_name'],
-                    $row['create_date']);
-        }
-        echo json_encode($class);
-    }
-
-//--------------------------------------------------------------------------//
-
-    //add student
-    if($_GET['data'] == 'add_student'){
-            // Set image placement folder
-            $target_dir = "images/";
-            $target_file = $target_dir . basename($_FILES["fileUpload"]["name"]);
-            // Get file extension
-            $imageExt = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-            // Allowed file types
-            $allowd_file_ext = array("jpg", "jpeg", "png");
-
-            if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file)){
-
-                $studentId = $_POST['txtStudentId'];
-                $studentName = $_POST['txtStudentName'];
-                $classId = $_POST['ddlClass'];
-                $phone = $_POST['txtPhone'];
-                $email = $_POST['txtEmail'];
-    
-                $sql = "INSERT INTO tbl_student (studentId, studentName, photo, class_id, phone, email)
-                 values (:studentId, :studentName, :photo, :class_id, :phone, :email);";
-                $insert = $conn->prepare($sql);
-                $insert->bindParam(':studentId', $studentId);
-                $insert->bindParam(':studentName', $studentName);
-                $insert->bindParam(':photo', $target_file);
-                $insert->bindParam(':class_id', $classId);
-                $insert->bindParam(':phone', $phone);
-                $insert->bindParam(':email', $email);
-    
-                if($insert->execute()){
-                    echo json_encode("Insert Success");
-                }else{
-                    echo json_encode("Insert Faild");
-                }
-            }
-
-           
-          }
+                $class[] = array($row['id'],
+                    $row['className'],$row['create_date']);
             
-
-    //get_byid
-    if($_GET['data'] == 'get_byid'){
-        $result = $conn->prepare("SELECT * FROM tbl_student WHERE id=:id");
-        $result->bindParam(':id', $_GET['id']);
-        $result->execute();
-
-        if($row = $result->fetch(PDO::FETCH_ASSOC)){
-            $student[] = array($row['id'], $row['studentId'], 
-            $row['studentName'],$row['class_id'], $row['phone'],
-             $row['email'], $row['create_date']);
         }
-        echo json_encode($student);
+        echo json_encode($class);
     }
+    
+	//Add Student
+	if($_GET["data"] == "add_student"){
+		$studentId = $_POST["txtStudentId"];
+		$studentName = $_POST["txtStudentName"];
+        $password = $_POST["txtPassword"];
+        $class = $_POST["ddlClass"];
+		$phone = $_POST["txtPhone"];
+        $email = $_POST["txtEmail"];
+		$image = $_FILES['image']['name'];
+			  
+		$target_dir = "upload/";
+		$target_file = $target_dir . basename($_FILES["image"]["name"]);
+		move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
+	
+		if (strlen($password) > 5) {
+			echo json_encode("Password must be less than 5 characters long");
+			return;
+		}
+	
+		$encrypted_password = md5($password);
+	
+		$sql = "INSERT INTO Student (studentId, studentName, password, classId, phone, email, image) VALUES 
+                                    (:studentId, :studentName, :password, :classId, :phone, :email, :image)";
+		$insert = $conn->prepare($sql);
+		$insert->bindParam(':studentId', $studentId);
+        $insert->bindParam(':studentName', $studentName);
+		$insert->bindParam(':password', $encrypted_password);
+		$insert->bindParam(':classId', $class);
+        $insert->bindParam(':phone', $phone);
+		$insert->bindParam(':email', $email);
+		$insert->bindParam(':image', $image);
+	
+		if($insert->execute()){
+			echo json_encode("Insert Success");
+		}else{
+			echo json_encode("Insert Failed");
+		}    
+	}
 
-    //update
-    if($_GET['data'] == 'update_student'){
-        
-            $id = $_GET['id'];
-            $studentId = $_POST['txtStudentId'];
-            $studentName = $_POST['txtStudentName'];
-            $classId = $_POST['ddlClass'];
-            $phone = $_POST['txtPhone'];
-            $email = $_POST['txtEmail'];
+    
+		// 4 get_byid
+		if($_GET['data'] == 'get_byid'){
+			$result = $conn->prepare("SELECT * FROM Student WHERE id=:id");
+			$result->bindParam(':id', $_GET['id']);
+			$result->execute();
+			if($row = $result->fetch(PDO::FETCH_ASSOC)){
+                $student[] = array($row['id'], $row['studentId'], $row["studentName"], 
+                $row['password'], $row['classId'], 
+                $row["phone"], $row["email"], $row['image'],$row['create_date']);
+			}
+			echo json_encode($student);
+		}
 
-            $sql = "UPDATE tbl_student set studentId=:studentId, studentName=:studentName,
-                    class_id=:class_id, phone=:phone, email=:email where id=:id;";
-            $update = $conn->prepare($sql);
+        //5 Update Book
+	 if($_GET['data'] == 'update_student'){
 
+		if(empty($_POST['txtStudentId']) || empty($_POST['txtStudentName'])){
+			echo json_encode("Please check the empty fields!");
+		}else{
+			$id = $_GET['id'];
+			$studentId = $_POST["txtStudentId"];
+            $studentName = $_POST["txtStudentName"];
+            $password = $_POST["txtPassword"];
+            $class = $_POST["ddlClass"];
+            $phone = $_POST["txtPhone"];
+            $email = $_POST["txtEmail"];
+	
+			// Check if a new image file was uploaded
+			if(!empty($_FILES['image']['name'])) {
+				// Get the image file and move it to the uploads directory
+				$image = $_FILES['image']['name'];
+				$target_dir = "upload/";
+				$target_file = $target_dir . basename($_FILES["image"]["name"]);
+				move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
+			} else {
+				// Get the old image file name from the database
+				$stmt = $conn->prepare("SELECT image FROM Student WHERE id=:id");
+				$stmt->bindParam(':id', $id);
+				$stmt->execute();
+				$row = $stmt->fetch(PDO::FETCH_ASSOC);
+				$image = $row['image'];
+			}
+	
+			// Update the image file and user data in the database
+			$sql = "UPDATE Student SET studentId=:studentId, studentName=:studentName, password=:password, classId=:classId, phone=:phone, email=:email, image=:image where id=:id;";
+			$update = $conn->prepare($sql);
+			$update->bindParam(':image', $image);
             $update->bindParam(':studentId', $studentId);
             $update->bindParam(':studentName', $studentName);
-            $update->bindParam(':class_id', $classId);
+            $update->bindParam(':password', $encrypted_password);
+            $update->bindParam(':classId', $class);
             $update->bindParam(':phone', $phone);
             $update->bindParam(':email', $email);
-            $update->bindParam(':id', $id);
+			$update->bindParam(':id', $id);
+	
+			if($update->execute()){
+				// If the update was successful, delete the old image file if it exists
+				if(!empty($_FILES['image']['name'])) {
+					if(isset($_POST['oldImage']) && !empty($_POST['oldImage'])) {
+						$old_image = $_POST['oldImage'];
+						if(file_exists('upload/' . $old_image)) {
+							unlink('upload/' . $old_image);
+						}
+					}
+				}
+				echo json_encode("Update Success");
+			}else{
+				echo json_encode("Update Failed");
+			}
+		}
+	}
 
-            if($update->execute()){
-                echo json_encode("Update Success");
-            }else{
-                echo json_encode("Update Faild");
+    //Delete Student
+    if ($_GET['data'] == 'delete_student') {
+        $id = $_GET['id'];
+        $stmt = $conn->prepare("SELECT image FROM Student WHERE id=:id;");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $image = $result['image'];
+
+        $delete = $conn->prepare("DELETE FROM Student WHERE id=:id;");
+        $delete->bindParam(':id', $id);
+
+        if ($delete->execute()) {
+            // delete image from folder
+            $target_file = "upload/" . $image;
+            if (file_exists($target_file)) {
+                unlink($target_file);
             }
-        }
 
-    //delete
-    if($_GET['data'] == 'delete_student'){
-        $student_id = $_GET['id'];
-        $delete = $conn->prepare("DELETE FROM tbl_student where id=:id;");
-        $delete->bindParam(':id', $student_id);
-        if($delete->execute()){
             echo json_encode("Delete Success");
-        }else{
-            echo json_encode("Delete Faild");
+        } else {
+            echo json_encode("Delete Failed");
         }
     }
+
+	
+
+
 ?>

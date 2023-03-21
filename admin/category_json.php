@@ -11,6 +11,19 @@
         }
         echo json_encode($category);
     }
+
+    if ($_GET['data'] == 'check_category_name') {
+        $name = $_POST['name'];
+        $query = "SELECT COUNT(*) as count FROM Category WHERE categoryName = :name";
+        $statement = $conn->prepare($query);
+        $statement->bindValue(':name', $name);
+        $statement->execute();
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        $count = $row['count'];
+        echo json_encode(['exists' => $count > 0]);
+        exit;
+    }
+
     //add
     if($_GET['data'] == 'add_category'){
             $name = $_POST['txtName'];

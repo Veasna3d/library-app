@@ -33,81 +33,66 @@ if (!isset($_SESSION["username"])) {
             <div class="col-md-12">
                 <div class="content-panel" style="padding-top: 10px;">
                     <div class="box">
-                        <!-- <div class="card-header">
-                            <button type="button" id="add_button" data-toggle="modal" data-target="#userModal"
-                                class="btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                Add
-                                New</button>
-                        </div> -->
                         <div class="box-header with-border">
-                            <button type="button" id="add_button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#userModal"><i class="fa fa-plus"></i> New</button>
+
+                            <button type="button" id="btnAdd" class="btn btn-primary btn-sm btn-flat"
+                                data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> New</button>
                         </div>
-                        <div id="image_data">
-                            <div class="card-body">
-                                <table style="width: 100%;" id="user_data" class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>TITLE</th>
-                                            <th>SUB TITLE</th>
-                                            <th>IMAGE</th>
-                                            <th>CREATE DATE</th>
-                                            <th>Actions</th>
+                        <div class="card-body">
+                            <table style="width: 100%;" data-ordering="false" id="table_id"
+                                class="table table-hover d-flex justify-content-between">
 
-                                        </tr>
-                                    </thead>
-                                </table>
-
-                                <div id="userModal" class="modal fade">
+                                <div class="modal fade" id="myModal">
                                     <div class="modal-dialog">
-                                        <form method="post" id="user_form" enctype="multipart/form-data">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Add News</h4>
-                                                    <!-- <button type="button" class="btn-close" data-dismiss="modal"
-                                                        aria-label="Close"></button> -->
-                                                </div>
-                                                <div class="modal-body">
+                                        <div class="modal-content">
 
-                                                <div class="form-group">
-                                                        <label class="form-label">Title</label>
-                                                        <input type="text" name="title" id="title"
-                                                            class="form-control" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="form-label">Sub Title</label>
-                                                        <input type="text" name="subTitle" id="subTitle"
-                                                            class="form-control" />
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label class="form-label">Image</label>
-                                                        <input type="file" name="user_image" id="user_image"
-                                                            class="form-control">
-                                                        <span id="user_uploaded_image"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <input type="hidden" name="user_id" id="user_id" />
-                                                    <input type="hidden" name="operation" id="operation" />
-                                                    <input type="submit" name="action" id="action"
-                                                        class="btn btn-success" value="Add" />
-                                                    <button type="button" class="btn btn-default"
-                                                        data-dismiss="modal">Close</button>
-                                                </div>
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Slide Info</h4>
+                                                <button type="button" class="close" data-dismiss="modal"><i
+                                                        class="fas fa-closes"></i></button>
                                             </div>
-                                        </form>
+
+                                            <div class="modal-body">
+                                                <form method="post" id="form" enctype="multipart/form-data">
+
+                                                    <div class="form-group">
+                                                        <label for="name">Title</label>
+                                                        <input type="text" name="txtTitle" id="txtTitle"
+                                                            class="form-control" required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="txtSubTitle">subTitle</label>
+                                                        <textarea class="form-control" id="txtSubTitle"
+                                                            name="txtSubTitle" rows="5"></textarea>
+                                                    </div>                        
+
+                                                    <div class="form-group">
+                                                        <label for="image">Image</label>
+                                                        <input type="file" name="image" id="image"
+                                                            class="form-control-file">
+                                                    </div>
+
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-success"
+                                                            id="btnSave">Save</button>
+                                                        <button type="button" class="btn btn-danger"
+                                                            data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-
-                            </div>
+                            </table>
 
                         </div>
+
                     </div>
-
                 </div>
-            </div>
 
+            </div>
         </div>
 
 

@@ -3,7 +3,7 @@
   //  $db = new Db;
  
   //1get_user 
-  if ($_GET["data"] == "get_sup") {
+  if ($_GET["data"] == "get_supplier") {
     $sql = "SELECT * FROM supplier";
     $result = $conn->prepare($sql);
     $result->execute();
@@ -16,10 +16,10 @@
   }
 
   //add_user
-  if ($_GET["data"]=="add_sup") {
-    $name = $_POST['txtname'];
-    $contact = $_POST['txtcon'];
-    $address = $_POST['txtadd'];
+  if ($_GET["data"]=="add_supplier") {
+    $name = $_POST['txtName'];
+    $contact = $_POST['txtContact'];
+    $address = $_POST['txtAddress'];
 
     $sql="insert into supplier(supName,supContact,supAddress) values(:supName,:supContact,:supAddress);";
     $insert = $conn->prepare($sql);
@@ -47,11 +47,11 @@
     echo json_encode($sup);
   }
    //5 update_user
-  if ($_GET["data"]=="update_sup") {
+  if ($_GET["data"]=="update_supplier") {
     $id = $_GET["id"];
-    $name = $_POST['txtname'];
-    $contact = $_POST['txtcon'];
-    $address = $_POST['txtadd'];
+    $name = $_POST['txtName'];
+    $contact = $_POST['txtContact'];
+    $address = $_POST['txtAddress'];
 
     $sql="update supplier set supName=:supName, supContact=:supContact, supAddress=:supAddress where id=:id";
     $update = $conn->prepare($sql);
@@ -59,12 +59,12 @@
     $update->bindParam(':supContact',$contact);
     $update->bindParam(':supAddress',$address);
     $update->bindParam(':id',$id);
-    if ($update->execute()) { echo json_encode("");}
+    if ($update->execute()) { echo json_encode("Updated");}
     else{ echo json_encode("Update failed");}
     
   }
 
-  if ($_GET["data"]=="delete_sup") {
+  if ($_GET["data"]=="delete_supplier") {
     $id = $_GET["id"];
     $sql = "DELETE FROM supplier WHERE id=:id";
     $delete = $conn->prepare($sql);

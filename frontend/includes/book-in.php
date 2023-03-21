@@ -8,7 +8,7 @@
         </div>
         <div class="row g-4">
             <?php
-            $sql = "SELECT * FROM book WHERE status = 0 ORDER BY Id DESC LIMIT 3 ";
+            $sql = "SELECT * FROM book WHERE status = 1 ORDER BY Id DESC LIMIT 3 ";
             $rs = $conn->query($sql);
             if ($rs->num_rows > 0) {
                 while ($row = $rs->fetch_array()) {

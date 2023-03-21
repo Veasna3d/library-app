@@ -40,7 +40,7 @@ if (!isset($_SESSION["username"])) {
                         <div class="card-body">
                             <table style="width: 100%;" data-ordering="false" id="table_id" class="table table-hover d-flex justify-content-between">
 
-                                <div class="modal" id="myModal">
+                                <div class="modal fade" id="myModal">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
 

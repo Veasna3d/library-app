@@ -4,12 +4,19 @@ session_start();
 
 if (!isset($_SESSION["username"])) {
     header('Location: ../index.php');
+    exit();
 }
 
-$conn = new mysqli('localhost', 'root', '', 'libraryDB');
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+$dsn = 'mysql:host=localhost;dbname=libraryDB';
+$username = 'root';
+$password = '';
+$options = [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+];
+try {
+    $pdo = new PDO($dsn, $username, $password, $options);
+} catch (PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
 }
 
 include 'includes/timezone.php';
@@ -18,6 +25,7 @@ $year = date('Y');
 if (isset($_GET['year'])) {
     $year = $_GET['year'];
 }
+
 
 ?>
 
@@ -53,9 +61,10 @@ if (isset($_GET['year'])) {
 
                                 <?php
                                 $sql = "SELECT * FROM Book";
-                                $query = $conn->query($sql);
+                                $stmt = $pdo->query($sql);
+                                $num_rows = $stmt->rowCount();
+                                echo "<h3>" . $num_rows . "</h3>";
 
-                                echo "<h3>" . $query->num_rows . "</h3>";
                                 ?>
                                 <p>Total Books</p>
                             </div>
@@ -72,9 +81,9 @@ if (isset($_GET['year'])) {
                             <div class="inner">
                                 <?php
                                 $sql = "SELECT * FROM Category";
-                                $query = $conn->query($sql);
-
-                                echo "<h3>" . $query->num_rows . "</h3>";
+                                $stmt = $pdo->query($sql);
+                                $num_rows = $stmt->rowCount();
+                                echo "<h3>" . $num_rows . "</h3>";
                                 ?>
                                 <p>Total Category</p>
                             </div>
@@ -90,10 +99,14 @@ if (isset($_GET['year'])) {
                         <div class="small-box bg-yellow">
                             <div class="inner">
                                 <?php
+                                // $sql = "SELECT * FROM Borrow WHERE status = 1";
+                                // $query = $conn->query($sql);
+                                // echo "<h3>" . $query->num_rows . "</h3>";
                                 $sql = "SELECT * FROM Borrow WHERE status = 1";
-                                $query = $conn->query($sql);
+                                $stmt = $pdo->query($sql);
+                                $num_rows = $stmt->rowCount();
+                                echo "<h3>" . $num_rows . "</h3>";
 
-                                echo "<h3>" . $query->num_rows . "</h3>";
                                 ?>
                                 <p>Total Returned</p>
                             </div>
@@ -109,10 +122,10 @@ if (isset($_GET['year'])) {
                         <div class="small-box bg-red">
                             <div class="inner">
                                 <?php
-                                $sql = "SELECT * FROM Borrow WHERE status = 0";
-                                $query = $conn->query($sql);
-
-                                echo "<h3>" . $query->num_rows . "</h3>";
+                                 $sql = "SELECT * FROM Borrow WHERE status = 0";
+                                 $stmt = $pdo->query($sql);
+                                 $num_rows = $stmt->rowCount();
+                                 echo "<h3>" . $num_rows . "</h3>";
                                 ?>
                                 <p>Total Borrowed</p>
                             </div>
@@ -165,33 +178,13 @@ if (isset($_GET['year'])) {
                             <div id="chartLegend"></div>
                             <h1>Hello</h1>
                         </div> -->
-                    <div class="col-xs-6">
+                        <div class="col-xs-6">
                         <div class="box">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Monthly Transaction Report</h3>
-                                <div class="box-tools pull-right">
-                                    <form class="form-inline">
-                                        <div class="form-group">
-                                            <label>Select Year: </label>
-                                            <select class="form-control input-sm" id="select_year">
-                                                <?php
-                                                for ($i = 2022; $i <= 2025; $i++) {
-                                                    $selected = ($i == $year) ? 'selected' : '';
-                                                    echo "
-                            <option value='" . $i . "' " . $selected . ">" . $i . "</option>
-                          ";
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
                             <div class="box-body">
                                 <div class="chart">
                                     <br>
-                                    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
-                                    <!-- <canvas id="chartContainer" style="height:300px"></canvas> -->
+                                    <div id="chartLegend" style="height: 300px; width: 100%;"></div>
+                                    <!-- <canvas id="chartLegend" style="height:300px"></canvas> -->
                                 </div>
                             </div>
                         </div>
@@ -236,28 +229,29 @@ if (isset($_GET['year'])) {
 
     <!-- Chart Data -->
     <?php
-    $and = 'AND YEAR(date) = ' . $year;
+    $and = 'AND YEAR(date) = :year';
     $months = array();
     $return = array();
     $borrow = array();
     for ($m = 1; $m <= 12; $m++) {
-        $sql = "SELECT id,bookId, studentId FROM Borrow WHERE MONTH(returnDate) = '$m' AND YEAR(returnDate) = '$year' AND status=1 ";
-        $rquery = $conn->query($sql);
-        array_push($return, $rquery->num_rows);
+        $month = str_pad($m, 2, 0, STR_PAD_LEFT);
+        $sql = "SELECT id, bookId, studentId FROM Borrow WHERE MONTH(returnDate) = :month AND YEAR(returnDate) = :year AND status=1";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['month' => $month, 'year' => $year]);
+        array_push($return, $stmt->rowCount());
 
-        $sql = "SELECT id,bookId, studentId  FROM Borrow WHERE MONTH(borrowDate) = '$m' AND YEAR(borrowDate) = '$year' AND status=0 ";
-        $bquery = $conn->query($sql);
-        array_push($borrow, $bquery->num_rows);
+        $sql = "SELECT id, bookId, studentId FROM Borrow WHERE MONTH(borrowDate) = :month AND YEAR(borrowDate) = :year AND status=0";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['month' => $month, 'year' => $year]);
+        array_push($borrow, $stmt->rowCount());
 
-        $num = str_pad($m, 2, 0, STR_PAD_LEFT);
-        $month =  date('M', mktime(0, 0, 0, $m, 1));
-        array_push($months, $month);
+        $month_name = date('M', mktime(0, 0, 0, $m, 1));
+        array_push($months, $month_name);
     }
 
     $months = json_encode($months);
     $return = json_encode($return);
     $borrow = json_encode($borrow);
-
     ?>
     <!-- End Chart Data -->
     <?php include 'includes/scripts.php'; ?>
@@ -334,7 +328,6 @@ if (isset($_GET['year'])) {
                 return maxValue;
             }
         }
-
         function findMin(arr) {
             var minValue = Number.MAX_VALUE;
             for (var i in arr) {
@@ -345,13 +338,12 @@ if (isset($_GET['year'])) {
             }
         }
         //pie
-     
+        $(function() {
             $.ajax({
                 type: "GET",
                 url: "chart_json.php?data=get_byqty",
                 dataType: "json",
                 success: function(allData) {
-                    alert('yes');
                     var dataPoints = [];
                     var max_value = findMax(allData);
                     for (var i in allData) {
@@ -363,120 +355,47 @@ if (isset($_GET['year'])) {
                             });
                         } else {
                             dataPoints.push({
-                                y: Number(allData[i][2]),
-                                name: allData[i][1]
+                                y: Number(allData[i][1]),
+                                name: allData[i][0]
                             });
                         }
                     }
-                var chart = new CanvasJS.Chart("chartContainer", {
-                theme: "light2", // "light1", "light2", "dark1", "dark2"
-                exportEnabled: true,
-                animationEnabled: true,
-                title: {
-                    text: "Desktop Browser Market Share in 2016"
-                },
-                data: [{
-                    type: "pie",
-                    startAngle: 25,
-                    toolTipContent: "<b>{label}</b>: {y}%",
-                    showInLegend: "true",
-                    legendText: "{label}",
-                    indexLabelFontSize: 16,
-                    indexLabel: "{label} - {y}%",
-                    dataPoints: [{
-                            y: 51.08,
-                            label: "Chrome"
+                    var chart = new CanvasJS.Chart("chartLegend", {
+                        exportEnabled: true,
+                        animationEnabled: true,
+                        title: {
+                            text: "Total Borrow Book"
                         },
-                        {
-                            y: 27.34,
-                            label: "Internet Explorer"
+                        legend: {
+                            cursor: "pointer",
+                            itemclick: explodePie
                         },
-                        {
-                            y: 10.62,
-                            label: "Firefox"
-                        },
-                        {
-                            y: 5.02,
-                            label: "Microsoft Edge"
-                        },
-                        {
-                            y: 4.07,
-                            label: "Safari"
-                        },
-                        {
-                            y: 1.22,
-                            label: "Opera"
-                        },
-                        {
-                            y: 0.44,
-                            label: "Others"
-                        }
-                    ]
-                }]
-            });
-            chart.render();
+                        data: [{
+                            type: "pie",
+                            showInLegend: true,
+                            toolTipContent: "{name}: <strong>{y}</strong>",
+                            indexLabel: "{name} = {y}",
+                            dataPoints: dataPoints
+                        }]
+                    });
+                    chart.render();
+
                 },
                 error: function(e) {
                     console.log(e.responseText)
                 }
             })
-            $("#reload").click(function() {
-        location.reload();
-    })
+        });
 
-            // var chart = new CanvasJS.Chart("chartContainer", {
-            //     theme: "light2", // "light1", "light2", "dark1", "dark2"
-            //     exportEnabled: true,
-            //     animationEnabled: true,
-            //     title: {
-            //         text: "Desktop Browser Market Share in 2016"
-            //     },
-            //     data: [{
-            //         type: "pie",
-            //         startAngle: 25,
-            //         toolTipContent: "<b>{label}</b>: {y}%",
-            //         showInLegend: "true",
-            //         legendText: "{label}",
-            //         indexLabelFontSize: 16,
-            //         indexLabel: "{label} - {y}%",
-            //         dataPoints: [{
-            //                 y: 51.08,
-            //                 label: "Chrome"
-            //             },
-            //             {
-            //                 y: 27.34,
-            //                 label: "Internet Explorer"
-            //             },
-            //             {
-            //                 y: 10.62,
-            //                 label: "Firefox"
-            //             },
-            //             {
-            //                 y: 5.02,
-            //                 label: "Microsoft Edge"
-            //             },
-            //             {
-            //                 y: 4.07,
-            //                 label: "Safari"
-            //             },
-            //             {
-            //                 y: 1.22,
-            //                 label: "Opera"
-            //             },
-            //             {
-            //                 y: 0.44,
-            //                 label: "Others"
-            //             }
-            //         ]
-            //     }]
-            // });
-            // chart.render();
-
-
-
-
-        
-        
+        function explodePie(e) {
+            if (typeof(e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e
+                    .dataPointIndex].exploded) {
+                e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
+            } else {
+                e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
+            }
+            e.chart.render();
+        }
     </script>
     <script>
         $(function() {
@@ -487,6 +406,7 @@ if (isset($_GET['year'])) {
     </script>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
+    </script>
 </body>
 
 </html>

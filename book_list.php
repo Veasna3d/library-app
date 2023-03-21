@@ -7,10 +7,18 @@
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <h6 class="section-title bg-white text-center text-primary px-3">Our Team</h6>
             <h1 class="display-6 mb-4">We Are A Creative Team For Your Dream Project</h1>
+            <div class="search-form">
+                <form>
+                    <input type="text" class="form-control" name="search" placeholder="Search...">
+                </form>
+               
+            </div>
+
         </div>
-        <div class="row g-4">
+        <div class="row g-4 team-items">
+        <div class="search-results"></div>
             <?php
-            $sql = "SELECT * FROM book WHERE status = 0 ORDER BY Id DESC";
+            $sql = "SELECT * FROM book WHERE status = 1 ORDER BY Id DESC";
             $rs = $conn->query($sql);
             if ($rs->num_rows > 0) {
                 while ($row = $rs->fetch_array()) {
@@ -42,3 +50,43 @@
 <!-- Team End -->
 
 <?php include'./frontend/includes/footer.php'  ?>
+
+<script>
+$(document).ready(function() {
+    $('.search-form input[name="search"]').on('input', function() {
+        var searchTerm = $(this).val().toLowerCase();
+        if (searchTerm.length > 0) {
+            $('.team-items').find('.team-item').hide();
+            $.ajax({
+                url: 'search_book.php',
+                type: 'GET',
+                data: {
+                    searchTerm: searchTerm
+                },
+                success: function(data) {
+                    if (data.trim() == 'No results found.') {
+                        $('.search-results').html('<li>New Item</li>');
+                    } else {
+                        $('.search-results').html(data);
+                    }
+                }
+            });
+        } else {
+            $('.team-items').find('.team-item').show();
+            $('.search-results').empty();
+        }
+    });
+});
+
+$('.search-results').on('click', 'li', function() {
+    var searchItem = $(this).text().toLowerCase();
+    $('.team-items').find('.team-item').each(function() {
+        var bookTitle = $(this).find('.team-title h5').text().toLowerCase();
+        if (bookTitle.indexOf(searchItem) != -1) {
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
+    });
+});
+</script>

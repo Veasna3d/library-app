@@ -44,13 +44,19 @@ $(document).ready(function() {
                 contentType: false,
                 processData: false,
                 success: function() {
-                    toastr.success("Action completed").css("margin-top", "2rem");
+                    
                     $('#book_form')[0].reset();
                     $('#userModal').modal('hide');
                     dataTable.ajax.reload();
+                    return toastr.success("Action completed").css("margin-top", "2rem");
+                },
+                 error: function (ex){
+                  
+                    console.log(ex.responseText);
+                    return toastr.error("Action incomplete").css("margin-top", "2rem");
                 }
             });
-        } else {
+        } else { 
             return  toastr.warning("Field Require!").css("margin-top", "2rem");
         }
     });

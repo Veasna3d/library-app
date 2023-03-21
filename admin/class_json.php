@@ -12,6 +12,19 @@
         echo json_encode($class);
     }
 
+    if ($_GET['data'] == 'check_class_name') {
+        $name = $_POST['name'];
+        $query = "SELECT COUNT(*) as count FROM Class WHERE className = :name";
+        $statement = $conn->prepare($query);
+        $statement->bindValue(':name', $name);
+        $statement->execute();
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        $count = $row['count'];
+        echo json_encode(['exists' => $count > 0]);
+        exit;
+    }
+    
+
     //1-add_class
     if($_GET["data"] == "add_class"){
             $name = $_POST["txtName"];

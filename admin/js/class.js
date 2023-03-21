@@ -41,53 +41,68 @@ $(document).ready(function() {
     displayData();
 })
 
-//btnSave
 $('#btnSave').click(function() {
-    var author = $('#txtName');
-    if(author.val() == ""){
-        author.focus();
-        return  toastr.warning("Field Require!").css("margin-top", "2rem");
+    var className = $('#txtName');
+    if(className.val() == ""){
+        className.focus();
+        return toastr.warning("Field Required!").css("margin-top", "2rem");
     }
-    var form_data = $('#form').serialize();
-    if ($('#btnSave').text() == "Insert") {
-        //Insert
-        $.ajax({
-            type: 'POST',
-            url: 'class_json.php?data=add_class',
-            data: form_data,
-            dataType: 'json',
-            success: function(data) {
-
-                toastr.success("Action completed").css("margin-top", "2rem");
-                // alert(data);
-                displayData();
-                $('#myModal').modal('hide');
-            },
-            error: function(ex) {
-                toastr.error("Action incomplete").css("margin-top", "2rem");
-                console.log(ex.responseText);
+    // Check if txtName already exists in database
+    $.ajax({
+        type: 'POST',
+        url: 'class_json.php?data=check_class_name',
+        data: {name: className.val()},
+        dataType: 'json',
+        success: function(data) {
+            if (data.exists) {
+                className.focus();
+                toastr.warning("Name already exists in database!").css("margin-top", "2rem");
+            } else {
+                var form_data = $('#form').serialize();
+                if ($('#btnSave').text() == "Insert") {
+                    // Insert
+                    $.ajax({
+                        type: 'POST',
+                        url: 'class_json.php?data=add_class',
+                        data: form_data,
+                        dataType: 'json',
+                        success: function(data) {
+                            toastr.success("Action completed").css("margin-top", "2rem");
+                            displayData();
+                            $('#myModal').modal('hide');
+                        },
+                        error: function(ex) {
+                            toastr.error("Action incomplete").css("margin-top", "2rem");
+                            console.log(ex.responseText);
+                        }
+                    });
+                } else {
+                    // Update
+                    $.ajax({
+                        type: 'POST',
+                        url: 'class_json.php?data=update_class&id=' + class_id,
+                        data: form_data,
+                        dataType: 'json',
+                        success: function(data) {
+                            toastr.success("Action completed").css("margin-top", "2rem");
+                            displayData();
+                            $('#myModal').modal('hide');
+                        },
+                        error: function(ex) {
+                            toastr.error("Action incomplete").css("margin-top", "2rem");
+                            console.log(ex.responseText);
+                        }
+                    });
+                }
             }
-        });
-    } else {
-        //Update
-        $.ajax({
-            type: 'POST',
-            url: 'class_json.php?data=update_class&id=' + class_id,
-            data: form_data,
-            dataType: 'json',
-            success: function(data) {
-                toastr.success("Action completed").css("margin-top", "2rem");
-                // alert(data);
-                displayData();
-                $('#myModal').modal('hide');
-            },
-            error: function(ex) {
-                toastr.error("Action incomplete").css("margin-top", "2rem");
-                console.log(ex.responseText);
-            }
-        });
-    }
+        },
+        error: function(ex) {
+            toastr.error("Error checking name in database").css("margin-top", "2rem");
+            console.log(ex.responseText);
+        }
+    });
 });
+
 
 $('#btnAdd').click(function() {
     $('#txtName').val("");

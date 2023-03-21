@@ -34,106 +34,92 @@ if (!isset($_SESSION["username"])) {
             <div class="col-md-12">
                 <div class="content-panel" style="padding-top: 10px;">
                     <div class="box">
-                    <div class="box-header with-border">
-                            <button type="button" id="add_button" class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#userModal"><i class="fa fa-plus"></i> New</button>
-                        </div>
-                        <div id="image_data">
-                            <div class="card-body">
-                                <table style="width: 100%;" id="user_data" class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>STUDENT ID</th>
-                                            <th>STUDENT NAME</th>
-                                            <th>PASSWORD</th>
-                                            <th>IMAGE</th>
-                                            <th>CLASS</th>
-                                            <th>PHONE</th>
-                                            <th>EMAIL</th>
-                                            <th>CREATE DATE</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                </table>
+                        <div class="box-header with-border">
 
-                                <div id="userModal" class="modal fade">
+                            <button type="button" id="btnAdd" class="btn btn-primary btn-sm btn-flat"
+                                data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> New</button>
+                        </div>
+                        <div class="card-body">
+                            <table style="width: 100%;" data-ordering="false" id="table_id"
+                                class="table table-hover d-flex justify-content-between">
+
+                                <div class="modal fade" id="myModal">
                                     <div class="modal-dialog">
-                                        <form method="post" id="book_form" enctype="multipart/form-data">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Add Student</h4>
-                                                    <!-- <button type="button" class="btn-close" data-dismiss="modal"
-                                                        aria-label="Close"></button> -->
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="form-group">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Student Information</h4>
+                                                <button type="button" class="close" data-dismiss="modal"><i
+                                                        class="fas fa-closes"></i></button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <form method="post" id="form" enctype="multipart/form-data">
+
+                                                <div class="form-group">
                                                         <label for="name">Student ID</label>
-                                                        <input type="text" name="studentId" id="studentId"
-                                                            class="form-control">
+                                                        <input type="text" name="txtStudentId" id="txtStudentId"
+                                                            class="form-control" required>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <label for="name">Student Name</label>
-                                                        <input type="text" name="studentName" id="studentName"
-                                                            class="form-control">
+                                                        <input type="text" name="txtStudentName" id="txtStudentName"
+                                                            class="form-control" required>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <label for="name">Password</label>
-                                                        <input type="password" name="password" id="password"
-                                                            class="form-control">
+                                                        <input type="password" name="txtPassword" id="txtPassword"
+                                                            class="form-control" required>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="category">Class</label>
-                                                        <select class="form-control" id="classId" name="classId">
-                                                            <option>--Choose--</option>
-                                                            <?php
-                                                            require("./config/db.php");
-                                                            $sql=" SELECT * FROM Class";
-                                                            $result =$conn->prepare($sql);
-                                                            $result  ->execute();
-                                                            while($row=$result->fetch(PDO::FETCH_NUM)){
-                                                                echo("<option value=" .$row[0].">" .$row[1]."</option>");
-                                                            }
-                                                            ?>
+                                                        <label for="book" class="form-label">Class</label>
+                                                        <select class="form-control" name="ddlClass" id="ddlClass"
+                                                            required>
+                                                            <option>--Choose---</option>
                                                         </select>
                                                     </div>
+
                                                     <div class="form-group">
-                                                        <label class="form-label">Phone</label>
-                                                        <input type="text" name="phone" id="phone"
-                                                            class="form-control" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="form-label">Email</label>
-                                                        <input type="text" name="email" id="email"
-                                                            class="form-control" />
+                                                        <label for="name">Phone</label>
+                                                        <input type="text" name="txtPhone" id="txtPhone"
+                                                            class="form-control">
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label class="form-label">Image</label>
-                                                        <input type="file" name="user_image" id="user_image"
+                                                        <label for="name">Email</label>
+                                                        <input type="text" name="txtEmail" id="txtEmail"
                                                             class="form-control">
-                                                        <span id="user_uploaded_image"></span>
                                                     </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <input type="hidden" name="user_id" id="user_id" />
-                                                    <input type="hidden" name="operation" id="operation" />
-                                                    <input type="submit" name="action" id="action"
-                                                        class="btn btn-success" value="Add" />
-                                                    <button type="button" class="btn btn-default"
-                                                        data-dismiss="modal">Close</button>
-                                                </div>
+
+                                                  
+
+                                                    <div class="form-group">
+                                                        <label for="image">Image</label>
+                                                        <input type="file" name="image" id="image"
+                                                            class="form-control-file">
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-success"
+                                                            id="btnSave">Save</button>
+                                                        <button type="button" class="btn btn-danger"
+                                                            data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </form>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
-
-                            </div>
+                            </table>
 
                         </div>
-                    </div>
 
+                    </div>
                 </div>
+
             </div>
 
         </div>
@@ -146,4 +132,4 @@ if (!isset($_SESSION["username"])) {
 
 <script type="text/javascript" src="js\jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="js\dataTables.bootstrap4.min.js"></script>
-<script type="text/javascript" src="js\student1.js"></script>
+<script type="text/javascript" src="js\student.js"></script>

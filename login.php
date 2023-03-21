@@ -7,14 +7,14 @@ if (isset($_POST["login"])) {
   if (empty($_POST["username"]) || empty($_POST["password"])) {
     $message = '<label>All fields are required</label>';
   } else {
-    $role = 1;
-    $sql = "SELECT * FROM User WHERE username = :username AND password = :password AND role = :role";
+  //  $role = 1;
+    $sql = "SELECT * FROM User WHERE username = :username AND password = :password";
     $statement = $conn->prepare($sql);
     $statement->execute(
       array(
         'username' => $_POST["username"],
         'password' => md5($_POST["password"]),
-        'role' => $role
+        // 'role' => $role
       )
     );
     $count = $statement->rowCount();
